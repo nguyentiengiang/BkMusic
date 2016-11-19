@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/borderframe"
+    android:layout_alignParentTop="true"
+    android:orientation="horizontal">
+
+    <Spinner
+        android:id="@+id/spinnerAlbum"
+        android:entries="@array/song_spinner"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_toLeftOf="@id/spinnerAlbum"
+        android:layout_toRightOf="@+id/albumArt">
+
+        <TextView
+            android:id="@+id/albumName"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="18sp"
+            android:layout_alignBaseline="@+id/spinnerAlbum"
+            android:layout_alignBottom="@+id/spinnerAlbum"
+            android:layout_toEndOf="@+id/albumArtist"
+            android:layout_toRightOf="@+id/albumArtist" />
+
+        <TextView
+            android:id="@+id/albumArtist"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/albumArt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_camera"
+        android:adjustViewBounds="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

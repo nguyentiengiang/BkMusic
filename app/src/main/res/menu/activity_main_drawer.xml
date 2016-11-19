@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_myFavorite"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/menuFavorMusic"
+            />
+        <item
+            android:id="@+id/nav_hotMusic"
+            android:icon="@drawable/ic_hot_song"
+            android:title="@string/menuHotMusic" />
+        <item
+            android:id="@+id/nav_popularAlbum"
+            android:icon="@drawable/ic_popular"
+            android:title="@string/menuPopularAlbum" />
+        <item
+            android:id="@+id/nav_musicChart"
+            android:icon="@drawable/ic_music_chart"
+            android:title="@string/menuMusicChart" />
+        <item
+            android:id="@+id/nav_now_playing"
+            android:icon="@drawable/ic_play_now"
+            android:title="Chơi nhạc" />
+    </group>
+
+    <item android:title="Kết nối với GiangNT">
+        <menu>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/feedback" />
+        </menu>
+    </item>
+
+</menu>

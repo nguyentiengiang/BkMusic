@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">BkMusic</string>
+    <string name="appName">Bk Music</string>
+    <string name="myMail">nguyentiengiang@outlook.com</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="actionSettings">Settings</string>
+    <string name="menuHotMusic">Nhạc Hot</string>
+    <string name="menuPopularAlbum">Album Phổ biến</string>
+    <string name="menuMusicChart">Bảng xếp hạng</string>
+    <string name="menuFavorMusic">Nhạc của tôi</string>
+
+    <string name="share">Chia sẻ</string>
+    <string name="feedback">Gửi phản hồi</string>
+    <string name="waitting_text">Xin chờ ...</string>
+    <string name="NOW_PLAYING">Now playing</string>
+
+    <string-array name="song_spinner">
+        <item>Nghe bài hát này</item>
+        <item>Ưa thích</item>
+        <item>Thêm vào playlist</item>
+        <item>Thông tin ca sĩ</item>
+    </string-array>
+    <string name="title_activity_player">Now Playing</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+</resources>

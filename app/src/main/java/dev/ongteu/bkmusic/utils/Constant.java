@@ -1,0 +1,37 @@
+package dev.ongteu.bkmusic.utils;
+
+/**
+ * Created by TienGiang on 19/9/2016.
+ */
+public class Constant {
+    /**
+     * Shared Preference Setting
+     */
+    public static final String SHARE_PREF = "bkmusic_spref";
+    public static final String SP_KEY_FIRST_RUN = "isFirstRun";
+
+
+    /**
+     * SQLite Database Setting
+     */
+    public static final String DATABASE_NAME = "bkmusicapp.sqlite";
+    public static final int DATABASE_VERSION = 1;
+
+    /**
+     * API URLs
+     */
+    public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic";
+    public static final String URL_GET_CATEGORY = URL_HOST + "/GetCategories";
+    public static final String URL_GET_NHACHOT = URL_HOST + "/GetNhacHot/";
+    public static final String URL_GET_POPULAR_ALBUM = URL_HOST + "/GetAlbum/";
+    public static final String URL_GET_CHART = URL_HOST + "/GetChart/";
+    public static final String URL_GET_SONGS = URL_HOST + "/GetSongs?urlSong=";
+    public static final String URL_GET_SINGER = URL_HOST + "/GetSinger?urlSinger=";
+
+    /**
+     * Define other constants here ...
+     */
+
+
+
+}
