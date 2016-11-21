@@ -1,9 +1,9 @@
 package dev.ongteu.bkmusic.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +46,7 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
      * this fragment using the provided parameters.
      *
      * @param songUrl Parameter For String URL Playlist or Song.
-     * @param param2 Parameter 2.
+     * @param param2  Parameter 2.
      * @return A new instance of fragment PlayerFragment.
      */
     // TODO: Rename and change types and number of parameters

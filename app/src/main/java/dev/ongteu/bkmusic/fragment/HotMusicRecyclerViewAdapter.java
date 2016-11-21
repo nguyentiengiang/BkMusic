@@ -1,8 +1,8 @@
 package dev.ongteu.bkmusic.fragment;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
 import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnListFragmentInteractionListener;
 
@@ -84,14 +85,13 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
         @Override
         public void onClick(View v) {
             PlayerFragment playerFragment = PlayerFragment.newInstance(mItem.getSongUrl(), "");
-            FragmentManager fragmentManager = ((Activity) mContext).getFragmentManager();
+            FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
                     .replace(R.id.fragment_container, playerFragment).commit();
         }
     }
-
 
 
 }

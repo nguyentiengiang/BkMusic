@@ -1,12 +1,12 @@
 package dev.ongteu.bkmusic.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +19,7 @@ import android.view.View;
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.fragment.CategoriesFragment;
 import dev.ongteu.bkmusic.fragment.MainActivityFragment;
+import dev.ongteu.bkmusic.fragment.MainActivityFragmentDai;
 import dev.ongteu.bkmusic.fragment.PlayerFragment;
 import dev.ongteu.bkmusic.utils.Loader;
 
@@ -34,9 +35,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            getFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, MainActivityFragment.newInstance("", ""))
+                    .replace(R.id.fragment_container, MainActivityFragmentDai.newInstance("", ""))
                     .commit();
         }
 
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         String NAME_FRM_BACK_STACK = "HOME";
         int COL_NUMBER = 3;
-        switch (id){
+        switch (id) {
             case R.id.nav_hotMusic:
                 fragment = CategoriesFragment.newInstance(COL_NUMBER, 1);
                 NAME_FRM_BACK_STACK = "HOT_MUSIC";
@@ -130,11 +131,11 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_myFavorite:
             default:
-                fragment = MainActivityFragment.newInstance("", "");
+                fragment = MainActivityFragmentDai.newInstance("", "");
                 setTitle(R.string.menuFavorMusic);
                 break;
         }
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         // NOT FIX ISSUE BackStack
         fragmentManager.beginTransaction()
                 .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
