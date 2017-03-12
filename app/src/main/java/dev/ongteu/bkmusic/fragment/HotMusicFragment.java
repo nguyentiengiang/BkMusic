@@ -1,6 +1,6 @@
 package dev.ongteu.bkmusic.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,7 +17,7 @@ import dev.ongteu.bkmusic.data.table.HotSongTable;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
 public class HotMusicFragment extends Fragment {
@@ -30,7 +30,7 @@ public class HotMusicFragment extends Fragment {
     private int mColumnCount = 1;
     private int mPlaylistId = 1;
     private int mPageNumber = 1;
-    private OnListFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -88,12 +88,12 @@ public class HotMusicFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+//        if (context instanceof OnListFragmentInteractionListener) {
+//            mListener = (OnListFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnListFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -112,8 +112,8 @@ public class HotMusicFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(HotSongItem item);
+        void onFragmentInteraction(HotSongItem item);
     }
 }

@@ -1,6 +1,5 @@
 package dev.ongteu.bkmusic.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,20 +13,20 @@ import java.util.List;
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
-import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnListFragmentInteractionListener;
+import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnFragmentInteractionListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link HotSongItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link OnFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRecyclerViewAdapter.ViewHolder> {
 
     private final List<HotSongItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final OnFragmentInteractionListener mListener;
     private final Context mContext;
 
-    public HotMusicRecyclerViewAdapter(List<HotSongItem> items, OnListFragmentInteractionListener listener, final Context context) {
+    public HotMusicRecyclerViewAdapter(List<HotSongItem> items, OnFragmentInteractionListener listener, final Context context) {
         mValues = items;
         mListener = listener;
         mContext = context;
@@ -52,7 +51,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onFragmentInteraction(holder.mItem);
                 }
             }
         });

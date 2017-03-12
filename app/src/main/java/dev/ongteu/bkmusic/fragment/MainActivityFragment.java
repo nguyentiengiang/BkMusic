@@ -3,7 +3,9 @@ package dev.ongteu.bkmusic.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,8 @@ public class MainActivityFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     public MainActivityFragment() {
         // Required empty public constructor
@@ -65,7 +69,24 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        init(view);
+        return view;
+    }
+
+    private void init(View view) {
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(SongFragment.newInstance(), "SONG");
+        adapter.addFragment(PlaylistFragment.newInstance(), "PLAYLIST");
+        viewPager.setAdapter(adapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -78,12 +99,12 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override

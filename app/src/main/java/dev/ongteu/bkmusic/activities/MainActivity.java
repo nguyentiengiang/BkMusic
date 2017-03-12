@@ -19,7 +19,7 @@ import android.view.View;
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.fragment.CategoriesFragment;
 import dev.ongteu.bkmusic.fragment.MainActivityFragment;
-import dev.ongteu.bkmusic.fragment.MainActivityFragmentDai;
+//import dev.ongteu.bkmusic.fragment.MainActivityFragmentDai;
 import dev.ongteu.bkmusic.fragment.PlayerFragment;
 import dev.ongteu.bkmusic.utils.Loader;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, MainActivityFragmentDai.newInstance("", ""))
+                    .replace(R.id.fragment_container, MainActivityFragment.newInstance("", ""))
                     .commit();
         }
 
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_myFavorite:
             default:
-                fragment = MainActivityFragmentDai.newInstance("", "");
+                fragment = MainActivityFragment.newInstance("", "");
                 setTitle(R.string.menuFavorMusic);
                 break;
         }

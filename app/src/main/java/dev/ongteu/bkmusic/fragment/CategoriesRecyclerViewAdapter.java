@@ -1,9 +1,8 @@
 package dev.ongteu.bkmusic.fragment;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,22 +18,22 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
-import dev.ongteu.bkmusic.fragment.CategoriesFragment.OnListFragmentInteractionListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link CategoryItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link SongFragment.OnFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<CategoriesRecyclerViewAdapter.ViewHolder> {
 
     private final List<CategoryItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final CategoriesFragment.OnFragmentInteractionListener mListener;
     private final int mParentId;
     private final Context mContext;
 
-    public CategoriesRecyclerViewAdapter(List<CategoryItem> items, OnListFragmentInteractionListener listener, final Context context, int parentId) {
+    public CategoriesRecyclerViewAdapter(List<CategoryItem> items, CategoriesFragment.OnFragmentInteractionListener listener, final Context context, int parentId) {
         mValues = items;
         mListener = listener;
         mParentId = parentId;
@@ -88,7 +87,7 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onFragmentInteraction(holder.mItem);
                 }
             }
         });
@@ -126,18 +125,18 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
             //NOTE: CUSTOM pageNumber LATER
             int pageNumber = 1;
             switch (mParentId){
-                case 2:
-                    fragment = PopularAlbumFragment.newInstance(1, mItem.getId(), pageNumber);
-                    break;
-                case 3:
-                    fragment = MusicChartFragment.newInstance(1, mItem.getId());
-                    break;
+//                case 2:
+//                    fragment = PopularAlbumFragment.newInstance(1, mItem.getId(), pageNumber);
+//                    break;
+//                case 3:
+//                    fragment = MusicChartFragment.newInstance(1, mItem.getId());
+//                    break;
                 case 1:
                 default:
                     fragment = HotMusicFragment.newInstance(1, mItem.getId(), pageNumber);
                     break;
             }
-            FragmentManager fragmentManager = ((Activity) mContext).getFragmentManager();
+            FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack(FRM_NAME_BACK_STACK)

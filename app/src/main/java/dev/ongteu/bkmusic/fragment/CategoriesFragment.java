@@ -17,7 +17,7 @@ import dev.ongteu.bkmusic.data.table.CategoriesTable;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
 public class CategoriesFragment extends Fragment {
@@ -28,7 +28,7 @@ public class CategoriesFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 3;
     private int mParentId = 1;
-    private OnListFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -82,12 +82,12 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnListFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -106,8 +106,8 @@ public class CategoriesFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(CategoryItem item);
+        void onFragmentInteraction(CategoryItem item);
     }
 }
