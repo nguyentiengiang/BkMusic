@@ -4,18 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.github.mohammad.songig.common.PlayerException;
+import com.example.jean.jcplayer.JcAudio;
+import com.example.jean.jcplayer.JcPlayerView;
 
-import co.mobiwise.library.InteractivePlayerView;
+import java.util.ArrayList;
+
 import co.mobiwise.library.OnActionClickedListener;
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +33,8 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
     // TODO: Rename and change types of parameters
     private String mSongUrl;
     private String mParam2;
+
+    JcPlayerView jcplayerView;// = (JcPlayerView) findViewById(R.id.jcplayerView);
 
     private OnFragmentInteractionListener mListener;
 
@@ -72,8 +73,10 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View viewRoot = inflater.inflate(R.layout.fragment_player, container, false);
 
+        jcplayerView = (JcPlayerView) viewRoot.findViewById(R.id.jcplayerView);
 //        PlayerAdapter adapter = new PlayerAdapter(viewRoot.getContext(), PlaylistTable.ITEMS);
 //        String urlSong = "http://www.nhaccuatui.com/bai-hat/chung-ta-khong-thuoc-ve-nhau-son-tung-m-tp.Qtd3XdEr5XtP.html";
 //        PlaylistTable playlistSong = new PlaylistTable(viewRoot.getContext(), adapter, urlSong);
@@ -82,35 +85,11 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
 //        GetSongs songs = new GetSongs(viewRoot.getContext(), mSongUrl);
 //        TextView txt = (TextView) viewRoot.findViewById(R.id.musicTitle);
 
+        ArrayList<JcAudio> jcAudios = new ArrayList<>();
+        jcAudios.add(JcAudio.createFromURL("title song","url"));
 
-        try {
-//            MySongigPlayer.getPlayer().getPlayList().addAll(songs.SONGIG_ITEMS);
-            MySongigPlayer.getPlayer().play(0);
-            boolean val = MySongigPlayer.getPlayer().isOneTrackPlaying();
-            Log.e("DEBUG >>>>>>>>>>>>>>>1", "RUN PASS");
-            Log.e("DEBUG >>>>>>>>>>>>>>>2", MySongigPlayer.getPlayer().getPlayList().get(0).getName());
-        } catch (PlayerException e) {
-            e.printStackTrace();
-        }
 
-        final InteractivePlayerView mInteractivePlayerView = (InteractivePlayerView) viewRoot.findViewById(R.id.interactivePlayerView);
-        mInteractivePlayerView.setMax(114);
-        mInteractivePlayerView.setProgress(50);
-        mInteractivePlayerView.setOnActionClickedListener(this);
-
-        final ImageView imageViewControl = (ImageView) viewRoot.findViewById(R.id.control);
-        imageViewControl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!mInteractivePlayerView.isPlaying()) {
-                    mInteractivePlayerView.start();
-                    imageViewControl.setBackgroundResource(R.drawable.ic_action_pause);
-                } else {
-                    mInteractivePlayerView.stop();
-                    imageViewControl.setBackgroundResource(R.drawable.ic_action_play);
-                }
-            }
-        });
+        jcplayerView.initPlaylist(jcAudios);
 
         return viewRoot;
     }
@@ -125,12 +104,12 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override

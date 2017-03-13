@@ -41,5 +41,6 @@ dependencies {
     compile 'com.github.HugoMatilla:AudioPlayerView:v1.0.1'
     compile 'net.the4thdimension:audio-wife:1.0.3'
     compile 'com.github.iammert:InteractivePlayerView:f4f6490290'
+    compile group: 'io.github.jeancsanchez.jcplayer', name: 'jcplayer', version: '2.6.0-alpha'
     testCompile 'junit:junit:4.12'
 }
