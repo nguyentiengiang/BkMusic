@@ -125,12 +125,12 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
             //NOTE: CUSTOM pageNumber LATER
             int pageNumber = 1;
             switch (mParentId){
-//                case 2:
-//                    fragment = PopularAlbumFragment.newInstance(1, mItem.getId(), pageNumber);
-//                    break;
-//                case 3:
-//                    fragment = MusicChartFragment.newInstance(1, mItem.getId());
-//                    break;
+                case 2:
+                    fragment = PopularAlbumFragment.newInstance(1, mItem.getId(), pageNumber);
+                    break;
+                case 3:
+                    fragment = MusicChartFragment.newInstance(1, mItem.getId());
+                    break;
                 case 1:
                 default:
                     fragment = HotMusicFragment.newInstance(1, mItem.getId(), pageNumber);
