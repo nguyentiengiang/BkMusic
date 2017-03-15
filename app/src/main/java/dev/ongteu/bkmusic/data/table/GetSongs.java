@@ -1,8 +1,11 @@
 package dev.ongteu.bkmusic.data.table;
 
 import android.content.Context;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.github.mohammad.songig.common.PlayMode;
+import com.github.mohammad.songig.common.SongigPlayer;
 import com.github.mohammad.songig.model.Song;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class GetSongs {
     public static final List<SongItem> ITEMS = new ArrayList<SongItem>();
     public static final Map<Integer, SongItem> ITEM_MAP = new HashMap<Integer, SongItem>();
 
-    public GetSongs(final Context context, String urlSong) {
+    public GetSongs(final Context context, FragmentStatePagerAdapter pagerAdapter, String urlSong) {
         API.GetSongData getDataSongs = new API.GetSongData(context);
         getSongs = new ParserSongs(){
             @Override
@@ -48,6 +51,7 @@ public class GetSongs {
             }
         };
         String urlParseSong = Constant.URL_GET_SONGS + urlSong;
-        getDataSongs.execute(API.getSongPackedParameters(urlParseSong, null, getSongs));
+        Log.e("URL SONG =>>>>", urlParseSong);
+        getDataSongs.execute(API.getSongPackedParameters(urlParseSong, null, getSongs, pagerAdapter));
     }
 }

@@ -3,6 +3,7 @@ package dev.ongteu.bkmusic.data.parser;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -170,7 +171,7 @@ public class API {
 
     }
 
-    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response) {
+    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response, FragmentStatePagerAdapter pagerAdapter) {
         HashMap<String, Object> packedParams = new HashMap<String, Object>();
 
         packedParams.put(GetSongData.SERVER_URL, serverURL);
@@ -180,6 +181,7 @@ public class API {
         }
 
         packedParams.put(GetSongData.CALLBACK_CLASS, response);
+        packedParams.put(GetSongData.VIEW_ADAPTER, pagerAdapter);
 
         return packedParams;
     }
@@ -190,6 +192,8 @@ public class API {
 
         public static final String CALLBACK_CLASS = "CallbackClass";
         public static final String SERVER_URL = "ServerURL";
+        public static final String VIEW_ADAPTER = "VIEW_ADAPTER";
+        private FragmentStatePagerAdapter pagerAdapter = null;
 
         ProgressDialog dialogue;
 
@@ -229,6 +233,9 @@ public class API {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dialogue.dismiss();
+            if (pagerAdapter != null) {
+                pagerAdapter.notifyDataSetChanged();
+            }
         }
 
         @Override
@@ -251,6 +258,10 @@ public class API {
                         Log.i(TAG, "Callback not implemented!");
                     }
                 };
+            }
+
+            if(params[0].containsKey(VIEW_ADAPTER)){
+                pagerAdapter = (FragmentStatePagerAdapter) params[0].get(VIEW_ADAPTER);
             }
 
             // Get url data

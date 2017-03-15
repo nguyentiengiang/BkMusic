@@ -3,16 +3,23 @@ package dev.ongteu.bkmusic.fragment;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mohammad.songig.common.PlayMode;
+import com.github.mohammad.songig.common.SongigPlayer;
+import com.github.mohammad.songig.model.Song;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
+import dev.ongteu.bkmusic.data.table.GetSongs;
 import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnFragmentInteractionListener;
 
 /**
@@ -83,12 +90,22 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
 
         @Override
         public void onClick(View v) {
-            PlayerFragment playerFragment = PlayerFragment.newInstance(mItem.getSongUrl(), "");
+            /**
+             * TODO:
+             * Fix getsong trong nowplayingadapter
+             **/
+
+//            SongigPlayer.getInstance(mContext).removeAll();
+//            List<Song> songList = new GetSongs(mContext, mItem.getSongUrl()).SONGIG_ITEMS;
+//            for (Song songItem : songList) {
+//                SongigPlayer.getInstance(mContext).addToFirst(songItem);
+//            }
+            NowPlayingFragment nowPlayingFragment = NowPlayingFragment.newInstance(mItem.getSongUrl(), 1);
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
-                    .replace(R.id.fragment_container, playerFragment).commit();
+                    .replace(R.id.fragment_container, nowPlayingFragment).commit();
         }
     }
 

@@ -8,37 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jean.jcplayer.JcAudio;
-import com.example.jean.jcplayer.JcPlayerView;
-
-import java.util.ArrayList;
-
-import co.mobiwise.library.OnActionClickedListener;
 import dev.ongteu.bkmusic.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PlayerFragment.OnFragmentInteractionListener} interface
+ * {@link NowListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PlayerFragment#newInstance} factory method to
+ * Use the {@link NowListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayerFragment extends Fragment implements OnActionClickedListener {
+public class NowListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_SONG_URL = "songUrl";
+    private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mSongUrl;
+    private String mParam1;
     private String mParam2;
-
-    JcPlayerView jcplayerView;// = (JcPlayerView) findViewById(R.id.jcplayerView);
 
     private OnFragmentInteractionListener mListener;
 
-    public PlayerFragment() {
+    public NowListFragment() {
         // Required empty public constructor
     }
 
@@ -46,17 +38,22 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param songUrl Parameter For String URL Playlist or Song.
-     * @param param2  Parameter 2.
-     * @return A new instance of fragment PlayerFragment.
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment MainActivityFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PlayerFragment newInstance(String songUrl, String param2) {
-        PlayerFragment fragment = new PlayerFragment();
+    public static NowListFragment newInstance(String param1, String param2) {
+        NowListFragment fragment = new NowListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_SONG_URL, songUrl);
+        args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static NowListFragment newInstance() {
+        NowListFragment fragment = new NowListFragment();
         return fragment;
     }
 
@@ -64,7 +61,7 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSongUrl = getArguments().getString(ARG_SONG_URL);
+            mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -73,25 +70,7 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View viewRoot = inflater.inflate(R.layout.fragment_player, container, false);
-
-        jcplayerView = (JcPlayerView) viewRoot.findViewById(R.id.jcplayerView);
-//        PlayerAdapter adapter = new PlayerAdapter(viewRoot.getContext(), PlaylistTable.ITEMS);
-//        String urlSong = "http://www.nhaccuatui.com/bai-hat/chung-ta-khong-thuoc-ve-nhau-son-tung-m-tp.Qtd3XdEr5XtP.html";
-//        PlaylistTable playlistSong = new PlaylistTable(viewRoot.getContext(), adapter, urlSong);
-
-//        PlayerAdapter adapter = new PlayerAdapter(viewRoot.getContext(), GetSongs.ITEMS.get(0));
-//        GetSongs songs = new GetSongs(viewRoot.getContext(), mSongUrl);
-//        TextView txt = (TextView) viewRoot.findViewById(R.id.musicTitle);
-
-        ArrayList<JcAudio> jcAudios = new ArrayList<>();
-        jcAudios.add(JcAudio.createFromURL("title song","url"));
-
-
-        jcplayerView.initPlaylist(jcAudios);
-
-        return viewRoot;
+        return inflater.inflate(R.layout.fragment_nowlist, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,20 +95,6 @@ public class PlayerFragment extends Fragment implements OnActionClickedListener 
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onActionClicked(int id) {
-        switch (id) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
     }
 
     /**

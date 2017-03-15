@@ -43,6 +43,6 @@ public class PlaylistTable {
             }
         };
         String urlParseSong = Constant.URL_GET_SONGS + urlSong;
-        getDataSongs.execute(API.getSongPackedParameters(urlParseSong, null, getSongs));
+//        getDataSongs.execute(API.getSongPackedParameters(urlParseSong, null, getSongs, adapterView));
     }
 }

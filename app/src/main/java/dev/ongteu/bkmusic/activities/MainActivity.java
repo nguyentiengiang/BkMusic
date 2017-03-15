@@ -2,9 +2,7 @@ package dev.ongteu.bkmusic.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -16,11 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.github.mohammad.songig.common.PlayMode;
+import com.github.mohammad.songig.common.SongigPlayer;
+import com.github.mohammad.songig.model.Song;
+
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.fragment.CategoriesFragment;
 import dev.ongteu.bkmusic.fragment.MainActivityFragment;
 //import dev.ongteu.bkmusic.fragment.MainActivityFragmentDai;
-import dev.ongteu.bkmusic.fragment.PlayerFragment;
+import dev.ongteu.bkmusic.fragment.NowPlayingFragment;
 import dev.ongteu.bkmusic.utils.Loader;
 
 public class MainActivity extends AppCompatActivity
@@ -47,15 +49,6 @@ public class MainActivity extends AppCompatActivity
         mTitle = mDrawerTitle = getTitle();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -125,7 +118,11 @@ public class MainActivity extends AppCompatActivity
                 setTitle(R.string.menuMusicChart);
                 break;
             case R.id.nav_now_playing:
-                fragment = PlayerFragment.newInstance("", "");
+                String urlMp3 = "http://f9.stream.nixcdn.com/6fd8f411ee304f9a8950400767f33713/58c82aeb/NhacCuaTui937/NoiNayCoAnh-SonTungMTP-4772041.mp3";
+                String urlImg = "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg";
+                Song song = new Song(1, "Test song name", "Test song artistName", "Test song albumName", urlMp3, urlImg, "Test song albumId", PlayMode.STREAM);
+                SongigPlayer.getInstance(this).addToFirst(song);
+                fragment = NowPlayingFragment.newInstance();
                 NAME_FRM_BACK_STACK = "NOW_PLAYING";
                 setTitle(getString(R.string.NOW_PLAYING));
                 break;
