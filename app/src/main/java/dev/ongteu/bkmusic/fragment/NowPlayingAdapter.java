@@ -3,7 +3,6 @@ package dev.ongteu.bkmusic.fragment;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
 import com.github.mohammad.songig.common.PlayerException;
@@ -13,13 +12,13 @@ import com.github.mohammad.songig.model.Song;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.ongteu.bkmusic.data.table.GetSongs;
+import dev.ongteu.bkmusic.utils.SmartFragmentStatePagerAdapter;
 
 /**
  * Created by GiangNT on 03/15/2017.
  */
 
-class NowPlayingAdapter extends FragmentStatePagerAdapter {
+class NowPlayingAdapter extends SmartFragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
     private final Context mContext;

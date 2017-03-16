@@ -7,6 +7,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.github.mohammad.songig.common.PlayMode;
+import com.github.mohammad.songig.common.PlayerException;
+import com.github.mohammad.songig.common.SongigPlayer;
+import com.github.mohammad.songig.listener.OnPlayListener;
+import com.github.mohammad.songig.model.Song;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -15,10 +21,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.data.model.SongItem;
+import dev.ongteu.bkmusic.data.table.GetSongs;
+import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 /**
  * Created by TienGiang on 25/9/2016.
@@ -171,7 +182,8 @@ public class API {
 
     }
 
-    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response, FragmentStatePagerAdapter pagerAdapter) {
+//    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response) {
+    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response, RecyclerView.Adapter adapterView) {
         HashMap<String, Object> packedParams = new HashMap<String, Object>();
 
         packedParams.put(GetSongData.SERVER_URL, serverURL);
@@ -181,7 +193,7 @@ public class API {
         }
 
         packedParams.put(GetSongData.CALLBACK_CLASS, response);
-        packedParams.put(GetSongData.VIEW_ADAPTER, pagerAdapter);
+        packedParams.put(GetSongData.VIEW_ADAPTER, adapterView);
 
         return packedParams;
     }
@@ -193,7 +205,7 @@ public class API {
         public static final String CALLBACK_CLASS = "CallbackClass";
         public static final String SERVER_URL = "ServerURL";
         public static final String VIEW_ADAPTER = "VIEW_ADAPTER";
-        private FragmentStatePagerAdapter pagerAdapter = null;
+        private RecyclerView.Adapter adapterView = null;
 
         ProgressDialog dialogue;
 
@@ -233,8 +245,9 @@ public class API {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dialogue.dismiss();
-            if (pagerAdapter != null) {
-                pagerAdapter.notifyDataSetChanged();
+            if (adapterView != null) {
+                adapterView.notifyDataSetChanged();
+                MySongigPlayer.playSong(context, 0);
             }
         }
 
@@ -261,7 +274,7 @@ public class API {
             }
 
             if(params[0].containsKey(VIEW_ADAPTER)){
-                pagerAdapter = (FragmentStatePagerAdapter) params[0].get(VIEW_ADAPTER);
+                adapterView = (RecyclerView.Adapter) params[0].get(VIEW_ADAPTER);
             }
 
             // Get url data

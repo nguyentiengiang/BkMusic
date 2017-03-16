@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import co.mobiwise.library.OnActionClickedListener;
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.data.model.PlaylistItem;
 import dev.ongteu.bkmusic.data.table.GetSongs;
 
 /**
@@ -84,32 +86,19 @@ public class NowPlayingFragment extends Fragment{
         viewPager = (ViewPager) viewRoot.findViewById(R.id.viewPager);
 
         NowPlayingAdapter adapter = new NowPlayingAdapter(getChildFragmentManager(), context, mPlayType, mSongUrl);
-        initSong(viewRoot.getContext(), mSongUrl, adapter);
         adapter.addFragment(NowPlayerFragment.newInstance(), "Now playing");
-        adapter.addFragment(NowListFragment.newInstance(), "Current playing");
+        adapter.addFragment(NowListFragment.newInstance(mPlayType, mSongUrl), "Current playing");
         viewPager.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         return viewRoot;
     }
 
-    private void initSong(Context context, String songUrl, FragmentStatePagerAdapter adapter){
-        SongigPlayer.getInstance(context).getPlayList().clear();
-        List<Song> songList = new GetSongs(context, adapter, songUrl).SONGIG_ITEMS;
-        for (Song songItem : songList) {
-            SongigPlayer.getInstance(context).addToFirst(songItem);
-        }
-        try {
-            SongigPlayer.getInstance(context).play(0);
-        } catch (PlayerException e) {
-            e.printStackTrace();
-        }
-    }
-
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -134,6 +123,6 @@ public class NowPlayingFragment extends Fragment{
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(PlaylistItem playlistItem);
     }
 }

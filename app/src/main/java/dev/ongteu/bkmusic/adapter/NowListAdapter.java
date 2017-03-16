@@ -1,4 +1,4 @@
-package dev.ongteu.bkmusic.fragment;
+package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
@@ -9,34 +9,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.mohammad.songig.common.PlayMode;
-import com.github.mohammad.songig.common.PlayerException;
-import com.github.mohammad.songig.common.SongigPlayer;
-import com.github.mohammad.songig.listener.OnBeforePrepareListener;
-import com.github.mohammad.songig.model.Song;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.activities.MainActivity;
-import dev.ongteu.bkmusic.data.model.HotSongItem;
-import dev.ongteu.bkmusic.data.table.GetSongs;
-import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnFragmentInteractionListener;
-import dev.ongteu.bkmusic.utils.MySongigPlayer;
+import dev.ongteu.bkmusic.data.model.PlaylistItem;
+import dev.ongteu.bkmusic.data.model.SongItem;
+import dev.ongteu.bkmusic.fragment.NowListFragment;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link HotSongItem} and makes a call to the
- * specified {@link OnFragmentInteractionListener}.
+ * {@link RecyclerView.Adapter} that can display a {@link PlaylistItem} and makes a call to the
+ * specified {@link NowListFragment.OnFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRecyclerViewAdapter.ViewHolder> {
+public class NowListAdapter extends RecyclerView.Adapter<NowListAdapter.ViewHolder> {
 
-    private final List<HotSongItem> mValues;
-    private final OnFragmentInteractionListener mListener;
+    private final List<SongItem> mValues;
+    private final NowListFragment.OnFragmentInteractionListener mListener;
     private final Context mContext;
 
-    public HotMusicRecyclerViewAdapter(List<HotSongItem> items, OnFragmentInteractionListener listener, final Context context) {
+    public NowListAdapter(List<SongItem> items, NowListFragment.OnFragmentInteractionListener listener, final Context context) {
         mValues = items;
         mListener = listener;
         mContext = context;
@@ -76,7 +67,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
         public final View mView;
         public final TextView hotSongName;
         public final TextView hotSongArtist;
-        public HotSongItem mItem;
+        public SongItem mItem;
 
         public ViewHolder(View view) {
             super(view);
@@ -93,14 +84,19 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
 
         @Override
         public void onClick(View v) {
-            NowPlayingFragment nowPlayingFragment = NowPlayingFragment.newInstance(mItem.getSongUrl(), 1);
-            FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
-            fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
-                    .replace(R.id.fragment_container, nowPlayingFragment).commit();
+
+//            SongigPlayer.getInstance(mContext).removeAll();
+//            List<Song> songList = new GetSongs(mContext, mItem.getSongUrl()).SONGIG_ITEMS;
+//            for (Song songItem : songList) {
+//                SongigPlayer.getInstance(mContext).addToFirst(songItem);
+//            }
+//            NowPlayingFragment nowPlayingFragment = NowPlayingFragment.newInstance(mItem.getSongUrl(), 1);
+//            FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+//            fragmentManager.beginTransaction()
+//                    .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
+//            fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
+//                    .replace(R.id.fragment_container, nowPlayingFragment).commit();
         }
     }
-
 
 }

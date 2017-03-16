@@ -3,12 +3,27 @@ package dev.ongteu.bkmusic.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mohammad.songig.common.PlayerException;
+import com.github.mohammad.songig.common.SongigPlayer;
+import com.github.mohammad.songig.listener.OnBeforePrepareListener;
+import com.github.mohammad.songig.model.Song;
+
+import java.util.List;
+
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.data.model.PlaylistItem;
+import dev.ongteu.bkmusic.data.model.SongItem;
+import dev.ongteu.bkmusic.data.table.GetSongs;
+import dev.ongteu.bkmusic.adapter.NowListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,35 +34,31 @@ import dev.ongteu.bkmusic.R;
  * create an instance of this fragment.
  */
 public class NowListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PLAY_TYPE = "playType";
+    private static final String ARG_SONG_URL = "songUrl";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int mPlayType;
+    private String mSongUrl;
+    private List<Song> mPlaylist;
 
     private OnFragmentInteractionListener mListener;
 
     public NowListFragment() {
-        // Required empty public constructor
     }
 
     /**
-     * Use this factory method to create a new instance of
+     * * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param playType
+     * @param url
      * @return A new instance of fragment MainActivityFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static NowListFragment newInstance(String param1, String param2) {
+    public static NowListFragment newInstance(int playType, String url) {
         NowListFragment fragment = new NowListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PLAY_TYPE, playType);
+        args.putString(ARG_SONG_URL, url);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +72,8 @@ public class NowListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mPlayType = getArguments().getInt(ARG_PLAY_TYPE);
+            mSongUrl = getArguments().getString(ARG_SONG_URL);
         }
     }
 
@@ -70,15 +81,38 @@ public class NowListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nowlist, container, false);
+        View view = inflater.inflate(R.layout.fragment_hotmusic_list, container, false);
+
+        // Set the adapter
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            NowListAdapter nowListAdapter = new NowListAdapter(GetSongs.ITEMS, mListener, context);
+            mPlaylist = GetSongs.SONGIG_ITEMS;
+            new GetSongs(context, mSongUrl, nowListAdapter);
+            recyclerView.setAdapter(nowListAdapter);
+        }
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        SongigPlayer.getInstance(view.getContext()).getPlayList().addAll(mPlaylist);
+//        try {
+//            SongigPlayer.getInstance(view.getContext()).play(0);
+//        } catch (PlayerException e) {
+//            e.printStackTrace();
+//        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -109,6 +143,6 @@ public class NowListFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(SongItem songItem);
     }
 }

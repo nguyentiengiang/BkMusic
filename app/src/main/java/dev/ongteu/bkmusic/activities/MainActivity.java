@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity
                 setTitle(R.string.menuMusicChart);
                 break;
             case R.id.nav_now_playing:
-                String urlMp3 = "http://f9.stream.nixcdn.com/6fd8f411ee304f9a8950400767f33713/58c82aeb/NhacCuaTui937/NoiNayCoAnh-SonTungMTP-4772041.mp3";
-                String urlImg = "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg";
-                Song song = new Song(1, "Test song name", "Test song artistName", "Test song albumName", urlMp3, urlImg, "Test song albumId", PlayMode.STREAM);
-                SongigPlayer.getInstance(this).addToFirst(song);
+//                String urlMp3 = "http://f9.stream.nixcdn.com/6fd8f411ee304f9a8950400767f33713/58c82aeb/NhacCuaTui937/NoiNayCoAnh-SonTungMTP-4772041.mp3";
+//                String urlImg = "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg";
+//                Song song = new Song(1, "Test song name", "Test song artistName", "Test song albumName", urlMp3, urlImg, "Test song albumId", PlayMode.STREAM);
+//                SongigPlayer.getInstance(this).addToFirst(song);
                 fragment = NowPlayingFragment.newInstance();
                 NAME_FRM_BACK_STACK = "NOW_PLAYING";
                 setTitle(getString(R.string.NOW_PLAYING));

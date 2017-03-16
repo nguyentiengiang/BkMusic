@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import dev.ongteu.bkmusic.data.DatabaseWrapper;
+import dev.ongteu.bkmusic.data.model.PlaylistItem;
 import dev.ongteu.bkmusic.data.model.PlaylistOfflineItem;
 
 /**
@@ -37,7 +38,7 @@ public class PlaylistsORM {
 	 * @Decription: Function for Playlists
 	 */
 
-    public static long addPlaylist(Context context, PlaylistOfflineItem playlistOfflineItem) {
+    public static long addPlaylistOffline(Context context, PlaylistItem playlistItem) {
         long result = -1;
 
         DatabaseWrapper databaseWrapper = new DatabaseWrapper(context);
@@ -45,7 +46,7 @@ public class PlaylistsORM {
 
         try {
             if (mDB != null) {
-                ContentValues values = convertToContentValues(playlistOfflineItem);
+                ContentValues values = convertToContentValues(playlistItem);
                 result = mDB.insertOrThrow(TABLE_NAME, null, values);
             }
         } catch (Exception e) {
@@ -59,22 +60,22 @@ public class PlaylistsORM {
         return result;
     }
 
-    private static ContentValues convertToContentValues(PlaylistOfflineItem playlistOfflineItem) {
+    private static ContentValues convertToContentValues(PlaylistItem playlistItem) {
         ContentValues values = new ContentValues();
-        values.put(COL_ID, playlistOfflineItem.getId());
-        values.put(COL_NAME, playlistOfflineItem.getName());
+        values.put(COL_ID, playlistItem.getId());
+        values.put(COL_NAME, playlistItem.getName());
         return values;
     }
 
-    private static PlaylistOfflineItem convertToPlaylistOffline(Cursor c) {
-        PlaylistOfflineItem playlistItem = new PlaylistOfflineItem();
+    private static PlaylistItem convertToPlaylistOffline(Cursor c) {
+        PlaylistItem playlistItem = new PlaylistItem();
         playlistItem.setId(c.getInt(c.getColumnIndex(COL_ID)));
         playlistItem.setName(c.getString(c.getColumnIndex(COL_NAME)));
         return playlistItem;
     }
 
-    public static PlaylistOfflineItem getPlaylistOfflineById(Context context, int id) {
-        PlaylistOfflineItem playlistItem = new PlaylistOfflineItem();
+    public static PlaylistItem getPlaylistOfflineById(Context context, int id) {
+        PlaylistItem playlistItem = new PlaylistItem();
 
         DatabaseWrapper databaseWrapper = new DatabaseWrapper(context);
         SQLiteDatabase mDB = databaseWrapper.getWritableDatabase();
@@ -89,8 +90,8 @@ public class PlaylistsORM {
         return playlistItem;
     }
 
-    public static ArrayList<PlaylistOfflineItem> getListPlaylistOffline(final Context context) {
-        ArrayList<PlaylistOfflineItem> list = new ArrayList<PlaylistOfflineItem>();
+    public static ArrayList<PlaylistItem> getListPlaylist(final Context context) {
+        ArrayList<PlaylistItem> list = new ArrayList<PlaylistItem>();
 
         DatabaseWrapper databaseWrapper = new DatabaseWrapper(context);
         SQLiteDatabase mDB = databaseWrapper.getWritableDatabase();
@@ -100,7 +101,7 @@ public class PlaylistsORM {
                     .query(TABLE_NAME, null, null, null, null, null, null);
             if (c.moveToFirst()) {
                 do {
-                    PlaylistOfflineItem item = convertToPlaylistOffline(c);
+                    PlaylistItem item = convertToPlaylistOffline(c);
                     list.add(item);
                 } while (c.moveToNext());
             }

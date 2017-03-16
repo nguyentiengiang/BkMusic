@@ -6,13 +6,16 @@ import java.util.List;
  * Created by TienGiang on 2/10/2016.
  */
 
-public class PlaylistOnlineItem {
+public class PlaylistItem {
     private int id;
     private String name;
     private String url;
     private List<SongItem> songList;
 
-    public PlaylistOnlineItem(int id, String name, String url, List<SongItem> songList) {
+    public PlaylistItem(){
+    }
+
+    public PlaylistItem(int id, String name, String url, List<SongItem> songList) {
         this.id = id;
         this.name = name;
         this.url = url;
