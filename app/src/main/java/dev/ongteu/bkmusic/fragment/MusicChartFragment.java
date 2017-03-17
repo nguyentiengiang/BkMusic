@@ -2,7 +2,7 @@ package dev.ongteu.bkmusic.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
-import dev.ongteu.bkmusic.data.table.MusicChartTable;
+import dev.ongteu.bkmusic.data.parser.online.GetMusicChart;
 
 /**
  * A fragment representing a list of Items.
@@ -72,9 +72,7 @@ public class MusicChartFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            MusicChartRecyclerViewAdapter adapter = new MusicChartRecyclerViewAdapter(MusicChartTable.ITEMS, mListener);
-            new MusicChartTable(context, adapter, mPlaylistId);
-            recyclerView.setAdapter(adapter);
+            new GetMusicChart(context, mPlaylistId, recyclerView, mListener);
         }
         return view;
     }
@@ -83,12 +81,12 @@ public class MusicChartFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+//        if (context instanceof OnListFragmentInteractionListener) {
+//            mListener = (OnListFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnListFragmentInteractionListener");
+//        }
     }
 
     @Override

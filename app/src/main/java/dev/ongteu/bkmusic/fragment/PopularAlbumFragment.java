@@ -2,7 +2,7 @@ package dev.ongteu.bkmusic.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.AlbumItem;
-import dev.ongteu.bkmusic.data.table.PopularAlbumTable;
+import dev.ongteu.bkmusic.data.parser.online.GetPoplarAlbum;
 
 /**
  * A fragment representing a list of Items.
@@ -75,9 +75,8 @@ public class PopularAlbumFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            PopularAlbumRecyclerViewAdapter apdater = new PopularAlbumRecyclerViewAdapter(PopularAlbumTable.ITEMS, mListener);
-            new PopularAlbumTable(context, apdater, mPlaylistId, mPageNumber);
-            recyclerView.setAdapter(apdater);
+
+            new GetPoplarAlbum(context, mPlaylistId, mPageNumber, recyclerView, mListener);
         }
         return view;
     }
@@ -86,12 +85,12 @@ public class PopularAlbumFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+//        if (context instanceof OnListFragmentInteractionListener) {
+//            mListener = (OnListFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnListFragmentInteractionListener");
+//        }
     }
 
     @Override

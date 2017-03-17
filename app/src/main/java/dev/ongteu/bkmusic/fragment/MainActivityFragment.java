@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.adapter.MainHomeAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,7 +84,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        MainHomeAdapter adapter = new MainHomeAdapter(getChildFragmentManager());
         adapter.addFragment(SongFragment.newInstance(), "SONG");
         adapter.addFragment(PlaylistFragment.newInstance(), "PLAYLIST");
         viewPager.setAdapter(adapter);

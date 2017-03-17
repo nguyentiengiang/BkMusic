@@ -1,18 +1,41 @@
 package dev.ongteu.bkmusic.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by TienGiang on 25/9/2016.
  */
 
 public class HotSongItem {
+
+    @SerializedName("songName")
+    @Expose
     private String songName;
+    @SerializedName("songUrl")
+    @Expose
     private String songUrl;
+    @SerializedName("singer")
+    @Expose
     private String singer;
+    @SerializedName("singerUrl")
+    @Expose
     private String singerUrl;
 
+    /**
+     * No args constructor for use in serialization
+     *
+     */
     public HotSongItem() {
     }
 
+    /**
+     *
+     * @param singerUrl
+     * @param singer
+     * @param songName
+     * @param songUrl
+     */
     public HotSongItem(String songName, String songUrl, String singer, String singerUrl) {
         super();
         this.songName = songName;

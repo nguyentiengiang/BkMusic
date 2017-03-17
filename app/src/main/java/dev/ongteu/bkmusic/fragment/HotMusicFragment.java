@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
-import dev.ongteu.bkmusic.data.table.HotSongTable;
+import dev.ongteu.bkmusic.data.parser.online.GetHotSong;
 
 /**
  * A fragment representing a list of Items.
@@ -76,10 +76,8 @@ public class HotMusicFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            HotMusicRecyclerViewAdapter hotMusicAdapter = new HotMusicRecyclerViewAdapter(HotSongTable.ITEMS, mListener, context);
-            new HotSongTable(context, hotMusicAdapter, mPlaylistId, mPageNumber);
-            recyclerView.setAdapter(hotMusicAdapter);
 
+            new GetHotSong(context, mPlaylistId, mPageNumber, recyclerView, mListener);
         }
         return view;
     }

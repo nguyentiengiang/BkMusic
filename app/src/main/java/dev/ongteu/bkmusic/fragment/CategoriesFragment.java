@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.adapter.CategoriesRecyclerViewAdapter;
+import dev.ongteu.bkmusic.data.dao.CategoryDAO;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
-import dev.ongteu.bkmusic.data.table.CategoriesTable;
+//import dev.ongteu.bkmusic.data.table.CategoriesTable;
 
 /**
  * A fragment representing a list of Items.
@@ -71,8 +73,9 @@ public class CategoriesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            CategoriesRecyclerViewAdapter adapter = new CategoriesRecyclerViewAdapter(CategoriesTable.ITEMS, mListener, context, mParentId);
-            new CategoriesTable(context, adapter, mParentId);
+            CategoriesRecyclerViewAdapter adapter = new CategoriesRecyclerViewAdapter(CategoryDAO.CATEGORY_ITEMS, mListener, context, mParentId);
+            new CategoryDAO(context, mParentId, adapter);
+//            new CategoriesTable(context, adapter, mParentId);
             recyclerView.setAdapter(adapter);
         }
         return view;

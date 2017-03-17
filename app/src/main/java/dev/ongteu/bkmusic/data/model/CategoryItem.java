@@ -1,31 +1,56 @@
 package dev.ongteu.bkmusic.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by TienGiang on 18/9/2016.
  */
+
 public class CategoryItem {
 
-    private int id;
-    private String name;
-    private String img;
-    private int parent_id;
 
+    @SerializedName("categoryCode")
+    @Expose
+    private int categoryCode;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("img")
+    @Expose
+    private String img;
+    @SerializedName("parentId")
+    @Expose
+    private int parentId;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
     public CategoryItem() {
     }
 
-    public CategoryItem(int id, String name, String img, int parent_id) {
-        this.id = id;
+    /**
+     *
+     * @param parentId
+     * @param name
+     * @param img
+     * @param categoryCode
+     */
+    public CategoryItem(int categoryCode, String name, String img, int parentId) {
+        super();
+        this.categoryCode = categoryCode;
         this.name = name;
         this.img = img;
-        this.parent_id = parent_id;
+        this.parentId = parentId;
     }
 
-    public int getId() {
-        return id;
+    public int getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCategoryCode(int categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
     public String getName() {
@@ -44,11 +69,11 @@ public class CategoryItem {
         this.img = img;
     }
 
-    public int getParent_id() {
-        return parent_id;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setParent_id(int parent_id) {
-        this.parent_id = parent_id;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 }
