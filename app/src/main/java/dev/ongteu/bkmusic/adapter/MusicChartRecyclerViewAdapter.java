@@ -1,5 +1,6 @@
-package dev.ongteu.bkmusic.fragment;
+package dev.ongteu.bkmusic.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +22,12 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
 
     private final List<MusicChartItem.SongChart> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final Context mContext;
 
-    public MusicChartRecyclerViewAdapter(List<MusicChartItem.SongChart> items, OnListFragmentInteractionListener listener) {
+    public MusicChartRecyclerViewAdapter(List<MusicChartItem.SongChart> items, OnListFragmentInteractionListener listener, Context context) {
         mValues = items;
         mListener = listener;
+        mContext = context;
     }
 
     @Override

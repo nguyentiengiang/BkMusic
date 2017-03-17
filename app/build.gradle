@@ -48,6 +48,7 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.1.9'
     compile 'com.github.mohammad.songig:songig:1.0.2'
     compile 'com.github.satyan:sugar:1.5'
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.1'
     compile 'com.github.HugoMatilla:AudioPlayerView:v1.0.1'
     compile 'com.github.iammert:InteractivePlayerView:f4f6490290'
     provided 'org.glassfish:javax.annotation:10.0-b28'

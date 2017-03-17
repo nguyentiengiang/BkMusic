@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
-import dev.ongteu.bkmusic.data.table.MusicChartTable;
+import dev.ongteu.bkmusic.data.parser.online.GetMusicChart;
 
 /**
  * A fragment representing a list of Items.
@@ -72,9 +72,7 @@ public class MusicChartFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            MusicChartRecyclerViewAdapter adapter = new MusicChartRecyclerViewAdapter(MusicChartTable.ITEMS, mListener);
-            new MusicChartTable(context, adapter, mPlaylistId);
-            recyclerView.setAdapter(adapter);
+            new GetMusicChart(context, mPlaylistId, recyclerView, mListener);
         }
         return view;
     }

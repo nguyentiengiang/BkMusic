@@ -1,5 +1,6 @@
-package dev.ongteu.bkmusic.fragment;
+package dev.ongteu.bkmusic.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,10 +28,12 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
     private final List<AlbumItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final Context mContext;
 
-    public PopularAlbumRecyclerViewAdapter(List<AlbumItem> items, OnListFragmentInteractionListener listener) {
+    public PopularAlbumRecyclerViewAdapter(List<AlbumItem> items, OnListFragmentInteractionListener listener, Context context) {
         mValues = items;
         mListener = listener;
+        mContext = context;
     }
 
     @Override

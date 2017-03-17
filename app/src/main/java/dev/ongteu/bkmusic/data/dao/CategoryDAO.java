@@ -45,6 +45,7 @@ public class CategoryDAO {
             });
             spManager.setFirstRun(false);
         } else {
+            CATEGORY_ITEMS.clear();
             List<Categories> categories = Categories.find(Categories.class, "PARENT_ID = ?", String.valueOf(parentId));
             for (Categories cate : categories) {
                 CATEGORY_ITEMS.add(new CategoryItem(cate.getCategoryCode(), cate.getName(), cate.getImg(), cate.getParentId()));

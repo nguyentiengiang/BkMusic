@@ -15,6 +15,7 @@
     <string name="share">Chia sẻ</string>
     <string name="feedback">Gửi phản hồi</string>
     <string name="waitting_text">Xin chờ ...</string>
+    <string name="done_text">Loaded</string>
     <string name="NOW_PLAYING">Now playing</string>
 
     <string-array name="song_spinner">

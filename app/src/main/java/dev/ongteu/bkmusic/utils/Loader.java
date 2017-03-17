@@ -2,9 +2,7 @@ package dev.ongteu.bkmusic.utils;
 
 import android.content.Context;
 
-import dev.ongteu.bkmusic.data.DatabaseWrapper;
 import dev.ongteu.bkmusic.data.dao.CategoryDAO;
-//import dev.ongteu.bkmusic.data.table.CategoriesTable;
 import dev.ongteu.bkmusic.utils.network.Connectivity;
 
 public class Loader {

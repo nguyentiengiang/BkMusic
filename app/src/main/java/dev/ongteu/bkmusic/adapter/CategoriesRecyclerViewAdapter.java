@@ -1,4 +1,4 @@
-package dev.ongteu.bkmusic.fragment;
+package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -20,6 +20,11 @@ import java.util.List;
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
+import dev.ongteu.bkmusic.fragment.CategoriesFragment;
+import dev.ongteu.bkmusic.fragment.HotMusicFragment;
+import dev.ongteu.bkmusic.fragment.MusicChartFragment;
+import dev.ongteu.bkmusic.fragment.PopularAlbumFragment;
+import dev.ongteu.bkmusic.fragment.SongFragment;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link CategoryItem} and makes a call to the
@@ -126,10 +131,10 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
             int pageNumber = 1;
             switch (mParentId){
                 case 2:
-//                    fragment = PopularAlbumFragment.newInstance(1, mItem.getId(), pageNumber);
+                    fragment = PopularAlbumFragment.newInstance(1, mItem.getCategoryCode(), pageNumber);
                     break;
                 case 3:
-//                    fragment = MusicChartFragment.newInstance(1, mItem.getId());
+                    fragment = MusicChartFragment.newInstance(1, mItem.getCategoryCode());
                     break;
                 case 1:
                 default:

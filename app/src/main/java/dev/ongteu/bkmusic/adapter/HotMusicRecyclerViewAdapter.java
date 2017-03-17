@@ -1,21 +1,13 @@
-package dev.ongteu.bkmusic.fragment;
+package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.mohammad.songig.common.PlayMode;
-import com.github.mohammad.songig.common.PlayerException;
-import com.github.mohammad.songig.common.SongigPlayer;
-import com.github.mohammad.songig.listener.OnBeforePrepareListener;
-import com.github.mohammad.songig.model.Song;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
@@ -23,7 +15,7 @@ import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
 //import dev.ongteu.bkmusic.data.table.GetSongs;
 import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnFragmentInteractionListener;
-import dev.ongteu.bkmusic.utils.MySongigPlayer;
+import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link HotSongItem} and makes a call to the

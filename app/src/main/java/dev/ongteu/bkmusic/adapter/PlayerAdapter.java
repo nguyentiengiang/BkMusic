@@ -16,7 +16,7 @@ import dev.ongteu.bkmusic.data.model.SongItem;
 import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
 
 /**
- * Created by noor on 01/04/15.
+ * Updated by GiangNT on 17/03/2017.
  */
 public class PlayerAdapter extends PagerAdapter {
 

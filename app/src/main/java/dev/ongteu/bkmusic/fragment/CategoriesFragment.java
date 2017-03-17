@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.adapter.CategoriesRecyclerViewAdapter;
 import dev.ongteu.bkmusic.data.dao.CategoryDAO;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
 //import dev.ongteu.bkmusic.data.table.CategoriesTable;

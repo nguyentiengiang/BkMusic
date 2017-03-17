@@ -1,8 +1,7 @@
-package dev.ongteu.bkmusic.fragment;
+package dev.ongteu.bkmusic.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +12,11 @@ import dev.ongteu.bkmusic.utils.SmartFragmentStatePagerAdapter;
  * Created by daint on 11/18/2016.
  */
 
-class ViewPagerAdapter extends SmartFragmentStatePagerAdapter {
+public class MainHomeAdapter extends SmartFragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager manager) {
+    public MainHomeAdapter(FragmentManager manager) {
         super(manager);
     }
 
