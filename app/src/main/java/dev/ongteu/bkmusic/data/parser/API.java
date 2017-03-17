@@ -3,7 +3,6 @@ package dev.ongteu.bkmusic.data.parser;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -28,7 +27,7 @@ import java.util.Map;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.SongItem;
-import dev.ongteu.bkmusic.data.table.GetSongs;
+//import dev.ongteu.bkmusic.data.table.GetSongs;
 import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 /**
@@ -182,8 +181,9 @@ public class API {
 
     }
 
-//    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response) {
-    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response, RecyclerView.Adapter adapterView) {
+    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response) {
+//    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response, RecyclerView.Adapter adapterView) {
+//    public static HashMap<String, Object> getSongPackedParameters(String serverURL, Map<String, Object> additionalParams, IResponse response, PagerAdapter adapterView) {
         HashMap<String, Object> packedParams = new HashMap<String, Object>();
 
         packedParams.put(GetSongData.SERVER_URL, serverURL);
@@ -193,7 +193,7 @@ public class API {
         }
 
         packedParams.put(GetSongData.CALLBACK_CLASS, response);
-        packedParams.put(GetSongData.VIEW_ADAPTER, adapterView);
+//        packedParams.put(GetSongData.VIEW_ADAPTER, adapterView);
 
         return packedParams;
     }
@@ -205,7 +205,7 @@ public class API {
         public static final String CALLBACK_CLASS = "CallbackClass";
         public static final String SERVER_URL = "ServerURL";
         public static final String VIEW_ADAPTER = "VIEW_ADAPTER";
-        private RecyclerView.Adapter adapterView = null;
+//        private PagerAdapter adapterView = null;
 
         ProgressDialog dialogue;
 
@@ -245,10 +245,14 @@ public class API {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dialogue.dismiss();
-            if (adapterView != null) {
-                adapterView.notifyDataSetChanged();
-                MySongigPlayer.playSong(context, 0);
-            }
+//            if (adapterView != null) {
+//                adapterView.notifyDataSetChanged();
+                try {
+                    SongigPlayer.getInstance(context).play(0);
+                } catch (PlayerException e) {
+                    e.printStackTrace();
+                }
+//            }
         }
 
         @Override
@@ -273,9 +277,9 @@ public class API {
                 };
             }
 
-            if(params[0].containsKey(VIEW_ADAPTER)){
-                adapterView = (RecyclerView.Adapter) params[0].get(VIEW_ADAPTER);
-            }
+//            if(params[0].containsKey(VIEW_ADAPTER)){
+//                adapterView = (PagerAdapter) params[0].get(VIEW_ADAPTER);
+//            }
 
             // Get url data
             String url = null;

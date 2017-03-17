@@ -12,17 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.github.mohammad.songig.common.PlayMode;
-import com.github.mohammad.songig.common.SongigPlayer;
-import com.github.mohammad.songig.model.Song;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.fragment.CategoriesFragment;
 import dev.ongteu.bkmusic.fragment.MainActivityFragment;
 //import dev.ongteu.bkmusic.fragment.MainActivityFragmentDai;
-import dev.ongteu.bkmusic.fragment.NowPlayingFragment;
+import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Loader;
 
 public class MainActivity extends AppCompatActivity
@@ -122,7 +117,8 @@ public class MainActivity extends AppCompatActivity
 //                String urlImg = "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg";
 //                Song song = new Song(1, "Test song name", "Test song artistName", "Test song albumName", urlMp3, urlImg, "Test song albumId", PlayMode.STREAM);
 //                SongigPlayer.getInstance(this).addToFirst(song);
-                fragment = NowPlayingFragment.newInstance();
+//                fragment = NowPlayingFragment.newInstance();
+                fragment = MyPlayerFragment.newInstance();
                 NAME_FRM_BACK_STACK = "NOW_PLAYING";
                 setTitle(getString(R.string.NOW_PLAYING));
                 break;

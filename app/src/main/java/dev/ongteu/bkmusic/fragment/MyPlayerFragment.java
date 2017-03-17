@@ -3,67 +3,50 @@ package dev.ongteu.bkmusic.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jean.jcplayer.JcPlayerView;
-import com.github.mohammad.songig.common.PlayerException;
-import com.github.mohammad.songig.common.SongigPlayer;
 import com.github.mohammad.songig.model.Song;
 
 import java.util.List;
 
-import co.mobiwise.library.OnActionClickedListener;
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.data.model.PlaylistItem;
-import dev.ongteu.bkmusic.data.table.GetSongs;
+import dev.ongteu.bkmusic.adapter.PlayerAdapter;
+//import dev.ongteu.bkmusic.data.table.GetSongs;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NowPlayingFragment.OnFragmentInteractionListener} interface
+ * {@link MyPlayerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NowPlayingFragment#newInstance} factory method to
+ * Use the {@link MyPlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NowPlayingFragment extends Fragment{
-
+public class MyPlayerFragment extends Fragment {
     private static final String ARG_PLAY_TYPE = "playType";
-    private static final String ARG_SONG_URL = "urlNow";
+    private static final String ARG_SONG_URL = "songUrl";
 
     private int mPlayType;
     private String mSongUrl;
+    private List<Song> mPlaylist;
 
     private OnFragmentInteractionListener mListener;
-    private ViewPager viewPager;
 
-    public NowPlayingFragment() {
-        // Required empty public constructor
-    }
+    public MyPlayerFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment NowPlayingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NowPlayingFragment newInstance() {
-        NowPlayingFragment fragment = new NowPlayingFragment();
+    public static MyPlayerFragment newInstance(){
+        MyPlayerFragment fragment = new MyPlayerFragment();
         return fragment;
     }
 
-    public static NowPlayingFragment newInstance(String urlNow, int playType) {
-        NowPlayingFragment fragment = new NowPlayingFragment();
+    public static MyPlayerFragment newInstance(int playType, String url) {
+        MyPlayerFragment fragment = new MyPlayerFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PLAY_TYPE, playType);
-        args.putString(ARG_SONG_URL, urlNow);
+        args.putString(ARG_SONG_URL, url);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,28 +64,34 @@ public class NowPlayingFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View viewRoot = inflater.inflate(R.layout.fragment_nowplaying, container, false);
+        View viewRoot = inflater.inflate(R.layout.fragment_my_player, container, false);
+        ViewPager viewPagerPlayer = (ViewPager) viewRoot.findViewById(R.id.viewPagerPlayer);
         Context context = viewRoot.getContext();
-        viewPager = (ViewPager) viewRoot.findViewById(R.id.viewPager);
+        PlayerAdapter playerAdapter = new PlayerAdapter(context, mPlayType, mSongUrl);
 
-        NowPlayingAdapter adapter = new NowPlayingAdapter(getChildFragmentManager(), context, mPlayType, mSongUrl);
-        adapter.addFragment(NowPlayerFragment.newInstance(), "Now playing");
-        adapter.addFragment(NowListFragment.newInstance(mPlayType, mSongUrl), "Current playing");
-        viewPager.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        viewPagerPlayer.setAdapter(playerAdapter);
+//        viewPagerPlayer.setCurrentItem(0);
+//        new GetSongs(context, mSongUrl);
+
         return viewRoot;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -123,6 +112,6 @@ public class NowPlayingFragment extends Fragment{
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(PlaylistItem playlistItem);
+        void onFragmentInteraction(Uri uri);
     }
 }

@@ -28,7 +28,7 @@ public class PopularAlbumFragment extends Fragment {
     private static final String ARG_PAGE_NUMBER = "page_number";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private int mPlaylistId = 29;
+    private Long mPlaylistId = Long.valueOf(29);
     private int mPageNumber = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -40,11 +40,11 @@ public class PopularAlbumFragment extends Fragment {
     }
 
     // TODO: Customize parameter initialization
-    public static PopularAlbumFragment newInstance(int columnCount, int playlistId, int pageNumber) {
+    public static PopularAlbumFragment newInstance(int columnCount, Long playlistId, int pageNumber) {
         PopularAlbumFragment fragment = new PopularAlbumFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
-        args.putInt(ARG_PLAYLIST_ID, playlistId);
+        args.putLong(ARG_PLAYLIST_ID, playlistId);
         args.putInt(ARG_PAGE_NUMBER, pageNumber);
         fragment.setArguments(args);
         return fragment;
@@ -56,7 +56,7 @@ public class PopularAlbumFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-            mPlaylistId = getArguments().getInt(ARG_PLAYLIST_ID);
+            mPlaylistId = getArguments().getLong(ARG_PLAYLIST_ID);
             mPageNumber = getArguments().getInt(ARG_PAGE_NUMBER);
         }
     }
@@ -76,7 +76,7 @@ public class PopularAlbumFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             PopularAlbumRecyclerViewAdapter apdater = new PopularAlbumRecyclerViewAdapter(PopularAlbumTable.ITEMS, mListener);
-            new PopularAlbumTable(context, apdater, mPlaylistId, mPageNumber);
+//            new PopularAlbumTable(context, apdater, mPlaylistId, mPageNumber);
             recyclerView.setAdapter(apdater);
         }
         return view;

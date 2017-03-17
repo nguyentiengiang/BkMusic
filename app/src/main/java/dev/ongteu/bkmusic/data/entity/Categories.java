@@ -1,48 +1,44 @@
-package dev.ongteu.bkmusic.data.model;
+package dev.ongteu.bkmusic.data.entity;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
 
 /**
- * Created by TienGiang on 18/9/2016.
+ * Created by TienGiang on 16/3/2017.
  */
 
-public class CategoryItem {
+public class Categories extends SugarRecord {
 
-
-    @SerializedName("categoryCode")
-    @Expose
+    private Long id;
     private int categoryCode;
-    @SerializedName("name")
-    @Expose
     private String name;
-    @SerializedName("img")
-    @Expose
     private String img;
-    @SerializedName("parentId")
-    @Expose
     private int parentId;
 
     /**
      * No args constructor for use in serialization
-     *
      */
-    public CategoryItem() {
+    public Categories() {
     }
 
     /**
-     *
      * @param parentId
      * @param name
      * @param img
-     * @param categoryCode
      */
-    public CategoryItem(int categoryCode, String name, String img, int parentId) {
+    public Categories(int categoryCode, String name, String img, int parentId) {
         super();
         this.categoryCode = categoryCode;
         this.name = name;
         this.img = img;
         this.parentId = parentId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getCategoryCode() {
@@ -69,11 +65,13 @@ public class CategoryItem {
         this.img = img;
     }
 
-    public Integer getParentId() {
+    public int getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(int parentId) {
         this.parentId = parentId;
     }
+
+
 }

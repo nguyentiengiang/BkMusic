@@ -1,4 +1,4 @@
-package dev.ongteu.bkmusic.data.model;
+package dev.ongteu.bkmusic.data.entity;
 
 /**
  * Created by TienGiang on 26/9/2016.
@@ -6,8 +6,11 @@ package dev.ongteu.bkmusic.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
 
-public class SongItem {
+public class Songs extends SugarRecord {
+
+    private Long id;
 
     @SerializedName("songName")
     @Expose
@@ -38,7 +41,7 @@ public class SongItem {
      * No args constructor for use in serialization
      *
      */
-    public SongItem() {
+    public Songs() {
     }
 
     /**
@@ -52,7 +55,7 @@ public class SongItem {
      * @param mp3Url
      * @param songUrl
      */
-    public SongItem(String songName, String singer, String singerUrl, String bgimage, String avatar, String keyMp3, String mp3Url, String songUrl) {
+    public Songs(String songName, String singer, String singerUrl, String bgimage, String avatar, String keyMp3, String mp3Url, String songUrl) {
         super();
         this.songName = songName;
         this.singer = singer;
@@ -72,7 +75,7 @@ public class SongItem {
         this.songName = songName;
     }
 
-    public SongItem withSongName(String songName) {
+    public Songs withSongName(String songName) {
         this.songName = songName;
         return this;
     }
@@ -85,7 +88,7 @@ public class SongItem {
         this.singer = singer;
     }
 
-    public SongItem withSinger(String singer) {
+    public Songs withSinger(String singer) {
         this.singer = singer;
         return this;
     }
@@ -98,7 +101,7 @@ public class SongItem {
         this.singerUrl = singerUrl;
     }
 
-    public SongItem withSingerUrl(String singerUrl) {
+    public Songs withSingerUrl(String singerUrl) {
         this.singerUrl = singerUrl;
         return this;
     }
@@ -111,7 +114,7 @@ public class SongItem {
         this.bgimage = bgimage;
     }
 
-    public SongItem withBgimage(String bgimage) {
+    public Songs withBgimage(String bgimage) {
         this.bgimage = bgimage;
         return this;
     }
@@ -124,7 +127,7 @@ public class SongItem {
         this.avatar = avatar;
     }
 
-    public SongItem withAvatar(String avatar) {
+    public Songs withAvatar(String avatar) {
         this.avatar = avatar;
         return this;
     }
@@ -137,7 +140,7 @@ public class SongItem {
         this.keyMp3 = keyMp3;
     }
 
-    public SongItem withKeyMp3(String keyMp3) {
+    public Songs withKeyMp3(String keyMp3) {
         this.keyMp3 = keyMp3;
         return this;
     }
@@ -150,7 +153,7 @@ public class SongItem {
         this.mp3Url = mp3Url;
     }
 
-    public SongItem withMp3Url(String mp3Url) {
+    public Songs withMp3Url(String mp3Url) {
         this.mp3Url = mp3Url;
         return this;
     }
@@ -163,7 +166,7 @@ public class SongItem {
         this.songUrl = songUrl;
     }
 
-    public SongItem withSongUrl(String songUrl) {
+    public Songs withSongUrl(String songUrl) {
         this.songUrl = songUrl;
         return this;
     }

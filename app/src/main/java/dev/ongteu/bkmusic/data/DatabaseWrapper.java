@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import dev.ongteu.bkmusic.data.orm.CategoriesORM;
+//import dev.ongteu.bkmusic.data.orm.CategoriesORM;
 import dev.ongteu.bkmusic.utils.Constant;
 
 /**
@@ -21,14 +21,14 @@ public class DatabaseWrapper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 //        Log.i("DB_TAG", "CREATE SUCCESS");
-        db.execSQL(CategoriesORM.SQL_CREATE_TABLE);
+//        db.execSQL(CategoriesORM.SQL_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w("LOG_TAG", "Upgrading database from version " + oldVersion
                 + " to " + newVersion + ", which will destroy all old data");
-        db.execSQL(CategoriesORM.SQL_DROP_TABLE);
-        onCreate(db);
+//        db.execSQL(CategoriesORM.SQL_DROP_TABLE);
+//        onCreate(db);
     }
 }

@@ -3,7 +3,8 @@ package dev.ongteu.bkmusic.utils;
 import android.content.Context;
 
 import dev.ongteu.bkmusic.data.DatabaseWrapper;
-import dev.ongteu.bkmusic.data.table.CategoriesTable;
+import dev.ongteu.bkmusic.data.dao.CategoryDAO;
+//import dev.ongteu.bkmusic.data.table.CategoriesTable;
 import dev.ongteu.bkmusic.utils.network.Connectivity;
 
 public class Loader {
@@ -14,12 +15,11 @@ public class Loader {
 	public Loader(Context context) {
 		super();
 		this.context = context;
-		new DatabaseWrapper(context);
 
 		MySPManager spManager = new MySPManager(context);
 		this.isFirstRun = spManager.isFirstRun();
 		if (Connectivity.isNetworkAvailable(context)) {
-			new CategoriesTable(context, null, 0);
+			new CategoryDAO(context, 0, null);
 		} else {
 			MyDialog.getDialogNoInternet(context);
 		}

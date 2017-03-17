@@ -29,6 +29,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile group: 'io.github.jeancsanchez.jcplayer', name: 'jcplayer', version: '2.6.0-alpha'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
@@ -36,6 +37,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'org.jsoup:jsoup:1.9.2'
     compile 'com.google.code.gson:gson:2.7'
@@ -44,9 +47,10 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.koushikdutta.ion:ion:2.1.9'
     compile 'com.github.mohammad.songig:songig:1.0.2'
+    compile 'com.github.satyan:sugar:1.5'
     compile 'com.github.HugoMatilla:AudioPlayerView:v1.0.1'
     compile 'com.github.iammert:InteractivePlayerView:f4f6490290'
-    compile group: 'io.github.jeancsanchez.jcplayer', name: 'jcplayer', version: '2.6.0-alpha'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
