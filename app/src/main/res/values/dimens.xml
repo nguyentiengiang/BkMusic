@@ -10,6 +10,10 @@
     <dimen name="no_margin">0dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <!-- Song Item -->
+    <dimen name="si_item_height">80dp</dimen>
+    <dimen name="si_item_padding">16dp</dimen>
+
     <!-- Rage comic list -->
     <dimen name="recycler_margin_horizontal">4dp</dimen>
     <dimen name="recycler_margin_vertical">4dp</dimen>

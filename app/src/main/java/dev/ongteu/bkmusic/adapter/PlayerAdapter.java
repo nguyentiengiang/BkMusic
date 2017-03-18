@@ -6,14 +6,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.github.mohammad.songig.common.SongigPlayer;
 import com.github.mohammad.songig.model.Song;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.SongItem;
 import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
+import dev.ongteu.bkmusic.ui.ShadowImageView;
+import dev.ongteu.bkmusic.utils.MyPicasso;
 
 /**
  * Updated by GiangNT on 17/03/2017.
@@ -23,6 +29,7 @@ public class PlayerAdapter extends PagerAdapter {
     private static final String TAG = "PlayerAdapter";
     private List<Song> mSongIgItems;
     private List<SongItem> mSongItems;
+    private Song mSongNow;
     private Context mContext;
     private int mPlayType;
     private String mUrlPlay;
@@ -33,13 +40,10 @@ public class PlayerAdapter extends PagerAdapter {
         mUrlPlay = urlPlay;
     }
 
-    //Abstract method in PagerAdapter
     @Override
     public int getCount() {
         return 2;
     }
-
-    //Abstract method in PagerAdapter
 
     /**
      * @return true if the value returned from {@link #instantiateItem(ViewGroup, int)} is the
@@ -73,30 +77,29 @@ public class PlayerAdapter extends PagerAdapter {
                 break;
         }
         View view = inflater.inflate(resId, container, false);
-
         new GetPlayOnline(mContext, mUrlPlay);
 
-//        new GetSongs(mContext, mUrlPlay);
-//        switch (position) {
-//            case 1:
-//                resId = R.layout.fragment_nowlist;
-//                break;
-//            case 0:
-//            default:
-//                resId = R.layout.fragment_player;
-//                break;
-//        }
+//        mSongNow = SongigPlayer.getInstance(mContext).getCurrentSong();
 
-//        View view = mLayoutInflater.inflate(R.layout.photo_layout, container, false);
-//        // Retrieve a TextView from the inflated View, and update it's text
-//        TextView titleTextView = (TextView) view.findViewById(R.id.title);
-//        Utils.DummyItem dummyItem = mDummyItems.get(position);
-//        titleTextView.setText(dummyItem.getImageTitle());
-//        ImageView imageView = (ImageView) view.findViewById(R.id.image);
-//        ImageLoaderUtil.downloadImage(dummyItem.getImageUrl(), imageView);
-//        view.setTag(dummyItem);
-//        // Add the newly created View to the ViewPager
-//        container.addView(view);
+        switch (position) {
+            case 1:
+                if (view instanceof ListView){
+                    NowListAdapter nowListAdapter = new NowListAdapter(mContext, GetPlayOnline.SONGIG_ITEMS);
+                    ((ListView) view).setAdapter(nowListAdapter);
+                }
+                break;
+            case 0:
+            default:
+                TextView txtNameSong = (TextView) view.findViewById(R.id.txtSongName);
+                TextView txtSongArtist = (TextView) view.findViewById(R.id.txtSongArtist);
+                ShadowImageView imgCover = (ShadowImageView) view.findViewById(R.id.imgAlbumArt);
+
+                new MyPicasso(imgCover.getContext(), imgCover, "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg");
+                imgCover.startRotateAnimation();
+
+                break;
+        }
+
         container.addView(view);
         Log.i(TAG, "instantiateItem() [position: " + position + "]" + " childCount:" + container.getChildCount());
         // Return the View

@@ -1,10 +1,12 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
 import dev.ongteu.bkmusic.fragment.MusicChartFragment.OnListFragmentInteractionListener;
+import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.MyPicasso;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link MusicChartItem} and makes a call to the
@@ -40,8 +44,9 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getSongName());
-        holder.mContentView.setText(mValues.get(position).getSongUrl());
+        holder.mChartSongName.setText(Common.cutterLongName(mValues.get(position).getSongName()));
+        holder.mChartSongArtist.setText(mValues.get(position).getSinger());
+        new MyPicasso(holder.mChartAlbumArt.getContext(), holder.mChartAlbumArt, mValues.get(position).getAlbumArt());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,20 +67,22 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mChartSongName;
+        public final TextView mChartSongArtist;
+        public final ImageView mChartAlbumArt;
         public MusicChartItem.SongChart mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mChartSongName = (TextView) view.findViewById(R.id.chartSongName);
+            mChartSongArtist = (TextView) view.findViewById(R.id.chartSongArtist);
+            mChartAlbumArt = (ImageView) view.findViewById(R.id.chartAlbumArt);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mChartSongName.getText() + "'";
         }
     }
 }

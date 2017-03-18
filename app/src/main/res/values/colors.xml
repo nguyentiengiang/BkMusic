@@ -5,7 +5,22 @@
     <color name="colorCrimson">#DC143C</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent2">#DDF9FF</color>
     <color name="blue_grey_800_50p">#E237474F</color>
+
+    <!-- Song Item -->
+    <color name="si_primary">#2d2d2d</color>
+    <color name="si_secondary">#FF4081</color>
+    <color name="si_accent">#33b5e5</color>
+    <color name="si_divider">#CCC</color>
+    <color name="si_icons">#FFF</color>
+    <color name="si_item_background">#FFF</color>
+    <color name="si_backgroundColor">#E8E8E0</color>
+    <color name="si_backgroundColorPress">#DBDBD3</color>
+    <color name="si_red">#FF3B00</color>
+    <color name="si_red_press">#990000</color>
+    <color name="si_dark_gray">#4C535B</color>
+    <color name="si_dark_gray_press">#ff7e8a97</color>
 
     <!-- Common -->
     <color name="transparent">#00000000</color>

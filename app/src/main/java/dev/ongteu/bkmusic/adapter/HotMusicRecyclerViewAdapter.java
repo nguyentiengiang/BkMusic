@@ -16,6 +16,7 @@ import dev.ongteu.bkmusic.data.model.HotSongItem;
 //import dev.ongteu.bkmusic.data.table.GetSongs;
 import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnFragmentInteractionListener;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
+import dev.ongteu.bkmusic.utils.Common;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link HotSongItem} and makes a call to the
@@ -45,7 +46,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.hotSongArtist.setText(mValues.get(position).getSinger().toString());
-        holder.hotSongName.setText(mValues.get(position).getSongName().toString());
+        holder.hotSongName.setText(Common.cutterLongName(mValues.get(position).getSongName().toString()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -68,7 +68,7 @@ public class MyPlayerFragment extends Fragment {
         ViewPager viewPagerPlayer = (ViewPager) viewRoot.findViewById(R.id.viewPagerPlayer);
         Context context = viewRoot.getContext();
         PlayerAdapter playerAdapter = new PlayerAdapter(context, mPlayType, mSongUrl);
-
+        viewPagerPlayer.getCurrentItem();
         viewPagerPlayer.setAdapter(playerAdapter);
 //        viewPagerPlayer.setCurrentItem(0);
 //        new GetSongs(context, mSongUrl);

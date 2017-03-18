@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/si_item_height">
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+    <!-- this is the item front view -->
+    <RelativeLayout
+        android:tag="front"
+        android:background="@color/si_item_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/si_item_padding">
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/chartAlbumArt"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/si_ic_book_black_24dp"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/chartSongName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:layout_toRightOf="@+id/chartAlbumArt"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/chartSongArtist"
+            android:layout_below="@+id/chartSongName"
+            android:layout_alignLeft="@+id/chartSongName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+
+    <!-- just a divider -->
+    <View android:background="@color/si_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp" />
+
+</FrameLayout>
