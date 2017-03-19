@@ -109,9 +109,11 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
             int pageNumber = 1;
             switch (mParentId){
                 case 2:
+                    FRM_NAME_BACK_STACK = "POP_ALBUM";
                     fragment = PopularAlbumFragment.newInstance(1, mItem.getCategoryCode(), pageNumber);
                     break;
                 case 3:
+                    FRM_NAME_BACK_STACK = "MUSIC_CHART";
                     fragment = MusicChartFragment.newInstance(1, mItem.getCategoryCode());
                     break;
                 case 1:

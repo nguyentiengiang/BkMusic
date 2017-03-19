@@ -86,7 +86,6 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
 
         @Override
         public void onClick(View v) {
-//            NowPlayingFragment nowPlayingFragment = NowPlayingFragment.newInstance(mItem.getSongUrl(), 1);
             MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mItem.getSongUrl());
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()

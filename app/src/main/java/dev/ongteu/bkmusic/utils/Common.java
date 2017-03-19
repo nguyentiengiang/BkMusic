@@ -1,7 +1,5 @@
 package dev.ongteu.bkmusic.utils;
 
-import org.jsoup.helper.StringUtil;
-
 /**
  * Created by TienGiang on 18/3/2017.
  */

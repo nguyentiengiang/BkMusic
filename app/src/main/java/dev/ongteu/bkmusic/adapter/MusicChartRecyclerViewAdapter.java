@@ -2,6 +2,7 @@ package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
 import android.media.Image;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
 import dev.ongteu.bkmusic.fragment.MusicChartFragment.OnListFragmentInteractionListener;
+import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
@@ -65,7 +68,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View mView;
         public final TextView mChartSongName;
         public final TextView mChartSongArtist;
@@ -83,6 +86,16 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
         @Override
         public String toString() {
             return super.toString() + " '" + mChartSongName.getText() + "'";
+        }
+
+        @Override
+        public void onClick(View v) {
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mItem.getSongUrl());
+            FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
+            fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
+                    .replace(R.id.fragment_container, myPlayerFragment).commit();
         }
     }
 }

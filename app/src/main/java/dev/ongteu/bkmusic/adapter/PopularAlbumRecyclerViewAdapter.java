@@ -1,6 +1,7 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.AlbumItem;
+import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.fragment.PopularAlbumFragment.OnListFragmentInteractionListener;
 import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.MyPicasso;
@@ -92,7 +95,12 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
         @Override
         public void onClick(View v) {
-
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mAlbumItem.getAlbumUrl());
+            FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
+            fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
+                    .replace(R.id.fragment_container, myPlayerFragment).commit();
         }
     }
 }

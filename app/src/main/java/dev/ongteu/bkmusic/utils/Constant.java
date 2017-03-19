@@ -22,6 +22,19 @@ public class Constant {
     public static final String URL_GET_SINGER = URL_HOST + "GetSinger?urlSinger=";
 
     /**
+     * Category Parent ID
+     */
+    public static final int PARENT_NHACHOT = 1;
+    public static final int PARENT_POPALBUM = 2;
+    public static final int PARENT_CHART = 3;
+
+    /**
+     * Category Column Number
+     */
+    public static final int COLUMN_COUNT_2 = 2;
+    public static final int COLUMN_COUNT_3 = 3;
+
+    /**
      * Define other constants here ...
      */
     public static final int MAX_LENGTH_NAME_TITLE = 32;
