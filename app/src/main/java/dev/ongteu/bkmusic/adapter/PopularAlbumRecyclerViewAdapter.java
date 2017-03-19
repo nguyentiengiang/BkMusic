@@ -1,6 +1,7 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +17,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.AlbumItem;
+import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.fragment.PopularAlbumFragment.OnListFragmentInteractionListener;
+import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.MyPicasso;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link AlbumItem} and makes a call to the
@@ -46,32 +51,10 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mAlbumItem = mValues.get(position);
-        holder.mAlbumName.setText(mValues.get(position).getAlbumName());
+        holder.mAlbumName.setText(Common.cutterLongName(mValues.get(position).getAlbumName()));
         holder.mAlbumArtist.setText(mValues.get(position).getSinger());
 
-        Picasso.with(holder.mAlbumArt.getContext()).load(mValues.get(position).getAlbumArt())
-                .placeholder(R.drawable.lol_guy)
-                .error(R.drawable.lol_guy)
-                .networkPolicy(NetworkPolicy.OFFLINE).into(holder.mAlbumArt, new Callback() {
-            @Override
-            public void onSuccess() {
-            }
-
-            @Override
-            public void onError() {
-                Picasso.with(holder.mAlbumArt.getContext()).load(mValues.get(position).getAlbumArt())
-                        .into(holder.mAlbumArt, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                            }
-
-                            @Override
-                            public void onError() {
-                                Log.v("Picasso", "Couldn't load image");
-                            }
-                        });
-            }
-        });
+        new MyPicasso(holder.mAlbumArt.getContext(), holder.mAlbumArt, mValues.get(position).getAlbumArt());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +83,9 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mAlbumName = (TextView) view.findViewById(R.id.albumName);
-            mAlbumArtist = (TextView) view.findViewById(R.id.albumArtist);
-            mAlbumArt = (ImageView) view.findViewById(R.id.albumArt);
+            mAlbumName = (TextView) view.findViewById(R.id.popAlbumName);
+            mAlbumArtist = (TextView) view.findViewById(R.id.popAlbumArtist);
+            mAlbumArt = (ImageView) view.findViewById(R.id.popAlbumArt);
         }
 
         @Override
@@ -112,7 +95,12 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
         @Override
         public void onClick(View v) {
-
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mAlbumItem.getAlbumUrl());
+            FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
+            fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
+                    .replace(R.id.fragment_container, myPlayerFragment).commit();
         }
     }
 }

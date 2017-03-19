@@ -41,7 +41,7 @@ public class GetPlayOnline {
                     index++;
                 }
                 MySongigPlayer.changeNowPlaying(context, SONGIG_ITEMS);
-                MySongigPlayer.playSong(context,0);
+                MySongigPlayer.playSong(context, 0);
             }
 
             @Override

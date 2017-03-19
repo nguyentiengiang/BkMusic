@@ -9,7 +9,7 @@ import java.util.List;
 import dev.ongteu.bkmusic.utils.SmartFragmentStatePagerAdapter;
 
 /**
- * Created by daint on 11/18/2016.
+ * Updated by GiangNT on 03/19/2017.
  */
 
 public class MainHomeAdapter extends SmartFragmentStatePagerAdapter {

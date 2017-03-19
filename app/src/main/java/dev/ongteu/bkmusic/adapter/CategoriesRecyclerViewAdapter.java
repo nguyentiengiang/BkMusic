@@ -25,6 +25,7 @@ import dev.ongteu.bkmusic.fragment.HotMusicFragment;
 import dev.ongteu.bkmusic.fragment.MusicChartFragment;
 import dev.ongteu.bkmusic.fragment.PopularAlbumFragment;
 import dev.ongteu.bkmusic.fragment.SongFragment;
+import dev.ongteu.bkmusic.utils.MyPicasso;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link CategoryItem} and makes a call to the
@@ -60,30 +61,7 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-//        Ion.with(holder.mCateImageView.getContext()).load(mValues.get(position).getImg()).intoImageView(holder.mCateImageView);
-        Picasso.with(holder.mCateImageView.getContext()).load(mValues.get(position).getImg())
-                .placeholder(R.drawable.lol_guy)
-                .error(R.drawable.lol_guy)
-                .networkPolicy(NetworkPolicy.OFFLINE).into(holder.mCateImageView, new Callback() {
-            @Override
-            public void onSuccess() {
-            }
-
-            @Override
-            public void onError() {
-                Picasso.with(holder.mCateImageView.getContext()).load(mValues.get(position).getImg())
-                        .into(holder.mCateImageView, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                            }
-
-                            @Override
-                            public void onError() {
-                                Log.v("Picasso", "Couldn't load image");
-                            }
-                        });
-            }
-        });
+        new MyPicasso(holder.mCateImageView.getContext(), holder.mCateImageView, mValues.get(position).getImg());
         holder.mmCateNameView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -131,9 +109,11 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
             int pageNumber = 1;
             switch (mParentId){
                 case 2:
+                    FRM_NAME_BACK_STACK = "POP_ALBUM";
                     fragment = PopularAlbumFragment.newInstance(1, mItem.getCategoryCode(), pageNumber);
                     break;
                 case 3:
+                    FRM_NAME_BACK_STACK = "MUSIC_CHART";
                     fragment = MusicChartFragment.newInstance(1, mItem.getCategoryCode());
                     break;
                 case 1:

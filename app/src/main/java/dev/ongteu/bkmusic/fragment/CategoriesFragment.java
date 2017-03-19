@@ -14,6 +14,7 @@ import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.adapter.CategoriesRecyclerViewAdapter;
 import dev.ongteu.bkmusic.data.dao.CategoryDAO;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
+import dev.ongteu.bkmusic.utils.Constant;
 //import dev.ongteu.bkmusic.data.table.CategoriesTable;
 
 /**
@@ -68,14 +69,19 @@ public class CategoriesFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            switch (mParentId){
+                case Constant.PARENT_CHART:
+                    mColumnCount = Constant.COLUMN_COUNT_3;
+                    break;
+                case Constant.PARENT_NHACHOT:
+                case Constant.PARENT_POPALBUM:
+                default:
+                    mColumnCount = Constant.COLUMN_COUNT_2;
+                    break;
             }
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             CategoriesRecyclerViewAdapter adapter = new CategoriesRecyclerViewAdapter(CategoryDAO.CATEGORY_ITEMS, mListener, context, mParentId);
             new CategoryDAO(context, mParentId, adapter);
-//            new CategoriesTable(context, adapter, mParentId);
             recyclerView.setAdapter(adapter);
         }
         return view;

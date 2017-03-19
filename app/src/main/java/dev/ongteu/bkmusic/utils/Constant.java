@@ -10,13 +10,6 @@ public class Constant {
     public static final String SHARE_PREF = "bkmusic_spref";
     public static final String SP_KEY_FIRST_RUN = "isFirstRun";
 
-
-    /**
-     * SQLite Database Setting
-     */
-    public static final String DATABASE_NAME = "bkmusicapp.sqlite";
-    public static final int DATABASE_VERSION = 1;
-
     /**
      * API URLs
      */
@@ -29,9 +22,22 @@ public class Constant {
     public static final String URL_GET_SINGER = URL_HOST + "GetSinger?urlSinger=";
 
     /**
+     * Category Parent ID
+     */
+    public static final int PARENT_NHACHOT = 1;
+    public static final int PARENT_POPALBUM = 2;
+    public static final int PARENT_CHART = 3;
+
+    /**
+     * Category Column Number
+     */
+    public static final int COLUMN_COUNT_2 = 2;
+    public static final int COLUMN_COUNT_3 = 3;
+
+    /**
      * Define other constants here ...
      */
-
+    public static final int MAX_LENGTH_NAME_TITLE = 32;
 
 
 }
