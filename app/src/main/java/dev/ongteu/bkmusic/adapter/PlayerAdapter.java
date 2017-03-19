@@ -94,7 +94,7 @@ public class PlayerAdapter extends PagerAdapter {
                 TextView txtSongArtist = (TextView) view.findViewById(R.id.txtSongArtist);
                 ShadowImageView imgCover = (ShadowImageView) view.findViewById(R.id.imgAlbumArt);
 
-                new MyPicasso(imgCover.getContext(), imgCover, "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg");
+                new MyPicasso(imgCover.getContext(), imgCover, "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg", true);
                 imgCover.startRotateAnimation();
 
                 break;

@@ -18,8 +18,8 @@
     <dimen name="recycler_margin_horizontal">4dp</dimen>
     <dimen name="recycler_margin_vertical">4dp</dimen>
     <dimen name="recycler_layout_spacing">4dp</dimen>
-    <dimen name="recycler_item_footer_height_min">48dp</dimen>
-    <dimen name="recycler_item_footer_padding">16dp</dimen>
+    <dimen name="recycler_item_footer_height_min">30dp</dimen>
+    <dimen name="recycler_item_footer_padding">5dp</dimen>
 
     <!-- Rage comic detail -->
     <dimen name="rage_comic_image_size">200dp</dimen>

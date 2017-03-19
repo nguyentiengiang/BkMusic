@@ -18,6 +18,13 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
  */
 
 public class MyPicasso {
+
+    /**
+     * Using image view default
+     * @param context
+     * @param imageView
+     * @param urlImage
+     */
     public MyPicasso(final Context context, final ImageView imageView, final String urlImage){
         Picasso.with(context).load(urlImage)
                 .placeholder(R.drawable.lol_guy)
@@ -44,7 +51,15 @@ public class MyPicasso {
         });
     }
 
-    public MyPicasso(final Context context, final ShadowImageView imageView, final String urlImage){
+    /**
+     * Using for load player image
+     *
+     * @param context
+     * @param imageView
+     * @param urlImage
+     * @param flag is for android >= 5
+     */
+    public MyPicasso(final Context context, final ShadowImageView imageView, final String urlImage, boolean flag){
         Picasso.with(context).load(urlImage)
                 .placeholder(R.drawable.lol_guy)
                 .error(R.drawable.lol_guy)
@@ -64,7 +79,7 @@ public class MyPicasso {
 
                             @Override
                             public void onError() {
-                                Log.v("Picasso", "Couldn't load image");
+                                Log.v("Picasso", "Couldn't load image player");
                             }
                         });
             }
