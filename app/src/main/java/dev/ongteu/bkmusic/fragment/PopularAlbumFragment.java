@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.AlbumItem;
 import dev.ongteu.bkmusic.data.parser.online.GetPoplarAlbum;
+import dev.ongteu.bkmusic.utils.Constant;
 
 /**
  * A fragment representing a list of Items.
@@ -27,7 +28,7 @@ public class PopularAlbumFragment extends Fragment {
     private static final String ARG_PLAYLIST_ID = "playlist_id";
     private static final String ARG_PAGE_NUMBER = "page_number";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private int mColumnCount = Constant.COLUMN_COUNT_3;
     private int mPlaylistId = 29;
     private int mPageNumber = 1;
     private OnListFragmentInteractionListener mListener;
@@ -70,11 +71,7 @@ public class PopularAlbumFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
             new GetPoplarAlbum(context, mPlaylistId, mPageNumber, recyclerView, mListener);
         }

@@ -66,7 +66,6 @@ public class PlayerAdapter extends PagerAdapter {
 
         int resId = -1;
 
-        //Getting my layout's in my adapter. Three layouts defined.
         switch (position) {
             case 1:
                 resId = R.layout.fragment_nowlist;
@@ -77,9 +76,6 @@ public class PlayerAdapter extends PagerAdapter {
                 break;
         }
         View view = inflater.inflate(resId, container, false);
-        new GetPlayOnline(mContext, mUrlPlay);
-
-//        mSongNow = SongigPlayer.getInstance(mContext).getCurrentSong();
 
         switch (position) {
             case 1:

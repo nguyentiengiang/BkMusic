@@ -22,6 +22,7 @@ import dev.ongteu.bkmusic.data.model.AlbumItem;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.fragment.PopularAlbumFragment.OnListFragmentInteractionListener;
 import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
 /**
@@ -56,16 +57,6 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
         new MyPicasso(holder.mAlbumArt.getContext(), holder.mAlbumArt, mValues.get(position).getAlbumArt());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mAlbumItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -83,6 +74,7 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            mView.setOnClickListener(this);
             mAlbumName = (TextView) view.findViewById(R.id.popAlbumName);
             mAlbumArtist = (TextView) view.findViewById(R.id.popAlbumArtist);
             mAlbumArt = (ImageView) view.findViewById(R.id.popAlbumArt);
@@ -95,7 +87,7 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
         @Override
         public void onClick(View v) {
-            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mAlbumItem.getAlbumUrl());
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mAlbumItem.getAlbumUrl());
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();

@@ -64,16 +64,6 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
         new MyPicasso(holder.mCateImageView.getContext(), holder.mCateImageView, mValues.get(position).getImg());
         holder.mmCateNameView.setText(mValues.get(position).getName());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -90,10 +80,9 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            mView.setOnClickListener(this);
             mCateImageView = (ImageView) view.findViewById(R.id.category_item_image);
             mmCateNameView = (TextView) view.findViewById(R.id.category_item_name);
-            mCateImageView.setOnClickListener(this);
-            mmCateNameView.setOnClickListener(this);
         }
 
         @Override

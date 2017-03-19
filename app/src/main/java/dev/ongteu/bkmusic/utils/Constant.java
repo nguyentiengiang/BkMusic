@@ -39,5 +39,9 @@ public class Constant {
      */
     public static final int MAX_LENGTH_NAME_TITLE = 32;
 
+    public static final int PLAY_TYPE_UNKNOW = 0;
+    public static final int PLAY_TYPE_ONLINE = 1;
+    public static final int PLAY_TYPE_OFFLINE = 2;
+
 
 }
