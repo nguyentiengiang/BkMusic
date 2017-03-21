@@ -14,17 +14,21 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.github.mohammad.songig.model.Song;
 
+import java.io.File;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.Constant;
+import dev.ongteu.bkmusic.utils.File.FileHelper;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
-public class NowListAdapter extends BaseSwipeAdapter {
+public class LocalSongAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
     private List<Song> mSongList;
 
-    public NowListAdapter(Context mContext, List<Song> songList) {
+    public LocalSongAdapter(Context mContext, List<Song> songList) {
         this.mContext = mContext;
         this.mSongList = songList;
     }
@@ -36,7 +40,7 @@ public class NowListAdapter extends BaseSwipeAdapter {
 
     @Override
     public View generateView(int position, ViewGroup parent) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item, null);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item2, null);
         SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
@@ -65,8 +69,9 @@ public class NowListAdapter extends BaseSwipeAdapter {
         TextView txtSISongName = (TextView) convertView.findViewById(R.id.siSongName);
         TextView txtSISongArtist = (TextView) convertView.findViewById(R.id.siSongArtist);
 
-        txtSISongName.setText(this.getItem(position).getName());
+        txtSISongName.setText(Common.cutterLongName(this.getItem(position).getName()));
         txtSISongArtist.setText(this.getItem(position).getArtistName());
+
         new MyPicasso(convertView.getContext(), imgAlbumArt, this.getItem(position).getImageUrl());
         Log.e("NOW LIST ADAP ===>>>>", this.getItem(position).getName());
     }

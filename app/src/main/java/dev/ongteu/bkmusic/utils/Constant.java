@@ -11,6 +11,20 @@ public class Constant {
     public static final String SP_KEY_FIRST_RUN = "isFirstRun";
 
     /**
+     * Local music path of App
+     */
+    public static final String PATH_MUSIC_APP = "BkMusic";
+    public static final String PATH_MUSIC_APP_ART = "art";
+    public static final String PATH_MUSIC_USER = "Music";
+    public static final String PATH_MUSIC_USER_ART = "art";
+
+    /**
+     * Protocol file
+     */
+    public static final String URL_LOCAL_FILE = "file://";
+    public static final String IMG_EXT = ".png";
+
+    /**
      * API URLs
      */
     public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic/";
@@ -42,6 +56,13 @@ public class Constant {
     public static final int PLAY_TYPE_UNKNOW = 0;
     public static final int PLAY_TYPE_ONLINE = 1;
     public static final int PLAY_TYPE_OFFLINE = 2;
+
+    /**
+     *
+     */
+    public static final int IS_USER_LOCAL = 1;
+    public static final String MUSIC_LOCAL_ARTIST = "Unknown Artist";
+    public static final String MUSIC_LOCAL_ALBUM = "Unknown Album";
 
 
 }

@@ -12,6 +12,7 @@
     <string name="menuMusicChart">Bảng xếp hạng</string>
     <string name="menuFavorMusic">Nhạc của tôi</string>
 
+    <string name="scan_music">Đang tìm bài hát</string>
     <string name="player_online">Nghe nhạc trực tuyến</string>
     <string name="player_offline">Nghe nhạc</string>
 

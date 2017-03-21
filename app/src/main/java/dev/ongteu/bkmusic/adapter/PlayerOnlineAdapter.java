@@ -24,20 +24,17 @@ import dev.ongteu.bkmusic.utils.MyPicasso;
 /**
  * Updated by GiangNT on 17/03/2017.
  */
-public class PlayerAdapter extends PagerAdapter {
+public class PlayerOnlineAdapter extends PagerAdapter {
 
-    private static final String TAG = "PlayerAdapter";
+    private static final String TAG = "PlayerOnlineAdapter";
     private List<Song> mSongIgItems;
-    private List<SongItem> mSongItems;
     private Song mSongNow;
     private Context mContext;
-    private int mPlayType;
-    private String mUrlPlay;
 
-    public PlayerAdapter(Context context, int playType, String urlPlay) {
+    public PlayerOnlineAdapter(Context context, List<Song> SongIgItems) {
         mContext = context;
-        mPlayType = playType;
-        mUrlPlay = urlPlay;
+        mSongIgItems = SongIgItems;
+        mSongNow = SongigPlayer.getInstance(context).getCurrentSong();
     }
 
     @Override
@@ -89,8 +86,10 @@ public class PlayerAdapter extends PagerAdapter {
                 TextView txtNameSong = (TextView) view.findViewById(R.id.txtSongName);
                 TextView txtSongArtist = (TextView) view.findViewById(R.id.txtSongArtist);
                 ShadowImageView imgCover = (ShadowImageView) view.findViewById(R.id.imgAlbumArt);
+                txtNameSong.setText(mSongNow.getName());
+                txtSongArtist.setText(mSongNow.getArtistName());
 
-                new MyPicasso(imgCover.getContext(), imgCover, "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg", true);
+                new MyPicasso(imgCover.getContext(), imgCover, mSongNow.getImageUrl(), true);
                 imgCover.startRotateAnimation();
 
                 break;
