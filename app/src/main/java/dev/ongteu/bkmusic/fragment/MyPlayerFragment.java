@@ -14,7 +14,10 @@ import com.github.mohammad.songig.model.Song;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.adapter.PlayerAdapter;
+import dev.ongteu.bkmusic.adapter.PlayerOnlineAdapter;
+import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
+import dev.ongteu.bkmusic.data.runtime.GetPlayNow;
+import dev.ongteu.bkmusic.utils.Constant;
 //import dev.ongteu.bkmusic.data.table.GetSongs;
 
 /**
@@ -29,7 +32,7 @@ public class MyPlayerFragment extends Fragment {
     private static final String ARG_PLAY_TYPE = "playType";
     private static final String ARG_SONG_URL = "songUrl";
 
-    private int mPlayType;
+    private int mPlayType = 3;
     private String mSongUrl;
     private List<Song> mPlaylist;
 
@@ -67,11 +70,16 @@ public class MyPlayerFragment extends Fragment {
         View viewRoot = inflater.inflate(R.layout.fragment_my_player, container, false);
         ViewPager viewPagerPlayer = (ViewPager) viewRoot.findViewById(R.id.viewPagerPlayer);
         Context context = viewRoot.getContext();
-        PlayerAdapter playerAdapter = new PlayerAdapter(context, mPlayType, mSongUrl);
-        viewPagerPlayer.getCurrentItem();
-        viewPagerPlayer.setAdapter(playerAdapter);
-//        viewPagerPlayer.setCurrentItem(0);
-//        new GetSongs(context, mSongUrl);
+        switch (mPlayType){
+            case Constant.PLAY_TYPE_ONLINE:
+                new GetPlayOnline(context, mSongUrl, viewPagerPlayer);
+                break;
+            case Constant.PLAY_TYPE_OFFLINE:
+                break;
+            default:
+                new GetPlayNow(context, viewPagerPlayer);
+                break;
+        }
 
         return viewRoot;
     }

@@ -50,6 +50,7 @@ dependencies {
     compile 'com.github.satyan:sugar:1.5'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
     compile 'com.afollestad.material-dialogs:commons:0.9.4.1'
+    compile 'com.sromku:simple-storage:1.2.0'
     compile 'com.github.HugoMatilla:AudioPlayerView:v1.0.1'
     compile 'com.github.iammert:InteractivePlayerView:f4f6490290'
     provided 'org.glassfish:javax.annotation:10.0-b28'

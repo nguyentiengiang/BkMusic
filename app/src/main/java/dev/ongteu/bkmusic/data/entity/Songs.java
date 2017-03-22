@@ -4,38 +4,33 @@ package dev.ongteu.bkmusic.data.entity;
  * Created by TienGiang on 26/9/2016.
  */
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
+import com.orm.dsl.Unique;
 
 public class Songs extends SugarRecord {
 
     private Long id;
 
-    @SerializedName("songName")
-    @Expose
     private String songName;
-    @SerializedName("singer")
-    @Expose
+
     private String singer;
-    @SerializedName("singerUrl")
-    @Expose
+
     private String singerUrl;
-    @SerializedName("bgimage")
-    @Expose
+
     private String bgimage;
-    @SerializedName("avatar")
-    @Expose
+
     private String avatar;
-    @SerializedName("keyMp3")
-    @Expose
+
+    @Unique
     private String keyMp3;
-    @SerializedName("mp3Url")
-    @Expose
+
     private String mp3Url;
-    @SerializedName("songUrl")
-    @Expose
+
     private String songUrl;
+
+    private String fileName;
+
+    private int isUserLocal;
 
     /**
      * No args constructor for use in serialization
@@ -45,17 +40,19 @@ public class Songs extends SugarRecord {
     }
 
     /**
+     * For create new Song
      *
-     * @param bgimage
-     * @param singerUrl
-     * @param singer
-     * @param keyMp3
      * @param songName
+     * @param singer
+     * @param singerUrl
+     * @param bgimage
      * @param avatar
+     * @param keyMp3
      * @param mp3Url
      * @param songUrl
+     * @param isUserLocal
      */
-    public Songs(String songName, String singer, String singerUrl, String bgimage, String avatar, String keyMp3, String mp3Url, String songUrl) {
+    public Songs(String songName, String singer, String singerUrl, String bgimage, String avatar, String keyMp3, String mp3Url, String songUrl, String fileName, int isUserLocal) {
         super();
         this.songName = songName;
         this.singer = singer;
@@ -65,6 +62,8 @@ public class Songs extends SugarRecord {
         this.keyMp3 = keyMp3;
         this.mp3Url = mp3Url;
         this.songUrl = songUrl;
+        this.fileName = fileName;
+        this.isUserLocal = isUserLocal;
     }
 
     public String getSongName() {
@@ -168,6 +167,32 @@ public class Songs extends SugarRecord {
 
     public Songs withSongUrl(String songUrl) {
         this.songUrl = songUrl;
+        return this;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Songs withFileName(String fileName) {
+        this.fileName = fileName;
+        return this;
+    }
+
+    public int getIsUserLocal() {
+        return isUserLocal;
+    }
+
+    public void setIsUserLocal(int isUserLocal) {
+        this.isUserLocal = isUserLocal;
+    }
+
+    public Songs withIsUserLocal(int isUserLocal) {
+        this.isUserLocal = isUserLocal;
         return this;
     }
 

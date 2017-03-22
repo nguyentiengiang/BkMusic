@@ -13,10 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.squareup.picasso.Picasso;
+
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.fragment.CategoriesFragment;
 import dev.ongteu.bkmusic.fragment.MainActivityFragment;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
+import dev.ongteu.bkmusic.utils.Constant;
+import dev.ongteu.bkmusic.utils.File.MusicScanner;
 import dev.ongteu.bkmusic.utils.Loader;
 
 public class MainActivity extends AppCompatActivity
@@ -117,7 +121,7 @@ public class MainActivity extends AppCompatActivity
 //                Song song = new Song(1, "Test song name", "Test song artistName", "Test song albumName", urlMp3, urlImg, "Test song albumId", PlayMode.STREAM);
 //                SongigPlayer.getInstance(this).addToFirst(song);
 //                fragment = NowPlayingFragment.newInstance();
-                fragment = MyPlayerFragment.newInstance();
+                fragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_UNKNOW, "");
                 NAME_FRM_BACK_STACK = "NOW_PLAYING";
                 setTitle(getString(R.string.NOW_PLAYING));
                 break;

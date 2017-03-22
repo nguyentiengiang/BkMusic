@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
 import dev.ongteu.bkmusic.data.parser.online.GetHotSong;
+import dev.ongteu.bkmusic.utils.Constant;
 
 /**
  * A fragment representing a list of Items.
@@ -27,8 +28,8 @@ public class HotMusicFragment extends Fragment {
     private static final String ARG_PLAYLIST_ID = "playlistId";
     private static final String ARG_PAGE_NUMBER = "page_number";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private int mPlaylistId = 1;
+    private int mColumnCount = Constant.COLUMN_COUNT_3;
+    private int mPlaylistId = 4;
     private int mPageNumber = 1;
     private OnFragmentInteractionListener mListener;
 
@@ -39,8 +40,13 @@ public class HotMusicFragment extends Fragment {
     public HotMusicFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
+    /**
+     *
+     * @param columnCount
+     * @param playlistId
+     * @param pageNumber
+     * @return
+     */
     public static HotMusicFragment newInstance(int columnCount, int playlistId, int pageNumber) {
         HotMusicFragment fragment = new HotMusicFragment();
         Bundle args = new Bundle();
@@ -71,11 +77,7 @@ public class HotMusicFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
             new GetHotSong(context, mPlaylistId, mPageNumber, recyclerView, mListener);
         }

@@ -18,6 +18,7 @@ import dev.ongteu.bkmusic.data.model.MusicChartItem;
 import dev.ongteu.bkmusic.fragment.MusicChartFragment.OnListFragmentInteractionListener;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
 /**
@@ -51,16 +52,6 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
         holder.mChartSongArtist.setText(mValues.get(position).getSinger());
         new MyPicasso(holder.mChartAlbumArt.getContext(), holder.mChartAlbumArt, mValues.get(position).getAlbumArt());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -78,6 +69,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            mView.setOnClickListener(this);
             mChartSongName = (TextView) view.findViewById(R.id.chartSongName);
             mChartSongArtist = (TextView) view.findViewById(R.id.chartSongArtist);
             mChartAlbumArt = (ImageView) view.findViewById(R.id.chartAlbumArt);
@@ -90,7 +82,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
 
         @Override
         public void onClick(View v) {
-            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mItem.getSongUrl());
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mItem.getSongUrl());
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();

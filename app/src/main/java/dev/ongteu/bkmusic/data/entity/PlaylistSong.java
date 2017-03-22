@@ -8,6 +8,6 @@ import com.orm.SugarRecord;
 
 public class PlaylistSong extends SugarRecord {
     private Long playListId;
-    private Long songId;
+    private String songId;
 
 }
