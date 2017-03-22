@@ -38,6 +38,12 @@ public class NowListAdapter extends BaseSwipeAdapter {
     public View generateView(int position, ViewGroup parent) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item, null);
         SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+        swipeLayout.setOnClickListener(new SwipeLayout.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // call fragment player
+            }
+        });
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
             public void onOpen(SwipeLayout layout) {
