@@ -22,7 +22,7 @@ public class Loader {
 		MySPManager spManager = new MySPManager(context);
 		this.isFirstRun = spManager.isFirstRun();
 		if (Connectivity.isNetworkAvailable(context)) {
-			new CategoryDAO(context, 0, null);
+			new CategoryDAO(context);
 		} else {
 			MyDialog.getDialogNoInternet(context);
 		}
@@ -33,7 +33,7 @@ public class Loader {
 //                .cancelable(false)
 //                .show();
 
-		new MusicScanner(context);
+//		new MusicScanner(context);
 
 	}
 

@@ -73,7 +73,7 @@ public class PopularAlbumFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
-            new GetPoplarAlbum(context, mPlaylistId, mPageNumber, recyclerView, mListener);
+            new GetPoplarAlbum(mPlaylistId, mPageNumber, context, recyclerView, mListener);
         }
         return view;
     }

@@ -69,7 +69,7 @@ public class LocalSongAdapter extends BaseSwipeAdapter {
         TextView txtSISongName = (TextView) convertView.findViewById(R.id.siSongName);
         TextView txtSISongArtist = (TextView) convertView.findViewById(R.id.siSongArtist);
 
-        txtSISongName.setText(Common.cutterLongName(this.getItem(position).getName()));
+        txtSISongName.setText(Common.cutterLongName(this.getItem(position).getName(), Constant.MAX_LENGTH_NAME_TITLE));
         txtSISongArtist.setText(this.getItem(position).getArtistName());
 
         new MyPicasso(convertView.getContext(), imgAlbumArt, this.getItem(position).getImageUrl());

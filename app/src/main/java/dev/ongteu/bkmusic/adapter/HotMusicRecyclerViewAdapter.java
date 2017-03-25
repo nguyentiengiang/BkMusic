@@ -47,7 +47,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.hotSongArtist.setText(mValues.get(position).getSinger().toString());
-        holder.hotSongName.setText(Common.cutterLongName(mValues.get(position).getSongName().toString()));
+        holder.hotSongName.setText(Common.cutterLongName(mValues.get(position).getSongName().toString(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
 
     }
 

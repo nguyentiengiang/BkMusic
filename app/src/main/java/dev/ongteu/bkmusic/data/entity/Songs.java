@@ -1,35 +1,47 @@
 package dev.ongteu.bkmusic.data.entity;
 
+import com.github.gfx.android.orma.annotation.Column;
+import com.github.gfx.android.orma.annotation.PrimaryKey;
+import com.github.gfx.android.orma.annotation.Table;
+
 /**
  * Created by TienGiang on 26/9/2016.
  */
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Unique;
+@Table
+public class Songs {
 
-public class Songs extends SugarRecord {
+    @PrimaryKey(autoincrement = true)
+    private long id;
 
-    private Long id;
-
+    @Column
     private String songName;
 
+    @Column
     private String singer;
 
+    @Column
     private String singerUrl;
 
+    @Column
     private String bgimage;
 
+    @Column
     private String avatar;
 
-    @Unique
+    @Column(unique = true)
     private String keyMp3;
 
+    @Column
     private String mp3Url;
 
+    @Column
     private String songUrl;
 
+    @Column
     private String fileName;
 
+    @Column
     private int isUserLocal;
 
     /**
@@ -66,17 +78,20 @@ public class Songs extends SugarRecord {
         this.isUserLocal = isUserLocal;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getSongName() {
         return songName;
     }
 
     public void setSongName(String songName) {
         this.songName = songName;
-    }
-
-    public Songs withSongName(String songName) {
-        this.songName = songName;
-        return this;
     }
 
     public String getSinger() {
@@ -87,22 +102,12 @@ public class Songs extends SugarRecord {
         this.singer = singer;
     }
 
-    public Songs withSinger(String singer) {
-        this.singer = singer;
-        return this;
-    }
-
     public String getSingerUrl() {
         return singerUrl;
     }
 
     public void setSingerUrl(String singerUrl) {
         this.singerUrl = singerUrl;
-    }
-
-    public Songs withSingerUrl(String singerUrl) {
-        this.singerUrl = singerUrl;
-        return this;
     }
 
     public String getBgimage() {
@@ -113,22 +118,12 @@ public class Songs extends SugarRecord {
         this.bgimage = bgimage;
     }
 
-    public Songs withBgimage(String bgimage) {
-        this.bgimage = bgimage;
-        return this;
-    }
-
     public String getAvatar() {
         return avatar;
     }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public Songs withAvatar(String avatar) {
-        this.avatar = avatar;
-        return this;
     }
 
     public String getKeyMp3() {
@@ -139,22 +134,12 @@ public class Songs extends SugarRecord {
         this.keyMp3 = keyMp3;
     }
 
-    public Songs withKeyMp3(String keyMp3) {
-        this.keyMp3 = keyMp3;
-        return this;
-    }
-
     public String getMp3Url() {
         return mp3Url;
     }
 
     public void setMp3Url(String mp3Url) {
         this.mp3Url = mp3Url;
-    }
-
-    public Songs withMp3Url(String mp3Url) {
-        this.mp3Url = mp3Url;
-        return this;
     }
 
     public String getSongUrl() {
@@ -165,22 +150,12 @@ public class Songs extends SugarRecord {
         this.songUrl = songUrl;
     }
 
-    public Songs withSongUrl(String songUrl) {
-        this.songUrl = songUrl;
-        return this;
-    }
-
     public String getFileName() {
         return fileName;
     }
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public Songs withFileName(String fileName) {
-        this.fileName = fileName;
-        return this;
     }
 
     public int getIsUserLocal() {
@@ -190,10 +165,4 @@ public class Songs extends SugarRecord {
     public void setIsUserLocal(int isUserLocal) {
         this.isUserLocal = isUserLocal;
     }
-
-    public Songs withIsUserLocal(int isUserLocal) {
-        this.isUserLocal = isUserLocal;
-        return this;
-    }
-
 }

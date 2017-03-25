@@ -52,7 +52,7 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mAlbumItem = mValues.get(position);
-        holder.mAlbumName.setText(Common.cutterLongName(mValues.get(position).getAlbumName()));
+        holder.mAlbumName.setText(Common.cutterLongName(mValues.get(position).getAlbumName(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
         holder.mAlbumArtist.setText(mValues.get(position).getSinger());
 
         new MyPicasso(holder.mAlbumArt.getContext(), holder.mAlbumArt, mValues.get(position).getAlbumArt());

@@ -10,6 +10,9 @@ public class Constant {
     public static final String SHARE_PREF = "bkmusic_spref";
     public static final String SP_KEY_FIRST_RUN = "isFirstRun";
 
+    public static final String DB_NAME = "appbkmusic.db";
+    public static final int DB_VERSION = 1;
+
     /**
      * Local music path of App
      */
@@ -52,6 +55,7 @@ public class Constant {
      * Define other constants here ...
      */
     public static final int MAX_LENGTH_NAME_TITLE = 32;
+    public static final int MAX_LENGTH_NAME_TITLE_CATE = 20;
 
     public static final int PLAY_TYPE_UNKNOW = 0;
     public static final int PLAY_TYPE_ONLINE = 1;
@@ -63,6 +67,11 @@ public class Constant {
     public static final int IS_USER_LOCAL = 1;
     public static final String MUSIC_LOCAL_ARTIST = "Unknown Artist";
     public static final String MUSIC_LOCAL_ALBUM = "Unknown Album";
+
+    /**
+     * Common message
+     */
+    public static final String MSS_NETWORK_ERROR = "Network unstable";
 
 
 }

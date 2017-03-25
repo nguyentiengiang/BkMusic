@@ -48,7 +48,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mChartSongName.setText(Common.cutterLongName(mValues.get(position).getSongName()));
+        holder.mChartSongName.setText(Common.cutterLongName(mValues.get(position).getSongName(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
         holder.mChartSongArtist.setText(mValues.get(position).getSinger());
         new MyPicasso(holder.mChartAlbumArt.getContext(), holder.mChartAlbumArt, mValues.get(position).getAlbumArt());
 

@@ -69,7 +69,7 @@ public class MusicChartFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
-            new GetMusicChart(context, mPlaylistId, recyclerView, mListener);
+            new GetMusicChart(mPlaylistId, context, recyclerView, mListener);
         }
         return view;
     }
