@@ -4,18 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.adapter.CategoriesRecyclerViewAdapter;
 import dev.ongteu.bkmusic.data.dao.CategoryDAO;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
 import dev.ongteu.bkmusic.utils.Constant;
-//import dev.ongteu.bkmusic.data.table.CategoriesTable;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * A fragment representing a list of Items.
@@ -80,8 +81,8 @@ public class CategoriesFragment extends Fragment {
                     break;
             }
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            CategoriesRecyclerViewAdapter adapter = new CategoriesRecyclerViewAdapter(CategoryDAO.CATEGORY_ITEMS, mListener, context, mParentId);
-            new CategoryDAO(context, mParentId, adapter);
+            List<CategoryItem> categoryItems = new CategoryDAO(context).getCategoryByParentId(mParentId);
+            CategoriesRecyclerViewAdapter adapter = new CategoriesRecyclerViewAdapter(categoryItems, mListener, context, mParentId);
             recyclerView.setAdapter(adapter);
         }
         return view;

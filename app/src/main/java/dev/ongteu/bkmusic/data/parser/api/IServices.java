@@ -8,6 +8,7 @@ import dev.ongteu.bkmusic.data.model.HotSongItem;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
 import dev.ongteu.bkmusic.data.model.SongItem;
 import dev.ongteu.bkmusic.utils.Constant;
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -23,13 +24,13 @@ public interface IServices {
     Call<List<CategoryItem>> listCategory();
 
     @GET(Constant.URL_GET_NHACHOT+"/{categoryCode}/{page}")
-    Call<List<HotSongItem>> listHotSongs(@Path("categoryCode") int categoryCode, @Path("page") int page);
+    Observable<List<HotSongItem>> listHotSongs(@Path("categoryCode") int categoryCode, @Path("page") int page);
 
     @GET(Constant.URL_GET_POPULAR_ALBUM+"/{categoryCode}/{page}")
-    Call<List<AlbumItem>> listAlbum(@Path("categoryCode") int categoryCode, @Path("page") int page);
+    Observable<List<AlbumItem>> listAlbum(@Path("categoryCode") int categoryCode, @Path("page") int page);
 
     @GET(Constant.URL_GET_CHART+"/{categoryCode}")
-    Call<MusicChartItem> singleChart(@Path("categoryCode") int categoryCode);
+    Observable<MusicChartItem> singleChart(@Path("categoryCode") int categoryCode);
 
     @GET(Constant.URL_GET_SONGS)
     Call<List<SongItem>> listSongs(@Query("urlSong") String urlSong);

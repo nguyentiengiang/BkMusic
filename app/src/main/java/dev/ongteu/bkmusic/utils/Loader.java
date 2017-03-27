@@ -22,24 +22,20 @@ public class Loader {
 		MySPManager spManager = new MySPManager(context);
 		this.isFirstRun = spManager.isFirstRun();
 		if (Connectivity.isNetworkAvailable(context)) {
-			new CategoryDAO(context, 0, null);
+			new CategoryDAO(context);
 		} else {
 			MyDialog.getDialogNoInternet(context);
 		}
 
+		if (spManager.isFirstRun()) {
 //        final MaterialDialog dialog = new MaterialDialog.Builder(context)
 //                .title(R.string.scan_music)
 //                .content(R.string.waitting_text)
 //                .cancelable(false)
 //                .show();
-
-		new MusicScanner(context);
+			new MusicScanner(context);
+		}
 
 	}
-
-	public boolean isFirstRun() {
-		return isFirstRun;
-	}
-	
 
 }

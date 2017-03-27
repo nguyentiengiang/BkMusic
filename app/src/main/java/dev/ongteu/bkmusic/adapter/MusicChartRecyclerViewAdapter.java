@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.Image;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mChartSongName.setText(Common.cutterLongName(mValues.get(position).getSongName()));
+        holder.mChartSongName.setText(Common.cutterLongName(mValues.get(position).getSongName(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
         holder.mChartSongArtist.setText(mValues.get(position).getSinger());
         new MyPicasso(holder.mChartAlbumArt.getContext(), holder.mChartAlbumArt, mValues.get(position).getAlbumArt());
 
@@ -82,12 +83,14 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
 
         @Override
         public void onClick(View v) {
+            Log.e("Click", mItem.getSongName());
             MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mItem.getSongUrl());
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
                     .replace(R.id.fragment_container, myPlayerFragment).commit();
+            ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
         }
     }
 }

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import dev.ongteu.bkmusic.data.entity.Categories;
+import dev.ongteu.bkmusic.data.entity.Categories_Schema;
+import dev.ongteu.bkmusic.data.entity.OrmaDatabase;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
 import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
 import dev.ongteu.bkmusic.data.parser.api.IServices;
@@ -19,13 +22,16 @@ import retrofit2.Response;
  * Created by TienGiang on 17/3/2017.
  */
 
-public class CategoryDAO {
-    public static List<CategoryItem> CATEGORY_ITEMS = new ArrayList<CategoryItem>();
+public class CategoryDAO extends BaseDAO {
 
-    public CategoryDAO(final Context context, final int parentId, RecyclerView.Adapter adapterView){
-        final MySPManager spManager = new MySPManager(context);
-        if (spManager.isFirstRun() || Categories.count(Categories.class) == 0) {
+    public CategoryDAO(final Context context){
+        super(context, true);
+        init();
+    }
 
+    public void init() {
+        final MySPManager spManager = new MySPManager(this.context);
+        if (spManager.isFirstRun() || this.bkOrm.selectFromCategories().count() == 0) {
             IServices iGetCategories = BaseRetrofit.instance().create(IServices.class);
             Call<List<CategoryItem>> callCate = iGetCategories.listCategory();
             callCate.enqueue(new Callback<List<CategoryItem>>() {
@@ -34,7 +40,7 @@ public class CategoryDAO {
                     List<CategoryItem> listCate = response.body();
                     for (CategoryItem cateItem : listCate) {
                         Categories cate = new Categories(cateItem.getCategoryCode(), cateItem.getName(), cateItem.getImg(), cateItem.getParentId());
-                        cate.save();
+                        bkOrm.insertIntoCategories(cate);
                     }
                 }
 
@@ -44,13 +50,15 @@ public class CategoryDAO {
                 }
             });
             spManager.setFirstRun(false);
-        } else {
-            CATEGORY_ITEMS.clear();
-            List<Categories> categories = Categories.find(Categories.class, "PARENT_ID = ?", String.valueOf(parentId));
-            for (Categories cate : categories) {
-                CATEGORY_ITEMS.add(new CategoryItem(cate.getCategoryCode(), cate.getName(), cate.getImg(), cate.getParentId()));
-            }
         }
     }
 
+    public List<CategoryItem> getCategoryByParentId(final int parentId){
+        List<CategoryItem> categoryItems = new ArrayList<CategoryItem>();
+        List<Categories> categories = this.bkOrm.selectFromCategories().where(Categories_Schema.INSTANCE.parentId, "=", parentId).toList();
+        for (Categories cate : categories) {
+            categoryItems.add(new CategoryItem(cate.getCategoryCode(), cate.getName(), cate.getImg(), cate.getParentId()));
+        }
+        return categoryItems;
+    }
 }

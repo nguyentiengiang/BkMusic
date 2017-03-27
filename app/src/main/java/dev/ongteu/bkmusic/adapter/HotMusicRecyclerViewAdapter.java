@@ -47,7 +47,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.hotSongArtist.setText(mValues.get(position).getSinger().toString());
-        holder.hotSongName.setText(Common.cutterLongName(mValues.get(position).getSongName().toString()));
+        holder.hotSongName.setText(Common.cutterLongName(mValues.get(position).getSongName().toString(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
 
     }
 
@@ -83,6 +83,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
                     .replace(R.id.fragment_container, myPlayerFragment).commit();
+            ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
         }
     }
 

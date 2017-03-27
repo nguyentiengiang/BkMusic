@@ -1,30 +1,39 @@
 package dev.ongteu.bkmusic.data.entity;
 
-import com.orm.SugarRecord;
-
-import java.util.List;
+import com.github.gfx.android.orma.annotation.Column;
+import com.github.gfx.android.orma.annotation.PrimaryKey;
+import com.github.gfx.android.orma.annotation.Table;
 
 /**
  * Created by TienGiang on 16/3/2017.
  */
 
-public class Playlist extends SugarRecord {
-    private Long id;
+@Table
+public class Playlist {
+
+    @PrimaryKey(autoincrement = true)
+    private long id;
+
+    @Column
     private String name;
 
     public Playlist(){
     }
 
-    public Playlist(Long id, String name) {
+    public Playlist(String name) {
+        this.name = name;
+    }
+
+    public Playlist(long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -35,5 +44,4 @@ public class Playlist extends SugarRecord {
     public void setName(String name) {
         this.name = name;
     }
-
 }

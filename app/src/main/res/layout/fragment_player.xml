@@ -94,11 +94,11 @@
         android:showDividers="middle">
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/btn_song_play_mode_toggle"
+            android:id="@+id/btn_repeat_mode_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_play_mode_shuffle" />
+            app:srcCompat="@drawable/ic_play_mode_loop" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/btn_song_play_last"
@@ -122,11 +122,11 @@
             app:srcCompat="@drawable/ic_play_next" />
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/btn_song_favorite_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/btn_shuffle_toggle"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="center"
-            app:srcCompat="@drawable/ic_favorite_no" />
+            app:srcCompat="@drawable/ic_play_mode_shuffle" />
     </LinearLayout>
 </LinearLayout>
