@@ -7,6 +7,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mohammad.songig.common.PlayMode;
 import com.github.mohammad.songig.model.Song;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,11 @@ import dev.ongteu.bkmusic.data.model.SongItem;
 import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
 import dev.ongteu.bkmusic.data.parser.api.IServices;
 import dev.ongteu.bkmusic.utils.MySongigPlayer;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,34 +34,35 @@ import retrofit2.Response;
 
 public class GetPlayOnline {
 
-    public static List<Song> SONGIG_ITEMS = new ArrayList<Song>();
-    public static List<SongItem> ITEMS = new ArrayList<SongItem>();
+    public static List<Song> songIgList = new ArrayList<>();
+    public static List<SongItem> songList = new ArrayList<>();
 
-    public GetPlayOnline(final Context context, String songUrl, final ViewPager viewPager){
-        IServices service = BaseRetrofit.instance().create(IServices.class);
-        Call<List<SongItem>> call = service.listSongs(songUrl);
+    public GetPlayOnline(final Context context, String songUrl, final ViewPager viewPager) {
 
         final MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title(R.string.player_online)
                 .content(R.string.waitting_text)
-                .cancelable(false)
                 .show();
+
+        IServices service = BaseRetrofit.instanceService();
+        Call<List<SongItem>> call = service.listSongs(songUrl);
 
         call.enqueue(new Callback<List<SongItem>>() {
             @Override
             public void onResponse(Call<List<SongItem>> call, Response<List<SongItem>> response) {
-                ITEMS = response.body();
+                songList = response.body();
+                songIgList.clear();
                 int index = 1;
-                for (SongItem songItem : ITEMS) {
+                for (SongItem songItem : songList) {
                     Song song = new Song(index, songItem.getSongName(),
                             songItem.getSinger(), "", songItem.getMp3Url(), songItem.getBgimage(), "", PlayMode.STREAM);
-                    SONGIG_ITEMS.add(song);
-                    ITEMS.add(songItem);
+                    songIgList.add(song);
                     index++;
                 }
-                MySongigPlayer.changeNowPlaying(context, SONGIG_ITEMS);
-                MySongigPlayer.playSong(context, 0);
-                PlayerOnlineAdapter playerAdapter = new PlayerOnlineAdapter(context, SONGIG_ITEMS);
+                MySongigPlayer mySongigPlayer = new MySongigPlayer(context);
+                mySongigPlayer.changeNowPlaying(songIgList);
+                mySongigPlayer.playSong(0);
+                PlayerOnlineAdapter playerAdapter = new PlayerOnlineAdapter(context, songIgList);
                 viewPager.setAdapter(playerAdapter);
                 dialog.dismiss();
             }

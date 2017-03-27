@@ -71,10 +71,12 @@ public class SongFragment extends Fragment {
 //        View viewRoot = inflater.inflate(R.layout.fragment_song, container, false);
         View viewRoot = inflater.inflate(R.layout.fragment_nowlist, container, false);
         if (viewRoot instanceof ListView) {
-            SongDAO songDAO = new SongDAO();
-            List<Song> songList = songDAO.getUserSong(viewRoot.getContext());
+//            SongDAO songDAO = new SongDAO().getUserSong(viewRoot.getContext());
+            SongDAO songDAO = new SongDAO(viewRoot.getContext());
+            List<Song> songList = songDAO.getUserSong();
             LocalSongAdapter localSongAdapter = new LocalSongAdapter(viewRoot.getContext(), songList);
             ((ListView) viewRoot).setAdapter(localSongAdapter);
+
         }
         return viewRoot;
     }

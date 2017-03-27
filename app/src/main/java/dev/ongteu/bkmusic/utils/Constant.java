@@ -28,9 +28,17 @@ public class Constant {
     public static final String IMG_EXT = ".png";
 
     /**
+     * Network Retrofit Timeout
+     */
+    public static final long NW_REQUEST_TIMEOUT = 90;
+    public static final long NW_READ_TIMEOUT = 40;
+    public static final long NW_WRITE_TIMEOUT = 40;
+
+    /**
      * API URLs
      */
-    public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic/";
+//    public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic/";
+    public static final String URL_HOST = "http://192.168.1.2:88/s10/api/BkMusic/";
     public static final String URL_GET_CATEGORY = "GetCategories";
     public static final String URL_GET_NHACHOT = "GetNhacHot";
     public static final String URL_GET_POPULAR_ALBUM = "GetAlbum";

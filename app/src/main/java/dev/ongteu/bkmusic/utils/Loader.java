@@ -27,19 +27,15 @@ public class Loader {
 			MyDialog.getDialogNoInternet(context);
 		}
 
+		if (spManager.isFirstRun()) {
 //        final MaterialDialog dialog = new MaterialDialog.Builder(context)
 //                .title(R.string.scan_music)
 //                .content(R.string.waitting_text)
 //                .cancelable(false)
 //                .show();
-
-//		new MusicScanner(context);
+			new MusicScanner(context);
+		}
 
 	}
-
-	public boolean isFirstRun() {
-		return isFirstRun;
-	}
-	
 
 }

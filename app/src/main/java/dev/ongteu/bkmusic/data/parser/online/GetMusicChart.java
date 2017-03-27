@@ -9,8 +9,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.adapter.PopularAlbumRecyclerViewAdapter;
-import dev.ongteu.bkmusic.data.model.AlbumItem;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
 import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
 import dev.ongteu.bkmusic.data.parser.api.IServices;
@@ -21,9 +19,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.HttpException;
 
 /**
  * Created by TienGiang on 16/3/2017.
@@ -40,7 +36,8 @@ public class GetMusicChart {
                 .show();
 
         final IServices service = BaseRetrofit.instanceService();
-        service.singleChart(playlistCode).subscribeOn(Schedulers.newThread())
+        service.singleChart(playlistCode)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MusicChartItem>() {
                     @Override
@@ -57,8 +54,10 @@ public class GetMusicChart {
 
                     @Override
                     public void onError(Throwable e) {
-                        dialog.setContent(Constant.MSS_NETWORK_ERROR);
-                        dialog.setCancelable(true);
+                        if (e instanceof HttpException) {
+                            dialog.setContent(Constant.MSS_NETWORK_ERROR + ":" + ((HttpException) e).message());
+                            dialog.setCancelable(true);
+                        }
                     }
 
                     @Override

@@ -1,7 +1,6 @@
 package dev.ongteu.bkmusic.data.parser.online;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -20,6 +19,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 /**
  * Created by TienGiang on 16/3/2017.
@@ -36,7 +36,8 @@ public class GetHotSong {
                 .show();
 
         final IServices service = BaseRetrofit.instanceService();
-        service.listHotSongs(playlistId, page).subscribeOn(Schedulers.newThread())
+        service.listHotSongs(playlistId, page)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<HotSongItem>>() {
                     @Override
@@ -53,8 +54,10 @@ public class GetHotSong {
 
                     @Override
                     public void onError(Throwable e) {
-                        dialog.setContent(Constant.MSS_NETWORK_ERROR);
-                        dialog.setCancelable(true);
+                        if (e instanceof HttpException) {
+                            dialog.setContent(Constant.MSS_NETWORK_ERROR + ":" + ((HttpException) e).message());
+                            dialog.setCancelable(true);
+                        }
                     }
 
                     @Override

@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import dev.ongteu.bkmusic.utils.Constant;
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -21,6 +24,9 @@ public class BaseRetrofit {
             .create();
 
     private static OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(Constant.NW_REQUEST_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(Constant.NW_READ_TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(Constant.NW_WRITE_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build();
 

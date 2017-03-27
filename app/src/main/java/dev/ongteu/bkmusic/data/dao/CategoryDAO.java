@@ -22,14 +22,10 @@ import retrofit2.Response;
  * Created by TienGiang on 17/3/2017.
  */
 
-public class CategoryDAO {
-
-    private Context context = null;
-    private OrmaDatabase bkOrm = null;
+public class CategoryDAO extends BaseDAO {
 
     public CategoryDAO(final Context context){
-        this.context = context;
-        this.bkOrm = BkOrm.builderOm(this.context);
+        super(context, true);
         init();
     }
 

@@ -83,6 +83,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
                     .replace(R.id.fragment_container, myPlayerFragment).commit();
+            ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
         }
     }
 

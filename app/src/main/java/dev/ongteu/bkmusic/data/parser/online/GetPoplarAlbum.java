@@ -18,6 +18,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 /**
  * Created by TienGiang on 16/3/2017.
@@ -34,7 +35,8 @@ public class GetPoplarAlbum {
                 .show();
 
         final IServices service = BaseRetrofit.instanceService();
-        service.listAlbum(playlistCode, page).subscribeOn(Schedulers.newThread())
+        service.listAlbum(playlistCode, page)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<AlbumItem>>() {
                     @Override
@@ -51,8 +53,10 @@ public class GetPoplarAlbum {
 
                     @Override
                     public void onError(Throwable e) {
-                        dialog.setContent(Constant.MSS_NETWORK_ERROR);
-                        dialog.setCancelable(true);
+                        if (e instanceof HttpException) {
+                            dialog.setContent(Constant.MSS_NETWORK_ERROR + ":" + ((HttpException) e).message());
+                            dialog.setCancelable(true);
+                        }
                     }
 
                     @Override
