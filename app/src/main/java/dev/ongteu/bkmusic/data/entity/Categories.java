@@ -1,17 +1,29 @@
 package dev.ongteu.bkmusic.data.entity;
 
-import com.orm.SugarRecord;
+import com.github.gfx.android.orma.annotation.Column;
+import com.github.gfx.android.orma.annotation.PrimaryKey;
+import com.github.gfx.android.orma.annotation.Table;
 
 /**
  * Created by TienGiang on 16/3/2017.
  */
 
-public class Categories extends SugarRecord {
+@Table
+public class Categories {
 
-    private Long id;
+    @PrimaryKey(autoincrement = true)
+    private long id;
+
+    @Column
     private int categoryCode;
+
+    @Column
     private String name;
+
+    @Column
     private String img;
+
+    @Column
     private int parentId;
 
     /**
@@ -37,7 +49,7 @@ public class Categories extends SugarRecord {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

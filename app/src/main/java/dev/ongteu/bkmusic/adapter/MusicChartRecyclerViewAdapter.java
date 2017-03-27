@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.Image;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import dev.ongteu.bkmusic.data.model.MusicChartItem;
 import dev.ongteu.bkmusic.fragment.MusicChartFragment.OnListFragmentInteractionListener;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
 /**
@@ -47,20 +49,10 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mChartSongName.setText(Common.cutterLongName(mValues.get(position).getSongName()));
+        holder.mChartSongName.setText(Common.cutterLongName(mValues.get(position).getSongName(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
         holder.mChartSongArtist.setText(mValues.get(position).getSinger());
         new MyPicasso(holder.mChartAlbumArt.getContext(), holder.mChartAlbumArt, mValues.get(position).getAlbumArt());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -78,6 +70,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            mView.setOnClickListener(this);
             mChartSongName = (TextView) view.findViewById(R.id.chartSongName);
             mChartSongArtist = (TextView) view.findViewById(R.id.chartSongArtist);
             mChartAlbumArt = (ImageView) view.findViewById(R.id.chartAlbumArt);
@@ -90,12 +83,14 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
 
         @Override
         public void onClick(View v) {
-            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mItem.getSongUrl());
+            Log.e("Click", mItem.getSongName());
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mItem.getSongUrl());
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
                     .replace(R.id.fragment_container, myPlayerFragment).commit();
+            ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
         }
     }
 }

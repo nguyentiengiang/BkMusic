@@ -3,6 +3,7 @@ package dev.ongteu.bkmusic.fragment;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import org.reactivestreams.Subscription;
+
+import java.util.List;
+
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.adapter.HotMusicRecyclerViewAdapter;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
+import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
+import dev.ongteu.bkmusic.data.parser.api.IServices;
 import dev.ongteu.bkmusic.data.parser.online.GetHotSong;
+import dev.ongteu.bkmusic.utils.Constant;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A fragment representing a list of Items.
@@ -27,8 +42,8 @@ public class HotMusicFragment extends Fragment {
     private static final String ARG_PLAYLIST_ID = "playlistId";
     private static final String ARG_PAGE_NUMBER = "page_number";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private int mPlaylistId = 1;
+    private int mColumnCount = Constant.COLUMN_COUNT_3;
+    private int mPlaylistId = 4;
     private int mPageNumber = 1;
     private OnFragmentInteractionListener mListener;
 
@@ -39,8 +54,13 @@ public class HotMusicFragment extends Fragment {
     public HotMusicFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
+    /**
+     *
+     * @param columnCount
+     * @param playlistId
+     * @param pageNumber
+     * @return
+     */
     public static HotMusicFragment newInstance(int columnCount, int playlistId, int pageNumber) {
         HotMusicFragment fragment = new HotMusicFragment();
         Bundle args = new Bundle();
@@ -69,15 +89,10 @@ public class HotMusicFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-
-            new GetHotSong(context, mPlaylistId, mPageNumber, recyclerView, mListener);
+            final Context context = view.getContext();
+            final RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            new GetHotSong(mPlaylistId, mPageNumber, context, recyclerView, mListener);
         }
         return view;
     }

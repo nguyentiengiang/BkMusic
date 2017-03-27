@@ -1,43 +1,53 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.github.mohammad.songig.common.PlayerException;
+import com.github.mohammad.songig.common.RepeatMode;
 import com.github.mohammad.songig.common.SongigPlayer;
+import com.github.mohammad.songig.listener.OnCompleteListener;
+import com.github.mohammad.songig.listener.OnPauseListener;
+import com.github.mohammad.songig.listener.OnPlayListener;
+import com.github.mohammad.songig.listener.OnStopListener;
+import com.github.mohammad.songig.listener.OnUpdateListener;
 import com.github.mohammad.songig.model.Song;
-import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.data.model.SongItem;
-import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
+import dev.ongteu.bkmusic.ui.PlayerProcess;
 import dev.ongteu.bkmusic.ui.ShadowImageView;
+import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.MyPicasso;
+import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 /**
  * Updated by GiangNT on 17/03/2017.
  */
-public class PlayerAdapter extends PagerAdapter {
+public class PlayerOnlineAdapter extends PagerAdapter {
 
-    private static final String TAG = "PlayerAdapter";
-    private List<Song> mSongIgItems;
-    private List<SongItem> mSongItems;
-    private Song mSongNow;
+    private static final String TAG = "PlayerOnlineAdapter";
+    private List<Song> mSongIgItems = new ArrayList<>();
     private Context mContext;
-    private int mPlayType;
-    private String mUrlPlay;
 
-    public PlayerAdapter(Context context, int playType, String urlPlay) {
-        mContext = context;
-        mPlayType = playType;
-        mUrlPlay = urlPlay;
+    public PlayerOnlineAdapter(Context context, List<Song> SongIgItems) {
+        this.mContext = context;
+        if (!this.mSongIgItems.isEmpty()) {
+            this.mSongIgItems.clear();
+        }
+        this.mSongIgItems = SongIgItems;
     }
 
     @Override
@@ -66,7 +76,6 @@ public class PlayerAdapter extends PagerAdapter {
 
         int resId = -1;
 
-        //Getting my layout's in my adapter. Three layouts defined.
         switch (position) {
             case 1:
                 resId = R.layout.fragment_nowlist;
@@ -77,32 +86,21 @@ public class PlayerAdapter extends PagerAdapter {
                 break;
         }
         View view = inflater.inflate(resId, container, false);
-        new GetPlayOnline(mContext, mUrlPlay);
-
-//        mSongNow = SongigPlayer.getInstance(mContext).getCurrentSong();
 
         switch (position) {
             case 1:
                 if (view instanceof ListView){
-                    NowListAdapter nowListAdapter = new NowListAdapter(mContext, GetPlayOnline.SONGIG_ITEMS);
+                    NowListAdapter nowListAdapter = new NowListAdapter(mContext, mSongIgItems);
                     ((ListView) view).setAdapter(nowListAdapter);
                 }
                 break;
             case 0:
             default:
-                TextView txtNameSong = (TextView) view.findViewById(R.id.txtSongName);
-                TextView txtSongArtist = (TextView) view.findViewById(R.id.txtSongArtist);
-                ShadowImageView imgCover = (ShadowImageView) view.findViewById(R.id.imgAlbumArt);
-
-                new MyPicasso(imgCover.getContext(), imgCover, "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg", true);
-                imgCover.startRotateAnimation();
-
+                new PlayerProcess().initPlayerAction(view);
                 break;
         }
-
         container.addView(view);
         Log.i(TAG, "instantiateItem() [position: " + position + "]" + " childCount:" + container.getChildCount());
-        // Return the View
         return view;
     }
 

@@ -17,6 +17,7 @@ import dev.ongteu.bkmusic.data.model.HotSongItem;
 import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnFragmentInteractionListener;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.Constant;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link HotSongItem} and makes a call to the
@@ -46,18 +47,8 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.hotSongArtist.setText(mValues.get(position).getSinger().toString());
-        holder.hotSongName.setText(Common.cutterLongName(mValues.get(position).getSongName().toString()));
+        holder.hotSongName.setText(Common.cutterLongName(mValues.get(position).getSongName().toString(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -74,9 +65,9 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            mView.setOnClickListener(this);
             hotSongName = (TextView) view.findViewById(R.id.hotSongName);
             hotSongArtist = (TextView) view.findViewById(R.id.hotSongArtist);
-            hotSongName.setOnClickListener(this);
         }
 
         @Override
@@ -86,14 +77,14 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
 
         @Override
         public void onClick(View v) {
-            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(1, mItem.getSongUrl());
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mItem.getSongUrl());
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
                     .replace(R.id.fragment_container, myPlayerFragment).commit();
+            ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
         }
     }
-
 
 }

@@ -1,6 +1,7 @@
 package dev.ongteu.bkmusic.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.mohammad.songig.common.PlayerException;
 import com.github.mohammad.songig.common.SongigPlayer;
@@ -14,18 +15,33 @@ import java.util.List;
 
 public class MySongigPlayer{
 
-    public static void changeNowPlaying(Context context, List<Song> playList){
-        if (SongigPlayer.getInstance(context).isPlaying()){
-            SongigPlayer.getInstance(context).stop();
-            SongigPlayer.getInstance(context).getPlayList().clear();
-            SongigPlayer.getInstance(context).removeAll();
-        }
-        SongigPlayer.getInstance(context).getPlayList().addAll(playList);
+    SongigPlayer songigPlayer;
+    public MySongigPlayer(final Context context) {
+        songigPlayer = SongigPlayer.getInstance(context);
     }
 
-    public static void playSong(Context context, int position){
+    public SongigPlayer instance(){
+        return this.songigPlayer;
+    }
+
+    public void changeNowPlaying(List<Song> playList){
+        if (songigPlayer.isPlaying()){
+            songigPlayer.stop();
+        }
+        songigPlayer.removeAll();
+        songigPlayer.getPlayList().clear();
+        songigPlayer.getPlayList().addAll(playList);
+    }
+
+    public void playSong(int position){
+        for (Song s : this.songigPlayer.getPlayList()) {
+            Log.e("Song item", s.getName());
+        }
+        Log.e("Crr song nam", String.valueOf(this.songigPlayer.getCurrentSong().getName()));
+        Log.e("Crr song idx", String.valueOf(this.songigPlayer.getCurrentSongIndex()));
+        Log.e("Last song idx", String.valueOf(this.songigPlayer.getLastSongIndex()));
         try {
-            SongigPlayer.getInstance(context).play(position);
+             this.songigPlayer.play(position);
         } catch (PlayerException e) {
             e.printStackTrace();
         }
