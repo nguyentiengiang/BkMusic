@@ -11,18 +11,44 @@ import java.text.DecimalFormat;
  */
 
 public class Common {
+    /**
+     * Cut long song name
+     *
+     * @param strOrigin
+     * @param limit
+     * @return
+     */
     public static String cutterLongName(String strOrigin, int limit) {
         return (strOrigin.length() < Constant.MAX_LENGTH_NAME_TITLE) ? strOrigin : strOrigin.substring(0, Math.min(strOrigin.length(), limit)) + "...";
     }
 
+    /**
+     * Covert Long back to Integer
+     *
+     * @param l
+     * @return
+     */
     public static int safeLongToInt(long l) {
         return (int) Math.max(Math.min(Integer.MAX_VALUE, l), Integer.MIN_VALUE);
     }
 
+    /**
+     * Change space character to underscore character
+     *
+     * @param strOrigin
+     * @return
+     */
     public static String replaceSpaceToUnderscore(String strOrigin) {
         return strOrigin.replaceAll(" ", "_").toLowerCase();
     }
 
+    /**
+     * Get dir of file
+     *
+     * @param strOrigin
+     * @param fileName
+     * @return
+     */
     public static String getDirectoryOfFile(String strOrigin, String fileName) {
         return strOrigin.replace(fileName, "");
     }

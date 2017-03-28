@@ -26,12 +26,9 @@ import retrofit2.Response;
  */
 
 public class GetPlayNow {
-
-    public static List<Song> SONGIG_ITEMS = new ArrayList<Song>();
-
     public GetPlayNow(final Context context, final ViewPager viewPager){
-        SONGIG_ITEMS = SongigPlayer.getInstance(context).getPlayList();
-        PlayerOnlineAdapter playerAdapter = new PlayerOnlineAdapter(context, SONGIG_ITEMS);
+        MySongigPlayer mySongigPlayer = new MySongigPlayer(context);
+        PlayerOnlineAdapter playerAdapter = new PlayerOnlineAdapter(context, mySongigPlayer.instance().getPlayList());
         viewPager.setAdapter(playerAdapter);
     }
 

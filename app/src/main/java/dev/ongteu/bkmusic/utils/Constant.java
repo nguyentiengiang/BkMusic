@@ -37,8 +37,8 @@ public class Constant {
     /**
      * API URLs
      */
-//    public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic/";
-    public static final String URL_HOST = "http://192.168.1.2:88/s10/api/BkMusic/";
+    public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic/";
+//    public static final String URL_HOST = "http://192.168.1.189:88/s10/api/BkMusic/";
     public static final String URL_GET_CATEGORY = "GetCategories";
     public static final String URL_GET_NHACHOT = "GetNhacHot";
     public static final String URL_GET_POPULAR_ALBUM = "GetAlbum";
