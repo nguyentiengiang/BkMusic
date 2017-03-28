@@ -1,6 +1,7 @@
 package dev.ongteu.bkmusic.utils.File;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.text.TextUtils;
@@ -69,7 +70,7 @@ public class FileHelper {
             if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART, "fileName"))
                 storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART,
                         fileImgeName + Constant.IMG_EXT,
-                        BitmapFactory.decodeByteArray(albumArtImage, 0, albumArtImage.length)
+                        Bitmap.createScaledBitmap(BitmapFactory.decodeByteArray(albumArtImage, 0, albumArtImage.length), 120, 120, false)
                 );
             Log.e("EXTRACTED", "DONE 1");
         }

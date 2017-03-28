@@ -19,13 +19,13 @@ import dev.ongteu.bkmusic.ui.PlayerProcess;
 /**
  * Updated by GiangNT on 17/03/2017.
  */
-public class PlayerOnlineAdapter extends PagerAdapter {
+public class PlayerAdapter extends PagerAdapter {
 
-    private static final String TAG = "PlayerOnlineAdapter";
+    private static final String TAG = "PlayerAdapter";
     private List<Song> mSongIgItems = new ArrayList<>();
     private Context mContext;
 
-    public PlayerOnlineAdapter(Context context, List<Song> SongIgItems) {
+    public PlayerAdapter(Context context, List<Song> SongIgItems) {
         this.mContext = context;
         if (!this.mSongIgItems.isEmpty()) {
             this.mSongIgItems.clear();

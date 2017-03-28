@@ -1,7 +1,9 @@
 package dev.ongteu.bkmusic.data.dao;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.github.mohammad.songig.common.PlayMode;
@@ -17,12 +19,15 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import dev.ongteu.bkmusic.adapter.LocalSongAdapter;
+import dev.ongteu.bkmusic.adapter.PlayerAdapter;
 import dev.ongteu.bkmusic.data.entity.OrmaDatabase;
 import dev.ongteu.bkmusic.data.entity.Songs;
 import dev.ongteu.bkmusic.data.entity.Songs_Schema;
+import dev.ongteu.bkmusic.data.model.SongItem;
 import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.File.FileHelper;
+import dev.ongteu.bkmusic.utils.MySongigPlayer;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -49,16 +54,7 @@ public class SongDAO extends BaseDAO {
         for (Songs songItem : listSong) {
                 Storage storage = FileHelper.initStorge(context);
                 if (storage.isFileExist(Constant.PATH_MUSIC_USER, songItem.getFileName()) || storage.isFileExist(Constant.PATH_MUSIC_APP, songItem.getFileName())) {
-                    int songId = Common.safeLongToInt(songItem.getId());
-                    String songName = songItem.getSongName();
-                    String singer = songItem.getSinger();
-                    String albumName = "";
-                    String url = songItem.getMp3Url();
-                    String imageUrl = Constant.URL_LOCAL_FILE + songItem.getAvatar();
-                    String albumId = songItem.getFileName();
-
-                    Song songIgItem = new Song(songId, songName, singer, albumName, url, imageUrl, albumId, PlayMode.LOCAL);
-                    listSongIg.add(songIgItem);
+                    listSongIg.add(this.convert2SongIgItem(songItem));
                 } else {
                     bkOrm.deleteFromSongs().idEq(songItem.getId()).execute();
                 }
@@ -76,6 +72,30 @@ public class SongDAO extends BaseDAO {
     public long addNewSong(String songName, String singer, String singerUrl, String bgImage, String avatar, String keyMp3, String mp3Url, String songUrl, String fileName, int isUserLocal){
         Songs newSong = new Songs(songName, singer, singerUrl, bgImage, avatar, keyMp3, mp3Url, songUrl, fileName, isUserLocal);
         return this.bkOrm.insertIntoSongs(newSong);
+    }
+
+    public static Song convert2SongIgItem(Songs songItem){
+        int songId = Common.safeLongToInt(songItem.getId());
+        String songName = songItem.getSongName();
+        String singer = songItem.getSinger();
+        String albumName = "";
+        String url = songItem.getMp3Url();
+        String imageUrl = Constant.URL_LOCAL_FILE + songItem.getAvatar();
+        String albumId = songItem.getFileName();
+        return new Song(songId, songName, singer, albumName, url, imageUrl, albumId, PlayMode.LOCAL);
+    }
+
+    public void playOneSong(ViewPager viewPager, String keyMp3){
+        List<Songs> songItems = this.bkOrm.selectFromSongs().where(Songs_Schema.INSTANCE.keyMp3, "=", keyMp3).toList();
+        if (songItems.size() == 1){
+            this.convert2SongIgItem(songItems.get(0));
+        }
+        List<Song> songIgList = new ArrayList<>();
+        MySongigPlayer mySongigPlayer = new MySongigPlayer(this.context);
+        mySongigPlayer.changeNowPlaying(songIgList);
+        mySongigPlayer.playSong(0);
+        PlayerAdapter playerAdapter = new PlayerAdapter(this.context, songIgList);
+        viewPager.setAdapter(playerAdapter);
     }
 
 }

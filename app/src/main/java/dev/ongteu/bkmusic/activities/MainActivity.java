@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,9 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.fragment.CategoriesFragment;
@@ -152,11 +148,6 @@ public class MainActivity extends AppCompatActivity
                 setTitle(R.string.menuMusicChart);
                 break;
             case R.id.nav_now_playing:
-//                String urlMp3 = "http://f9.stream.nixcdn.com/6fd8f411ee304f9a8950400767f33713/58c82aeb/NhacCuaTui937/NoiNayCoAnh-SonTungMTP-4772041.mp3";
-//                String urlImg = "http://avatar.nct.nixcdn.com/singer/avatar/2017/02/15/b/5/a/7/1487153681589.jpg";
-//                Song song = new Song(1, "Test song name", "Test song artistName", "Test song albumName", urlMp3, urlImg, "Test song albumId", PlayMode.STREAM);
-//                SongigPlayer.getInstance(this).addToFirst(song);
-//                fragment = NowPlayingFragment.newInstance();
                 fragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_UNKNOW, "");
                 NAME_FRM_BACK_STACK = "NOW_PLAYING";
                 setTitle(getString(R.string.NOW_PLAYING));
@@ -167,10 +158,11 @@ public class MainActivity extends AppCompatActivity
                 setTitle(R.string.menuFavorMusic);
                 break;
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        // NOT FIX ISSUE BackStack
-        fragmentManager.beginTransaction().addToBackStack(NAME_FRM_BACK_STACK)
-                .replace(R.id.fragment_container, fragment).commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        // NOT FIX ISSUE BackStack
+//        fragmentManager.beginTransaction().addToBackStack(NAME_FRM_BACK_STACK)
+//                .replace(R.id.fragment_container, fragment).commit();
+        replaceFragment(fragment, NAME_FRM_BACK_STACK);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -186,6 +178,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void replaceFragment(Fragment fragment, String NAME_FRM_BACK_STACK) {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (currentFragment.getClass() == fragment.getClass()) {
+            // nothing to do
+            return;
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        android.R.anim.fade_in, android.R.anim.fade_out,
+                        android.R.anim.fade_in, android.R.anim.fade_out)
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(NAME_FRM_BACK_STACK)
+                .commit();
     }
 
 }
