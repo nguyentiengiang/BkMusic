@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.github.mohammad.songig.model.Song;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.adapter.PlayerOnlineAdapter;
 import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
 import dev.ongteu.bkmusic.data.runtime.GetPlayNow;
 import dev.ongteu.bkmusic.utils.Constant;

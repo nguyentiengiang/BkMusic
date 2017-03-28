@@ -14,13 +14,11 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.github.mohammad.songig.model.Song;
 
-import java.io.File;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.Constant;
-import dev.ongteu.bkmusic.utils.File.FileHelper;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
 public class LocalSongAdapter extends BaseSwipeAdapter {

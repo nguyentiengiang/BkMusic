@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeNowList"
     android:layout_width="match_parent"
     android:layout_height="@dimen/si_item_height">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/si_item_height"
-            android:layout_toRightOf="@+id/siLayoutLeft"
-            android:tag="Bottom2">
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_toRightOf="@+id/siLayoutLeft"
+        android:tag="Bottom2">
 
-            <ImageView
-                android:id="@+id/star"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:background="#4cd964"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:src="@drawable/star" />
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="#4cd964"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:src="@drawable/star" />
 
-            <ImageView
-                android:id="@+id/btnSiNowDelete"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/red_background"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:src="@drawable/trash" />
+        <ImageView
+            android:id="@+id/btnSiNowDelete"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/red_background"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:src="@drawable/trash" />
 
     </LinearLayout>
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/siLayoutLeft"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,6 +49,8 @@
             android:id="@+id/siSongName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/siAlbumArt"
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -59,8 +61,10 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/siSongName"
             android:layout_below="@+id/siSongName"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:textSize="14dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </com.daimajia.swipe.SwipeLayout>

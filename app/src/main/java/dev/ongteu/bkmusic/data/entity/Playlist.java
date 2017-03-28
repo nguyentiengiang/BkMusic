@@ -17,6 +17,8 @@ public class Playlist {
     @Column
     private String name;
 
+    private int count;
+
     public Playlist(){
     }
 
@@ -43,5 +45,13 @@ public class Playlist {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
