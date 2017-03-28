@@ -1,18 +1,21 @@
 package dev.ongteu.bkmusic.data.dao;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 
 import com.github.mohammad.songig.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.ongteu.bkmusic.adapter.PlayerAdapter;
 import dev.ongteu.bkmusic.data.entity.Playlist;
 import dev.ongteu.bkmusic.data.entity.PlaylistSong;
 import dev.ongteu.bkmusic.data.entity.PlaylistSong_Schema;
 import dev.ongteu.bkmusic.data.entity.Playlist_Schema;
 import dev.ongteu.bkmusic.data.entity.Songs;
 import dev.ongteu.bkmusic.data.entity.Songs_Schema;
+import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 /**
  * Created by TienGiang on 28/3/2017.
@@ -71,4 +74,16 @@ public class PlaylistDAO extends BaseDAO {
         }
     }
 
+    public void playMusicByPlaylistId(long playlistId, final ViewPager viewPager) {
+        List<Song> songIgList = getSongByPlaylist(playlistId);
+        if (songIgList.size() > 0) {
+            MySongigPlayer mySongigPlayer = new MySongigPlayer(context);
+            mySongigPlayer.changeNowPlaying(songIgList);
+            mySongigPlayer.playSong(0);
+
+            PlayerAdapter playerAdapter = new PlayerAdapter(this.context, songIgList);
+            viewPager.setAdapter(playerAdapter);
+            playerAdapter.notifyDataSetChanged();
+        }
+    }
 }

@@ -1,35 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeNowList"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/si_item_height">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/siLayoutLeft"
-        android:tag="Bottom2">
-
-        <ImageView
-            android:id="@+id/star"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:background="#4cd964"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:src="@drawable/star" />
-
-        <ImageView
-            android:id="@+id/btnSiNowDelete"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/red_background"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:src="@drawable/trash" />
-
-    </LinearLayout>
-
+    <!-- this is the item front view -->
     <RelativeLayout
         android:id="@+id/siLayoutLeft"
         android:layout_width="match_parent"
@@ -50,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/siAlbumArt"
             android:textSize="16dp"
@@ -59,12 +34,29 @@
             android:id="@+id/siSongArtist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/siSongName"
+            android:layout_alignStart="@+id/siSongName"
             android:layout_below="@+id/siSongName"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:textSize="14dp" />
 
+        <Spinner
+            android:id="@+id/siSpinner"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/siSongName"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true" />
+
     </RelativeLayout>
 
-</com.daimajia.swipe.SwipeLayout>
+
+    <!-- just a divider -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/si_divider" />
+
+</FrameLayout>
