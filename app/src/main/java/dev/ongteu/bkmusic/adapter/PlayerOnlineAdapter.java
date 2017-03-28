@@ -1,26 +1,13 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatSeekBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
-import com.github.mohammad.songig.common.PlayerException;
-import com.github.mohammad.songig.common.RepeatMode;
-import com.github.mohammad.songig.common.SongigPlayer;
-import com.github.mohammad.songig.listener.OnCompleteListener;
-import com.github.mohammad.songig.listener.OnPauseListener;
-import com.github.mohammad.songig.listener.OnPlayListener;
-import com.github.mohammad.songig.listener.OnStopListener;
-import com.github.mohammad.songig.listener.OnUpdateListener;
 import com.github.mohammad.songig.model.Song;
 
 import java.util.ArrayList;
@@ -28,10 +15,6 @@ import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.ui.PlayerProcess;
-import dev.ongteu.bkmusic.ui.ShadowImageView;
-import dev.ongteu.bkmusic.utils.Common;
-import dev.ongteu.bkmusic.utils.MyPicasso;
-import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 /**
  * Updated by GiangNT on 17/03/2017.

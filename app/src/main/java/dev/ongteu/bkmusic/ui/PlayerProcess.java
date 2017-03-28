@@ -37,6 +37,9 @@ public class PlayerProcess {
 
         //Btn play
         final AppCompatImageView btnPlay = (AppCompatImageView) viewRoot.findViewById(R.id.btn_song_play_toggle);
+        if (mySongigPlayer.isPlaying()){
+            btnPlay.setImageResource(R.drawable.ic_pause);
+        }
         mySongigPlayer.addPlayListener(new OnPlayListener() {
             @Override
             public void onMusicPlayed() {
