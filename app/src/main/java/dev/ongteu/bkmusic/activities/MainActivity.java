@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
                 setTitle(R.string.menuMusicChart);
                 break;
             case R.id.nav_now_playing:
-                fragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_UNKNOW, "");
+                fragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_UNKNOW, "", 0);
                 NAME_FRM_BACK_STACK = "NOW_PLAYING";
                 setTitle(getString(R.string.NOW_PLAYING));
                 break;

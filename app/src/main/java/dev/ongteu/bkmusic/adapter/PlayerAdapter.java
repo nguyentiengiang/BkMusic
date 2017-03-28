@@ -73,7 +73,7 @@ public class PlayerAdapter extends PagerAdapter {
         switch (position) {
             case 1:
                 if (view instanceof ListView){
-                    NowListAdapter nowListAdapter = new NowListAdapter(mContext, mSongIgItems);
+                    NowListAdapter nowListAdapter = new NowListAdapter(mSongIgItems, mContext);
                     ((ListView) view).setAdapter(nowListAdapter);
                 }
                 break;

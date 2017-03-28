@@ -37,14 +37,17 @@ public class Constant {
     /**
      * API URLs
      */
-    public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic/";
-//    public static final String URL_HOST = "http://192.168.1.189:88/s10/api/BkMusic/";
+//    public static final String URL_HOST = "http://ec2-54-238-181-147.ap-northeast-1.compute.amazonaws.com/s10/api/BkMusic/";
+    public static final String URL_HOST = "http://192.168.1.2:88/s10/api/BkMusic/";
     public static final String URL_GET_CATEGORY = "GetCategories";
     public static final String URL_GET_NHACHOT = "GetNhacHot";
     public static final String URL_GET_POPULAR_ALBUM = "GetAlbum";
     public static final String URL_GET_CHART = "GetChart";
     public static final String URL_GET_SONGS = "GetSongs";
     public static final String URL_GET_SINGER = URL_HOST + "GetSinger?urlSinger=";
+
+    public static final String URL_SEARCH_HOST = "http://www.nhaccuatui.com/ajax/";
+    public static final String URL_SEARCH_QUERRY = "search?q=";
 
     /**
      * Category Parent ID
@@ -62,7 +65,7 @@ public class Constant {
     /**
      * Define other constants here ...
      */
-    public static final int MAX_LENGTH_NAME_TITLE = 32;
+    public static final int MAX_LENGTH_NAME_TITLE = 30;
     public static final int MAX_LENGTH_NAME_TITLE_CATE = 20;
 
     public static final int PLAY_TYPE_UNKNOW = 0;

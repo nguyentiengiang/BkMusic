@@ -66,8 +66,6 @@ dependencies {
     //ORM Database
     annotationProcessor 'com.github.gfx.android.orma:orma-processor:4.2.3'
     compile 'com.github.gfx.android.orma:orma:4.2.3'
-    //Swipe
-    compile "com.daimajia.swipelayout:library:1.2.0@aar"
     //Dialog
     compile 'com.afollestad.material-dialogs:commons:0.9.4.2'
     //

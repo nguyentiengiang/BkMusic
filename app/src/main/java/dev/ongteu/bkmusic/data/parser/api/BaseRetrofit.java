@@ -7,7 +7,6 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.util.concurrent.TimeUnit;
 
 import dev.ongteu.bkmusic.utils.Constant;
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -46,4 +45,15 @@ public class BaseRetrofit {
                 .build()
                 .create(IServices.class);
     }
+
+    public static IServiceSearch instanceSearch() {
+        return new Retrofit.Builder()
+                .baseUrl(Constant.URL_SEARCH_HOST)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
+                .build()
+                .create(IServiceSearch.class);
+    }
+
 }

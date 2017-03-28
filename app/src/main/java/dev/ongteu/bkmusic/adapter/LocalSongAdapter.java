@@ -1,91 +1,90 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.daimajia.swipe.SimpleSwipeListener;
-import com.daimajia.swipe.SwipeLayout;
-import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.github.mohammad.songig.model.Song;
 
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.activities.MainActivity;
+import dev.ongteu.bkmusic.data.entity.Songs;
+import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
-public class LocalSongAdapter extends BaseSwipeAdapter {
+public class LocalSongAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private List<Song> mSongList;
+    private final List<Songs> mValues;
+    private final Context mContext;
 
-    public LocalSongAdapter(Context mContext, List<Song> songList) {
-        this.mContext = mContext;
-        this.mSongList = songList;
-    }
-
-    @Override
-    public int getSwipeLayoutResourceId(int position) {
-        return R.id.swipeNowList;
-    }
-
-    @Override
-    public View generateView(int position, ViewGroup parent) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item2, null);
-        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
-
-            }
-        });
-        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-            @Override
-            public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
-            }
-        });
-        v.findViewById(R.id.btnSiNowDelete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return v;
-    }
-
-    @Override
-    public void fillValues(int position, View convertView) {
-        ImageView imgAlbumArt = (ImageView) convertView.findViewById(R.id.siAlbumArt);
-        TextView txtSISongName = (TextView) convertView.findViewById(R.id.siSongName);
-        TextView txtSISongArtist = (TextView) convertView.findViewById(R.id.siSongArtist);
-
-        txtSISongName.setText(Common.cutterLongName(this.getItem(position).getName(), Constant.MAX_LENGTH_NAME_TITLE));
-        txtSISongArtist.setText(this.getItem(position).getArtistName());
-
-        new MyPicasso(convertView.getContext(), imgAlbumArt, this.getItem(position).getImageUrl());
-        Log.e("NOW LIST ADAP ===>>>>", this.getItem(position).getName());
+    public LocalSongAdapter(List<Songs> items, final Context context) {
+        super();
+        mValues = items;
+        mContext = context;
     }
 
     @Override
     public int getCount() {
-        return mSongList.size();
+        return mValues.size();
     }
 
     @Override
-    public Song getItem(int position) {
-        return mSongList.get(position);
+    public Songs getItem(int position) {
+        return mValues.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return getItem(position).getId();
     }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final Songs songItem = getItem(position);
+        LocalSongViewHolder viewHolder;
+        if (convertView == null){
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item2, parent, false);
+            viewHolder = new LocalSongViewHolder();
+            viewHolder.siSongName = (TextView) convertView.findViewById(R.id.siSongName);
+            viewHolder.siSongArtist = (TextView) convertView.findViewById(R.id.siSongArtist);
+            viewHolder.siAlbumArt = (ImageView) convertView.findViewById(R.id.siAlbumArt);
+            viewHolder.siSpinner = (Spinner) convertView.findViewById(R.id.siSpinner);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (LocalSongViewHolder) convertView.getTag();
+        }
+        viewHolder.siSongName.setText(Common.cutterLongName(songItem.getSongName().toString(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
+        viewHolder.siSongArtist.setText(songItem.getSinger().toString());
+        new MyPicasso(viewHolder.siAlbumArt.getContext(), viewHolder.siAlbumArt, songItem.getAvatar());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_OFFLINE, songItem.getKeyMp3(), 0);
+                FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
+                fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
+                        .replace(R.id.fragment_container, myPlayerFragment).commit();
+                ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
+            }
+        });
+        return convertView;
+    }
+
+    private class LocalSongViewHolder {
+        TextView siSongName;
+        TextView siSongArtist;
+        ImageView siAlbumArt;
+        Spinner siSpinner;
+    }
+
 }

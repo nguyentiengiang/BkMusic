@@ -1,7 +1,6 @@
 package dev.ongteu.bkmusic.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,13 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.github.mohammad.songig.model.Song;
-
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.adapter.LocalSongAdapter;
 import dev.ongteu.bkmusic.data.dao.SongDAO;
+import dev.ongteu.bkmusic.data.entity.Songs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,27 +63,15 @@ public class SongFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        View viewRoot = inflater.inflate(R.layout.fragment_song, container, false);
-        View viewRoot = inflater.inflate(R.layout.fragment_nowlist, container, false);
-        if (viewRoot instanceof ListView) {
-//            SongDAO songDAO = new SongDAO().getUserSong(viewRoot.getContext());
-            SongDAO songDAO = new SongDAO(viewRoot.getContext());
-            List<Song> songList = songDAO.getUserSong();
-            LocalSongAdapter localSongAdapter = new LocalSongAdapter(viewRoot.getContext(), songList);
-            ((ListView) viewRoot).setAdapter(localSongAdapter);
-
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ListView viewRoot = (ListView) inflater.inflate(R.layout.fragment_nowlist, container, false);
+        final Context context = viewRoot.getContext();
+        SongDAO songDAO = new SongDAO(context);
+        List<Songs> songList = songDAO.getUserSong();
+        LocalSongAdapter localSongAdapter = new LocalSongAdapter(songList, context);
+        viewRoot.setAdapter(localSongAdapter);
+        localSongAdapter.notifyDataSetChanged();
         return viewRoot;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -117,6 +103,6 @@ public class SongFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Songs song);
     }
 }

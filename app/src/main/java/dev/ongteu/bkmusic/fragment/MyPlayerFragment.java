@@ -9,13 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mohammad.songig.model.Song;
-
-import java.util.List;
-
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
 import dev.ongteu.bkmusic.data.runtime.GetPlayNow;
+import dev.ongteu.bkmusic.data.runtime.GetPlayOffline;
 import dev.ongteu.bkmusic.utils.Constant;
 
 /**
@@ -29,10 +26,11 @@ import dev.ongteu.bkmusic.utils.Constant;
 public class MyPlayerFragment extends Fragment {
     private static final String ARG_PLAY_TYPE = "playType";
     private static final String ARG_SONG_URL = "songUrl";
+    private static final String ARG_PLAYLIST_OFF = "playlistId";
 
     private int mPlayType = 3;
     private String mSongUrl;
-    private List<Song> mPlaylist;
+    private long mPlaylist;
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,11 +41,12 @@ public class MyPlayerFragment extends Fragment {
         return fragment;
     }
 
-    public static MyPlayerFragment newInstance(int playType, String url) {
+    public static MyPlayerFragment newInstance(int playType, String url, long mPlaylist) {
         MyPlayerFragment fragment = new MyPlayerFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PLAY_TYPE, playType);
         args.putString(ARG_SONG_URL, url);
+        args.putLong(ARG_PLAYLIST_OFF, mPlaylist);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,6 +57,7 @@ public class MyPlayerFragment extends Fragment {
         if (getArguments() != null) {
             mPlayType = getArguments().getInt(ARG_PLAY_TYPE);
             mSongUrl = getArguments().getString(ARG_SONG_URL);
+            mPlaylist = getArguments().getLong(ARG_PLAYLIST_OFF);
         }
     }
 
@@ -74,6 +74,11 @@ public class MyPlayerFragment extends Fragment {
                 new GetPlayOnline(context, mSongUrl, viewPagerPlayer);
                 break;
             case Constant.PLAY_TYPE_OFFLINE:
+                if (mPlaylist == 0) {
+                    new GetPlayOffline(context, mSongUrl, viewPagerPlayer);
+                } else {
+                    new GetPlayOffline(context, mPlaylist, viewPagerPlayer);
+                }
                 break;
             default:
                 new GetPlayNow(context, viewPagerPlayer);

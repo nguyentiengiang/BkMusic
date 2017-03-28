@@ -1,7 +1,6 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -84,7 +83,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
         @Override
         public void onClick(View v) {
             Log.e("Click", mItem.getSongName());
-            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mItem.getSongUrl());
+            MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mItem.getSongUrl(), 0);
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();

@@ -1,94 +1,81 @@
 package dev.ongteu.bkmusic.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.daimajia.swipe.SimpleSwipeListener;
-import com.daimajia.swipe.SwipeLayout;
-import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.github.mohammad.songig.model.Song;
 
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.utils.Common;
+import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.MyPicasso;
 
-public class NowListAdapter extends BaseSwipeAdapter {
+public class NowListAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private List<Song> mSongList;
+    private final List<Song> mValues;
+    private final Context mContext;
 
-    public NowListAdapter(Context mContext, List<Song> songList) {
-        this.mContext = mContext;
-        this.mSongList = songList;
-    }
-
-    @Override
-    public int getSwipeLayoutResourceId(int position) {
-        return R.id.swipeNowList;
-    }
-
-    @Override
-    public View generateView(int position, ViewGroup parent) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item, null);
-        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-        swipeLayout.setOnClickListener(new SwipeLayout.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // call fragment player
-            }
-        });
-        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
-
-            }
-        });
-        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-            @Override
-            public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
-            }
-        });
-        v.findViewById(R.id.btnSiNowDelete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return v;
-    }
-
-    @Override
-    public void fillValues(int position, View convertView) {
-        ImageView imgAlbumArt = (ImageView) convertView.findViewById(R.id.siAlbumArt);
-        TextView txtSISongName = (TextView) convertView.findViewById(R.id.siSongName);
-        TextView txtSISongArtist = (TextView) convertView.findViewById(R.id.siSongArtist);
-
-        txtSISongName.setText(this.getItem(position).getName());
-        txtSISongArtist.setText(this.getItem(position).getArtistName());
-        new MyPicasso(convertView.getContext(), imgAlbumArt, this.getItem(position).getImageUrl());
-        Log.e("NOW LIST ADAP ===>>>>", this.getItem(position).getName());
+    public NowListAdapter(List<Song> items, final Context context) {
+        super();
+        mValues = items;
+        mContext = context;
     }
 
     @Override
     public int getCount() {
-        return mSongList.size();
+        return mValues.size();
     }
 
     @Override
     public Song getItem(int position) {
-        return mSongList.get(position);
+        return mValues.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return getItem(position).getId();
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final Song songIgItem = getItem(position);
+        NowListViewHolder viewHolder;
+        if (convertView == null){
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item, parent, false);
+            viewHolder = new NowListViewHolder();
+            viewHolder.siSongName = (TextView) convertView.findViewById(R.id.siSongName);
+            viewHolder.siSongArtist = (TextView) convertView.findViewById(R.id.siSongArtist);
+            viewHolder.siAlbumArt = (ImageView) convertView.findViewById(R.id.siAlbumArt);
+            viewHolder.siSpinner = (Spinner) convertView.findViewById(R.id.siSpinner);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (NowListViewHolder) convertView.getTag();
+        }
+        viewHolder.siSongName.setText(Common.cutterLongName(songIgItem.getName().toString(), Constant.MAX_LENGTH_NAME_TITLE_CATE));
+        viewHolder.siSongArtist.setText(songIgItem.getArtistName().toString());
+        new MyPicasso(viewHolder.siAlbumArt.getContext(), viewHolder.siAlbumArt, songIgItem.getImageUrl());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return convertView;
+    }
+
+    private class NowListViewHolder {
+        TextView siSongName;
+        TextView siSongArtist;
+        ImageView siAlbumArt;
+        Spinner siSpinner;
     }
 }
