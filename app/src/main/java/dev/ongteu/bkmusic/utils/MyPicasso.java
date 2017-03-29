@@ -1,8 +1,11 @@
 package dev.ongteu.bkmusic.utils;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.graphics.Palette;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Callback;
@@ -21,14 +24,15 @@ public class MyPicasso {
 
     /**
      * Using image view default
+     *
      * @param context
      * @param imageView
      * @param urlImage
      */
-    public MyPicasso(final Context context, final ImageView imageView, final String urlImage){
+    public MyPicasso(final Context context, final ImageView imageView, final String urlImage) {
         Picasso.with(context).load(urlImage)
-                .placeholder(R.drawable.lol_guy)
-                .error(R.drawable.lol_guy)
+                .placeholder(R.drawable.default_record_album_sm)
+                .error(R.drawable.default_record_album_sm)
                 .networkPolicy(NetworkPolicy.OFFLINE).into(imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -57,16 +61,17 @@ public class MyPicasso {
      * @param context
      * @param imageView
      * @param urlImage
-     * @param flag is for android >= 5
+     * @param viewRoot
      */
-    public MyPicasso(final Context context, final ShadowImageView imageView, final String urlImage, boolean flag){
+    public MyPicasso(final Context context, final ShadowImageView imageView, final String urlImage, final View viewRoot) {
         Picasso.with(context).load(urlImage)
-                .placeholder(R.drawable.lol_guy)
-                .error(R.drawable.lol_guy)
+                .placeholder(R.drawable.default_record_album)
+                .error(R.drawable.default_record_album)
                 .transform(new CropCircleTransformation())
                 .networkPolicy(NetworkPolicy.OFFLINE).into(imageView, new Callback() {
             @Override
             public void onSuccess() {
+//                changeBackgroundPlayer(imageView, viewRoot);
             }
 
             @Override
@@ -75,6 +80,7 @@ public class MyPicasso {
                         .into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {
+//                                changeBackgroundPlayer(imageView, viewRoot);
                             }
 
                             @Override
@@ -85,4 +91,18 @@ public class MyPicasso {
             }
         });
     }
+
+    private void changeBackgroundPlayer(final ImageView imageView, final View viewRoot) {
+        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmapImg = drawable.getBitmap();
+        Palette.from(bitmapImg).generate(new Palette.PaletteAsyncListener() {
+            public void onGenerated(Palette palette) {
+                Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                if (vibrantSwatch != null) {
+                    viewRoot.findViewById(R.id.bg_player).setBackgroundColor(vibrantSwatch.getRgb());
+                }
+            }
+        });
+    }
+
 }

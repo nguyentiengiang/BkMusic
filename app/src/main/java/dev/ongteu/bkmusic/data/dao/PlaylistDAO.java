@@ -59,16 +59,16 @@ public class PlaylistDAO extends BaseDAO {
     public List<Song> getSongByPlaylist(long playlistId) {
         List<PlaylistSong> songOnPlaylist = this.bkOrm.selectFromPlaylistSong().where(PlaylistSong_Schema.INSTANCE.playListId, "=", playlistId).toList();
         List<Song> songIgItems = new ArrayList<>();
-        for (PlaylistSong songOnListItem : songOnPlaylist) {
-            List<Songs> songListTmp = this.bkOrm.selectFromSongs().where(Songs_Schema.INSTANCE.keyMp3, "=", songOnListItem.getSongId()).toList();
+        for (int i = 0; i < songOnPlaylist.size(); i++) {
+            List<Songs> songListTmp = this.bkOrm.selectFromSongs().where(Songs_Schema.INSTANCE.keyMp3, "=", songOnPlaylist.get(i).getSongId()).toList();
             if (songListTmp.size() > 0) {
-                songIgItems.add(SongDAO.convert2SongIgItem(songListTmp.get(0)));
+                songIgItems.add(SongDAO.convert2SongIgItem(songListTmp.get(0),i));
             }
         }
         return songIgItems;
     }
 
-    public void addSongs2PlayList(long playlistId, List<String> keyMp3List){
+    public void addSongs2PlayList(long playlistId, List<String> keyMp3List) {
         for (String key : keyMp3List) {
             this.addSongItemToPlaylist(playlistId, key);
         }

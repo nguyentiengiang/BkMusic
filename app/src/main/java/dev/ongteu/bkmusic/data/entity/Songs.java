@@ -4,6 +4,8 @@ import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
 
+import dev.ongteu.bkmusic.utils.Constant;
+
 /**
  * Created by TienGiang on 26/9/2016.
  */
@@ -135,7 +137,7 @@ public class Songs {
     }
 
     public String getMp3Url() {
-        return mp3Url;
+        return Constant.URL_LOCAL_FILE + mp3Url;
     }
 
     public void setMp3Url(String mp3Url) {

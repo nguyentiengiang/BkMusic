@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.github.mohammad.songig.common.PlayerException;
 import com.github.mohammad.songig.common.RepeatMode;
 import com.github.mohammad.songig.common.SongigPlayer;
+import com.github.mohammad.songig.listener.OnBeforePrepareListener;
 import com.github.mohammad.songig.listener.OnCompleteListener;
 import com.github.mohammad.songig.listener.OnPauseListener;
 import com.github.mohammad.songig.listener.OnPlayListener;
@@ -34,6 +35,14 @@ public class PlayerProcess {
         Song currentSong = mySongigPlayer.getCurrentSong();
         this.changeUI(viewRoot, currentSong);
         final double[] currentSongDuration = {0};
+
+        //change UI when auto next
+        mySongigPlayer.addBeforePrepareListener(new OnBeforePrepareListener() {
+            @Override
+            public void onBeforeMusicPrepared(Song song) {
+                changeUI(viewRoot, song);
+            }
+        });
 
         //Btn play
         final AppCompatImageView btnPlay = (AppCompatImageView) viewRoot.findViewById(R.id.btn_song_play_toggle);
@@ -218,8 +227,7 @@ public class PlayerProcess {
         txtNameSong.setText(song.getName());
         txtSongArtist.setText(song.getArtistName());
 
-        new MyPicasso(imgCover.getContext(), imgCover, song.getImageUrl(), true);
-        imgCover.startRotateAnimation();
+        new MyPicasso(imgCover.getContext(), imgCover, song.getImageUrl(), viewRoot);
     }
 
 }

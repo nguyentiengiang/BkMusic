@@ -38,6 +38,7 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:palette-v7:24.2.1'
     //Reactive
     compile "io.reactivex.rxjava2:rxjava:$REACTIVE_VERSION"
     compile "io.reactivex.rxjava2:rxandroid:$RX_DROID_VERSION"
