@@ -15,7 +15,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/si_ic_book_black_24dp" />
+            android:src="@drawable/ic_hotsong" />
 
         <TextView
             android:id="@+id/hotSongName"

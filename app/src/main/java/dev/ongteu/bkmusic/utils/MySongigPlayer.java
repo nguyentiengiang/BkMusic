@@ -37,9 +37,6 @@ public class MySongigPlayer{
         for (Song s : this.songigPlayer.getPlayList()) {
             Log.e("Song item", s.getName());
         }
-        Log.e("Crr song nam", String.valueOf(this.songigPlayer.getCurrentSong().getName()));
-        Log.e("Crr song idx", String.valueOf(this.songigPlayer.getCurrentSongIndex()));
-        Log.e("Last song idx", String.valueOf(this.songigPlayer.getLastSongIndex()));
         try {
              this.songigPlayer.play(position);
         } catch (PlayerException e) {
