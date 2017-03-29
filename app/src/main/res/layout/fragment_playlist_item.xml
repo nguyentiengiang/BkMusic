@@ -1,55 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/si_item_height">
 
     <RelativeLayout
-        android:id="@+id/hotSongLayout"
+        android:id="@+id/siLayoutLeft"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/si_item_background"
         android:padding="@dimen/si_item_padding"
         android:tag="front">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_hotsong" />
-
         <TextView
-            android:id="@+id/hotSongName"
+            android:id="@+id/pliPlaylistName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="36dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/icon"
             android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/hotSongArtist"
+            android:id="@+id/pliTotalSong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/hotSongName"
-            android:layout_below="@+id/hotSongName"
+            android:layout_alignStart="@+id/pliPlaylistName"
+            android:layout_below="@+id/pliPlaylistName"
             android:layout_marginLeft="0dp"
-            android:layout_marginRight="36dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:textSize="14dp" />
 
-        <ImageView
-            android:id="@+id/icDownHotSong"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+        <Spinner
+            android:id="@+id/pliSpinner"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/hotSongName"
+            android:layout_alignTop="@+id/pliPlaylistName"
             android:layout_marginTop="5dp"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/ic_file_download" />
+            android:adjustViewBounds="true" />
 
     </RelativeLayout>
 

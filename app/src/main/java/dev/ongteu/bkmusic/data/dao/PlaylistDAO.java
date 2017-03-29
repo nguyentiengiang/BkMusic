@@ -29,13 +29,13 @@ public class PlaylistDAO extends BaseDAO {
 
     public List<Playlist> getAll() {
         List<Playlist> allPlaylist = this.bkOrm.selectFromPlaylist().toList();
+        List<Playlist> fixedPlaylist = new ArrayList<>();
         for (Playlist playlistItem : allPlaylist) {
-            allPlaylist.remove(playlistItem);
             int countSong = this.bkOrm.selectFromPlaylistSong().where(PlaylistSong_Schema.INSTANCE.playListId, "=", playlistItem.getId()).count();
             playlistItem.setCount(countSong);
-            allPlaylist.add(playlistItem);
+            fixedPlaylist.add(playlistItem);
         }
-        return allPlaylist;
+        return fixedPlaylist;
     }
 
     public boolean isDuplicateName(String playlistName) {
@@ -72,6 +72,10 @@ public class PlaylistDAO extends BaseDAO {
         for (String key : keyMp3List) {
             this.addSongItemToPlaylist(playlistId, key);
         }
+    }
+
+    public void showPlaylist(){
+
     }
 
     public void playMusicByPlaylistId(long playlistId, final ViewPager viewPager) {
