@@ -3,12 +3,25 @@ package dev.ongteu.bkmusic.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.List;
 
 import dev.ongteu.bkmusic.R;
+import dev.ongteu.bkmusic.adapter.PlaylistAdapter;
+import dev.ongteu.bkmusic.data.dao.PlaylistDAO;
+import dev.ongteu.bkmusic.data.entity.Playlist;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,8 +82,26 @@ public class PlaylistFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_playlist, container, false);
+        final View viewRoot = inflater.inflate(R.layout.fragment_playlist, container, false);
+        final Context context = viewRoot.getContext();
+        if (viewRoot instanceof CoordinatorLayout) {
+            final ListView listViewPlaylist = (ListView) viewRoot.findViewById(R.id.listViewPlaylist);
+            final PlaylistDAO playlistDAO = new PlaylistDAO(context);
+            final List<Playlist> playLists = playlistDAO.getAll();
+            final PlaylistAdapter playlistAdapter = new PlaylistAdapter(playLists, context);
+            listViewPlaylist.setAdapter(playlistAdapter);
+            playlistAdapter.notifyDataSetChanged();
+
+            FloatingActionButton fabCreatePlaylist = (FloatingActionButton) viewRoot.findViewById(R.id.fabAddPlaylist);
+            fabCreatePlaylist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showCreatePlaylist(context, listViewPlaylist, "", "");
+                }
+            });
+
+        }
+        return viewRoot;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -111,4 +142,38 @@ public class PlaylistFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private void showCreatePlaylist(final Context context, final ListView listView, String contentString, CharSequence suggestString){
+        MaterialDialog materialDialog = new MaterialDialog.Builder(context)
+                .title("Tạo playlist")
+                .content(contentString)
+                .positiveText("Tạo mới")
+                .negativeText("Hủy bỏ")
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .input(R.string.create_playlist_hint, R.string.create_playlist_suggest, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        final PlaylistDAO playlistDAO = new PlaylistDAO(context);
+                        String inputPlaylistName = dialog.getInputEditText().getText().toString();
+                        if (playlistDAO.isDuplicateName(String.valueOf(inputPlaylistName))){
+                            showCreatePlaylist(context, listView, "Tên playlist đã có", inputPlaylistName);
+                        } else {
+                            playlistDAO.createNewPlaylist(inputPlaylistName);
+                            final List<Playlist> playLists = playlistDAO.getAll();
+                            final PlaylistAdapter playlistAdapter = new PlaylistAdapter(playLists, context);
+                            listView.setAdapter(playlistAdapter);
+                            playlistAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }).show();
+        if(!suggestString.equals("")) {
+            materialDialog.getInputEditText().setText(suggestString);
+        }
+    }
+
 }

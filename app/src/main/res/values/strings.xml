@@ -115,7 +115,7 @@
     <string name="mp.menu.rename">Rename</string>
     <string name="mp.menu.delete">Delete</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_playlist_hint">Mời nhập tên playlist</string>
+    <string name="create_playlist_suggest">My Playlist</string>
 
 </resources>

@@ -158,10 +158,7 @@ public class MainActivity extends AppCompatActivity
                 setTitle(R.string.menuFavorMusic);
                 break;
         }
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        // NOT FIX ISSUE BackStack
-//        fragmentManager.beginTransaction().addToBackStack(NAME_FRM_BACK_STACK)
-//                .replace(R.id.fragment_container, fragment).commit();
+
         replaceFragment(fragment, NAME_FRM_BACK_STACK);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -181,11 +178,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void replaceFragment(Fragment fragment, String NAME_FRM_BACK_STACK) {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (currentFragment.getClass() == fragment.getClass()) {
-            // nothing to do
-            return;
-        }
+//        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(

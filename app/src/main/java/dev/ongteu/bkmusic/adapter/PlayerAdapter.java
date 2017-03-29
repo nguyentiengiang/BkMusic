@@ -110,15 +110,6 @@ public class PlayerAdapter extends PagerAdapter {
      */
     @Override
     public int getItemPosition(Object object) {
-//        Utils.DummyItem dummyItem = (Utils.DummyItem) ((View) object).getTag();
-//        int position = mDummyItems.indexOf(dummyItem);
-//        if (position >= 0) {
-//            // The current data matches the data in this active fragment, so let it be as it is.
-//            return position;
-//        } else {
-//            // Returning POSITION_NONE means the current data does not matches the data this fragment is showing right now.  Returning POSITION_NONE constant will force the fragment to redraw its view layout all over again and show new data.
-//            return POSITION_NONE;
-//        }
-        return 1;
+        return PagerAdapter.POSITION_NONE;
     }
 }
