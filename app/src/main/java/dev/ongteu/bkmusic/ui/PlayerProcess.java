@@ -46,7 +46,7 @@ public class PlayerProcess {
 
         //Btn play
         final AppCompatImageView btnPlay = (AppCompatImageView) viewRoot.findViewById(R.id.btn_song_play_toggle);
-        if (mySongigPlayer.isPlaying()){
+        if (mySongigPlayer.isPlaying()) {
             btnPlay.setImageResource(R.drawable.ic_pause);
         }
         mySongigPlayer.addPlayListener(new OnPlayListener() {
@@ -126,6 +126,11 @@ public class PlayerProcess {
                             e.printStackTrace();
                         }
                     }
+                } else if (mySongigPlayer.getRepeatMode().equals(RepeatMode.ALL)) {
+                    if (mySongigPlayer.isFirstTrack()) {
+                        mySongigPlayer.playAtIndex(mySongigPlayer.getLastSongIndex());
+                        changeUI(viewRoot, mySongigPlayer.getCurrentSong());
+                    }
                 }
             }
         });
@@ -143,6 +148,11 @@ public class PlayerProcess {
                         } catch (PlayerException e) {
                             e.printStackTrace();
                         }
+                    }
+                } else if (mySongigPlayer.getRepeatMode().equals(RepeatMode.ALL)) {
+                    if (mySongigPlayer.isLastTrack()) {
+                        mySongigPlayer.playAtIndex(0);
+                        changeUI(viewRoot, mySongigPlayer.getCurrentSong());
                     }
                 }
             }

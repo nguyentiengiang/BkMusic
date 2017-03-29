@@ -83,7 +83,6 @@ public class PlayerAdapter extends PagerAdapter {
                 break;
         }
         container.addView(view);
-        Log.i(TAG, "instantiateItem() [position: " + position + "]" + " childCount:" + container.getChildCount());
         return view;
     }
 

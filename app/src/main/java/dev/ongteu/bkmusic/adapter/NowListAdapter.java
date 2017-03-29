@@ -17,6 +17,7 @@ import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.MyPicasso;
+import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 public class NowListAdapter extends BaseAdapter {
 
@@ -47,7 +48,7 @@ public class NowListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final Song songIgItem = getItem(position);
-        NowListViewHolder viewHolder;
+        final NowListViewHolder viewHolder;
         if (convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_nowlist_item, parent, false);
             viewHolder = new NowListViewHolder();
@@ -66,7 +67,10 @@ public class NowListAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MySongigPlayer mySongigPlayer = new MySongigPlayer(mContext);
+                if (!(mySongigPlayer.instance().getCurrentSongIndex() == songIgItem.getId())) {
+                    mySongigPlayer.playSong(songIgItem.getId());
+                }
             }
         });
         return convertView;
