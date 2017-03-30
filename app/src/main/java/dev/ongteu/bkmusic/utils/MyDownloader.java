@@ -81,7 +81,7 @@ public class MyDownloader {
 
         SongDAO songDAO = new SongDAO(mContext, true);
         songDAO.addNewSong(songName, singer, singerUrl, bgImage, avatar, keyMp3, mp3Url, songUrl, fileName, isUserLocal);
-        Toast.makeText(mContext, "Tải thành công bài hát " + songName, Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "Tải thành công bài hát " + songName, Toast.LENGTH_SHORT).show();
     }
 
 }
