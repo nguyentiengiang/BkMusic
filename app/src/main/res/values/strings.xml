@@ -27,6 +27,11 @@
         <item>Tải về</item>
         <item>Thêm vào playlist</item>
     </string-array>
+
+    <string name="menu_playlist_edit_name">Đổi tên</string>
+    <string name="menu_playlist_change">Sửa danh sách bài hát</string>
+    <string name="menu_playlist_delete">Xóa</string>
+
     <string name="title_activity_player">Now Playing</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>

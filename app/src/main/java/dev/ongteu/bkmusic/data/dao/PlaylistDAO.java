@@ -46,6 +46,15 @@ public class PlaylistDAO extends BaseDAO {
         return this.bkOrm.insertIntoPlaylist(new Playlist(playlistName));
     }
 
+    public int editPlaylist(long playlistId, String playlistName) {
+        return this.bkOrm.updatePlaylist().idEq(playlistId).name(playlistName).execute();
+    }
+
+    public int removePlaylist(long playlistId){
+        removeAllSongOfPlaylist(playlistId);
+        return this.bkOrm.deleteFromPlaylist().idEq(playlistId).execute();
+    }
+
     public long addSongItemToPlaylist(long playlistId, String keyMp3) {
         PlaylistSong playlistSong = new PlaylistSong(playlistId, keyMp3);
         return this.bkOrm.insertIntoPlaylistSong(playlistSong);
@@ -56,7 +65,7 @@ public class PlaylistDAO extends BaseDAO {
                 .where(PlaylistSong_Schema.INSTANCE.songId, "=", keyMp3).execute();
     }
 
-    public List<Song> getSongByPlaylist(long playlistId) {
+    public List<Song> getSongIgByPlaylist(long playlistId) {
         List<PlaylistSong> songOnPlaylist = this.bkOrm.selectFromPlaylistSong().where(PlaylistSong_Schema.INSTANCE.playListId, "=", playlistId).toList();
         List<Song> songIgItems = new ArrayList<>();
         for (int i = 0; i < songOnPlaylist.size(); i++) {
@@ -68,18 +77,23 @@ public class PlaylistDAO extends BaseDAO {
         return songIgItems;
     }
 
+    public List<PlaylistSong> getSongEnityByPlaylist(long playlistId) {
+        List<PlaylistSong> songOnPlaylist = this.bkOrm.selectFromPlaylistSong().where(PlaylistSong_Schema.INSTANCE.playListId, "=", playlistId).toList();
+        return songOnPlaylist;
+    }
+
     public void addSongs2PlayList(long playlistId, List<String> keyMp3List) {
         for (String key : keyMp3List) {
             this.addSongItemToPlaylist(playlistId, key);
         }
     }
 
-    public void showPlaylist(){
-
+    public int removeAllSongOfPlaylist(long playlistId){
+        return this.bkOrm.deleteFromPlaylistSong().where(PlaylistSong_Schema.INSTANCE.playListId, "=", playlistId).execute();
     }
 
     public void playMusicByPlaylistId(long playlistId, final ViewPager viewPager) {
-        List<Song> songIgList = getSongByPlaylist(playlistId);
+        List<Song> songIgList = getSongIgByPlaylist(playlistId);
         if (songIgList.size() > 0) {
             MySongigPlayer mySongigPlayer = new MySongigPlayer(context);
             mySongigPlayer.changeNowPlaying(songIgList);

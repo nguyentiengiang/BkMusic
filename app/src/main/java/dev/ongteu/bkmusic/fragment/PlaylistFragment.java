@@ -16,12 +16,16 @@ import android.widget.ListView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.adapter.PlaylistAdapter;
 import dev.ongteu.bkmusic.data.dao.PlaylistDAO;
+import dev.ongteu.bkmusic.data.dao.SongDAO;
 import dev.ongteu.bkmusic.data.entity.Playlist;
+import dev.ongteu.bkmusic.data.entity.PlaylistSong;
+import dev.ongteu.bkmusic.data.entity.Songs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,11 +90,8 @@ public class PlaylistFragment extends Fragment {
         final Context context = viewRoot.getContext();
         if (viewRoot instanceof CoordinatorLayout) {
             final ListView listViewPlaylist = (ListView) viewRoot.findViewById(R.id.listViewPlaylist);
-            final PlaylistDAO playlistDAO = new PlaylistDAO(context);
-            final List<Playlist> playLists = playlistDAO.getAll();
-            final PlaylistAdapter playlistAdapter = new PlaylistAdapter(playLists, context);
-            listViewPlaylist.setAdapter(playlistAdapter);
-            playlistAdapter.notifyDataSetChanged();
+
+            refreshAdapter(context, listViewPlaylist);
 
             FloatingActionButton fabCreatePlaylist = (FloatingActionButton) viewRoot.findViewById(R.id.fabAddPlaylist);
             fabCreatePlaylist.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +101,7 @@ public class PlaylistFragment extends Fragment {
                 }
             });
 
+            registerForContextMenu(listViewPlaylist);
         }
         return viewRoot;
     }
@@ -143,7 +145,15 @@ public class PlaylistFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void showCreatePlaylist(final Context context, final ListView listView, String contentString, CharSequence suggestString){
+    public static void refreshAdapter(final Context context, ListView listView) {
+        final PlaylistDAO playlistDAO = new PlaylistDAO(context);
+        final List<Playlist> playLists = playlistDAO.getAll();
+        final PlaylistAdapter playlistAdapter = new PlaylistAdapter(playLists, context, listView);
+        listView.setAdapter(playlistAdapter);
+        playlistAdapter.notifyDataSetChanged();
+    }
+
+    private void showCreatePlaylist(final Context context, final ListView listView, String contentString, CharSequence suggestString) {
         MaterialDialog materialDialog = new MaterialDialog.Builder(context)
                 .title("Tạo playlist")
                 .content(contentString)
@@ -160,20 +170,69 @@ public class PlaylistFragment extends Fragment {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         final PlaylistDAO playlistDAO = new PlaylistDAO(context);
                         String inputPlaylistName = dialog.getInputEditText().getText().toString();
-                        if (playlistDAO.isDuplicateName(String.valueOf(inputPlaylistName))){
+                        if (playlistDAO.isDuplicateName(String.valueOf(inputPlaylistName))) {
                             showCreatePlaylist(context, listView, "Tên playlist đã có", inputPlaylistName);
                         } else {
-                            playlistDAO.createNewPlaylist(inputPlaylistName);
-                            final List<Playlist> playLists = playlistDAO.getAll();
-                            final PlaylistAdapter playlistAdapter = new PlaylistAdapter(playLists, context);
-                            listView.setAdapter(playlistAdapter);
-                            playlistAdapter.notifyDataSetChanged();
+                            long playlistIdInserted = playlistDAO.createNewPlaylist(inputPlaylistName);
+                            refreshAdapter(context, listView);
+                            showEditSong(context, listView, playlistIdInserted);
                         }
                     }
                 }).show();
-        if(!suggestString.equals("")) {
+        if (!suggestString.equals("")) {
             materialDialog.getInputEditText().setText(suggestString);
         }
+    }
+
+    public static void showEditSong(final Context context, final ListView listView, final long playlistId) {
+        final List<Songs> allSong = new SongDAO(context, true).getAll();
+        final PlaylistDAO playlistDAO = new PlaylistDAO(context);
+        List<PlaylistSong> songOnList = playlistDAO.getSongEnityByPlaylist(playlistId);
+        Integer[] idsPreSelected = getIndexPlaylistSelected(allSong, songOnList);
+        new MaterialDialog.Builder(context)
+                .title("Add song to playlist")
+                .items(allSong)
+                .itemsCallbackMultiChoice(idsPreSelected, new MaterialDialog.ListCallbackMultiChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                        playlistDAO.removeAllSongOfPlaylist(playlistId);
+                        for (Integer i : which) {
+                            String key = getSongKeyByIndex(allSong, i);
+                            playlistDAO.addSongItemToPlaylist(playlistId, key);
+                        }
+                        refreshAdapter(context, listView);
+                        return true;
+                    }
+                })
+                .positiveText("Chấp nhận")
+                .negativeText("Bỏ qua")
+                .show();
+    }
+
+    public static Integer[] getIndexPlaylistSelected(List<Songs> allSong, List<PlaylistSong> songOnList) {
+        List<Integer> idsMap = new ArrayList<Integer>();
+        for (int i = 0; i < allSong.size(); i++) {
+            for (PlaylistSong s : songOnList) {
+                if (s.getSongId().equals(allSong.get(i).getKeyMp3())) {
+                    idsMap.add(i);
+                    break;
+                }
+            }
+        }
+        Integer[] idsSelected = new Integer[idsMap.size()];
+        idsSelected = idsMap.toArray(idsSelected);
+        return idsSelected;
+    }
+
+    public static String getSongKeyByIndex(List<Songs> allSong, int idx) {
+        String songKey = "";
+        for (int i = 0; i < allSong.size(); i++) {
+            if (i == idx) {
+                songKey = allSong.get(i).getKeyMp3();
+                break;
+            }
+        }
+        return songKey;
     }
 
 }

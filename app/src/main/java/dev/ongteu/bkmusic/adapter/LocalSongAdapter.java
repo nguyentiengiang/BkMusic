@@ -77,6 +77,14 @@ public class LocalSongAdapter extends BaseAdapter {
                 ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
             }
         });
+
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
+
         return convertView;
     }
 

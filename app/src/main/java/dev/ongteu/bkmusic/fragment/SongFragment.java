@@ -3,9 +3,13 @@ package dev.ongteu.bkmusic.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -64,12 +68,41 @@ public class SongFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ListView viewRoot = (ListView) inflater.inflate(R.layout.fragment_nowlist, container, false);
+        final ListView viewRoot = (ListView) inflater.inflate(R.layout.fragment_nowlist, container, false);
         final Context context = viewRoot.getContext();
         SongDAO songDAO = new SongDAO(context, true);
         List<Songs> songList = songDAO.getAll();
-        LocalSongAdapter localSongAdapter = new LocalSongAdapter(songList, context);
+        final LocalSongAdapter localSongAdapter = new LocalSongAdapter(songList, context);
         viewRoot.setAdapter(localSongAdapter);
+        viewRoot.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        viewRoot.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener(){
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                final int checkedCount = viewRoot.getCheckedItemCount();
+                mode.setTitle(checkedCount + " selected");
+//                localSongAdapter.toggleSelection(position);
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
         localSongAdapter.notifyDataSetChanged();
         return viewRoot;
     }
