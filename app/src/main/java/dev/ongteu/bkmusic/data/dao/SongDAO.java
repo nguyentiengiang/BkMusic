@@ -23,19 +23,16 @@ import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 public class SongDAO extends BaseDAO {
 
-    public SongDAO(final Context context) {
-        super(context, true);
+    public SongDAO(final Context context, boolean isOnMain) {
+        super(context, isOnMain);
     }
 
     public List<Songs> getAll() {
         List<Songs> listSongChecked = new ArrayList<>();
-        List<Songs> listSong = this.bkOrm.selectFromSongs()
-                .where(Songs_Schema.INSTANCE.isUserLocal, "=", Constant.IS_USER_LOCAL)
-                .toList();
+        List<Songs> listSong = this.bkOrm.selectFromSongs().toList();
         for (Songs songItem : listSong) {
             Storage storage = FileHelper.initStorge(context);
             if (storage.isFileExist(Constant.PATH_MUSIC_USER, songItem.getFileName()) || storage.isFileExist(Constant.PATH_MUSIC_APP, songItem.getFileName())) {
-                songItem.setAvatar(Constant.URL_LOCAL_FILE + songItem.getAvatar());
                 listSongChecked.add(songItem);
             } else {
                 bkOrm.deleteFromSongs().idEq(songItem.getId()).execute();
@@ -62,7 +59,7 @@ public class SongDAO extends BaseDAO {
         String singer = songItem.getSinger();
         String albumName = "";
         String url = songItem.getMp3Url();
-        String imageUrl = Constant.URL_LOCAL_FILE + songItem.getAvatar();
+        String imageUrl = songItem.getAvatar();
         String albumId = songItem.getFileName();
         Song s = new Song(songId, songName, singer, albumName, url, imageUrl, albumId, PlayMode.LOCAL);
         s.setPath(url);

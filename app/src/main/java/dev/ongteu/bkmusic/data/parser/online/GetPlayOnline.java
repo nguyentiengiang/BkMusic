@@ -15,6 +15,7 @@ import dev.ongteu.bkmusic.adapter.PlayerAdapter;
 import dev.ongteu.bkmusic.data.model.SongItem;
 import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
 import dev.ongteu.bkmusic.data.parser.api.IServices;
+import dev.ongteu.bkmusic.utils.MyDownloader;
 import dev.ongteu.bkmusic.utils.MySongigPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,6 +65,26 @@ public class GetPlayOnline {
 
             }
         });
+    }
+
+    public static void downloadMusic(final Context context, String songUrl, final int typeSong, final String albumName){
+        IServices service = BaseRetrofit.instanceService();
+        Call<List<SongItem>> call = service.listSongs(songUrl);
+
+        call.enqueue(new Callback<List<SongItem>>() {
+            @Override
+            public void onResponse(Call<List<SongItem>> call, Response<List<SongItem>> response) {
+                List<SongItem> songItemList = response.body();
+                new MyDownloader(context).download(songItemList);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<SongItem>> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }

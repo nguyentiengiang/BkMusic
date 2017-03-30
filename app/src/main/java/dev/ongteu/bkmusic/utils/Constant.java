@@ -26,6 +26,7 @@ public class Constant {
      */
     public static final String URL_LOCAL_FILE = "file://";
     public static final String IMG_EXT = ".png";
+    public static final String MUSIC_EXT = ".mp3";
 
     /**
      * Network Retrofit Timeout
@@ -76,6 +77,7 @@ public class Constant {
      *
      */
     public static final int IS_USER_LOCAL = 1;
+    public static final int IS_LOCAL_APP = 0;
     public static final String MUSIC_LOCAL_ARTIST = "Unknown Artist";
     public static final String MUSIC_LOCAL_ALBUM = "Unknown Album";
 
@@ -88,6 +90,7 @@ public class Constant {
      *
      */
     public static final int IMG_BACKGROUND_SIZE = 200;
+    public static final int IMG_COVER_SIZE = 320;
 
 
 }
