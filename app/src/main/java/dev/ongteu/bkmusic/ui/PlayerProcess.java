@@ -237,7 +237,7 @@ public class PlayerProcess {
             btnPlayAll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SongDAO songDAO = new SongDAO(viewRoot.getContext());
+                    SongDAO songDAO = new SongDAO(viewRoot.getContext(), true);
                     songDAO.playWithFirstSong("", (ViewPager) viewRoot.getParent());
                 }
             });

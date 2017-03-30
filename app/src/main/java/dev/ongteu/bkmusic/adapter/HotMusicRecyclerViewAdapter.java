@@ -6,13 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
+import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
 import dev.ongteu.bkmusic.fragment.HotMusicFragment.OnFragmentInteractionListener;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Common;
@@ -59,6 +62,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
         public final View mView;
         public final TextView hotSongName;
         public final TextView hotSongArtist;
+        public final ImageView icDownHotSong;
         public HotSongItem mItem;
 
         public ViewHolder(View view) {
@@ -67,6 +71,16 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
             mView.setOnClickListener(this);
             hotSongName = (TextView) view.findViewById(R.id.hotSongName);
             hotSongArtist = (TextView) view.findViewById(R.id.hotSongArtist);
+            icDownHotSong = (ImageView) view.findViewById(R.id.icDownHotSong);
+
+            icDownHotSong.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Đang tải " + mItem.getSongName(), Toast.LENGTH_SHORT).show();
+                    GetPlayOnline.downloadMusic(mContext, mItem.getSongUrl(), 1, mItem.getSongName());
+                }
+            });
+
         }
 
         @Override

@@ -66,7 +66,7 @@ public class SongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ListView viewRoot = (ListView) inflater.inflate(R.layout.fragment_nowlist, container, false);
         final Context context = viewRoot.getContext();
-        SongDAO songDAO = new SongDAO(context);
+        SongDAO songDAO = new SongDAO(context, true);
         List<Songs> songList = songDAO.getAll();
         LocalSongAdapter localSongAdapter = new LocalSongAdapter(songList, context);
         viewRoot.setAdapter(localSongAdapter);
