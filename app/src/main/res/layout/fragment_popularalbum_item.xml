@@ -1,46 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="@dimen/si_item_height">
-
-<!-- this is the item front view -->
-<RelativeLayout
-    android:tag="front"
-    android:background="@color/si_item_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/si_item_padding">
+    android:layout_height="@dimen/si_item_height">
 
-    <ImageView
-        android:id="@+id/popAlbumArt"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/si_ic_book_black_24dp"
-        android:adjustViewBounds="true" />
+    <RelativeLayout
+        android:id="@+id/popItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/si_item_background"
+        android:padding="@dimen/si_item_padding"
+        android:tag="front">
 
-    <TextView
-        android:id="@+id/popAlbumName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:layout_toRightOf="@+id/popAlbumArt"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/popAlbumArt"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_hotsong" />
 
-    <TextView
-        android:id="@+id/popAlbumArtist"
-        android:layout_below="@+id/popAlbumName"
-        android:layout_alignLeft="@+id/popAlbumName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:textSize="14dp" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/popAlbumName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/popAlbumArt"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/popAlbumArtist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/popAlbumName"
+            android:layout_below="@+id/popAlbumName"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="5dp"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/icDownAlbum"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/popAlbumName"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_file_download" />
+
+    </RelativeLayout>
 
 
-<!-- just a divider -->
-<View android:background="@color/si_divider"
-    android:layout_width="fill_parent"
-    android:layout_height="0.5dp" />
+    <!-- just a divider -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/si_divider" />
 
 </FrameLayout>

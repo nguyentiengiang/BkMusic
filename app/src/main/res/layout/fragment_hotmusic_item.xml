@@ -5,7 +5,7 @@
     android:layout_height="@dimen/si_item_height">
 
     <RelativeLayout
-        android:id="@+id/hotSongLayout"
+        android:id="@+id/hotSongItemLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/si_item_background"

@@ -77,7 +77,7 @@ public class HotMusicRecyclerViewAdapter extends RecyclerView.Adapter<HotMusicRe
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(mContext, "Đang tải " + mItem.getSongName(), Toast.LENGTH_SHORT).show();
-                    GetPlayOnline.downloadMusic(mContext, mItem.getSongUrl(), 1, mItem.getSongName());
+                    GetPlayOnline.downloadMusic(mContext, mItem.getSongUrl());
                 }
             });
 

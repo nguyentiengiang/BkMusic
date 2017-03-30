@@ -67,7 +67,7 @@ public class GetPlayOnline {
         });
     }
 
-    public static void downloadMusic(final Context context, String songUrl, final int typeSong, final String albumName){
+    public static void downloadMusic(final Context context, String songUrl){
         IServices service = BaseRetrofit.instanceService();
         Call<List<SongItem>> call = service.listSongs(songUrl);
 
@@ -76,7 +76,6 @@ public class GetPlayOnline {
             public void onResponse(Call<List<SongItem>> call, Response<List<SongItem>> response) {
                 List<SongItem> songItemList = response.body();
                 new MyDownloader(context).download(songItemList);
-
             }
 
             @Override
