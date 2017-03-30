@@ -70,10 +70,14 @@ public class FileHelper {
             if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART, "fileName"))
                 storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART,
                         fileImgeName + Constant.IMG_EXT,
-                        Bitmap.createScaledBitmap(BitmapFactory.decodeByteArray(albumArtImage, 0, albumArtImage.length), 120, 120, false)
+                        Bitmap.createScaledBitmap(BitmapFactory.decodeByteArray(albumArtImage, 0, albumArtImage.length), Constant.IMG_COVER_SIZE, Constant.IMG_COVER_SIZE, false)
                 );
             Log.e("EXTRACTED", "DONE 1");
         }
+    }
+
+    public static boolean isFileExistOnAppPath(final Context appContext, String fileName){
+        return initStorge(appContext).isFileExist(mAppMusicPath, fileName);
     }
 
     public static class AudioFileFilter implements FileFilter {

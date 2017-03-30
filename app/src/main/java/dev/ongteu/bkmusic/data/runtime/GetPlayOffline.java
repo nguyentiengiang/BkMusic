@@ -13,7 +13,7 @@ import dev.ongteu.bkmusic.data.dao.SongDAO;
 public class GetPlayOffline {
 
     public GetPlayOffline(final Context context, String keyMp3, final ViewPager viewPager) {
-        SongDAO songDAO = new SongDAO(context);
+        SongDAO songDAO = new SongDAO(context, true);
         songDAO.playWithFirstSong(keyMp3, viewPager);
     }
 
