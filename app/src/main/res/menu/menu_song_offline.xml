@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="dev.ongteu.bkmusic.activities.MainActivity">
+    <item
+        android:id="@+id/action_add_to_playlist"
+        android:title="@string/menu_song_add_to_playlist" />
+    <item
+        android:id="@+id/action_delete_soft"
+        android:title="@string/menu_song_delete_soft" />
+    <item
+        android:id="@+id/action_delete_hard"
+        android:title="@string/menu_song_delete_hard" />
+</menu>

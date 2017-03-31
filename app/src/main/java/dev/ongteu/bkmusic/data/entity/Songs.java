@@ -164,4 +164,9 @@ public class Songs {
     public void setIsUserLocal(int isUserLocal) {
         this.isUserLocal = isUserLocal;
     }
+
+    @Override
+    public String toString() {
+        return this.songName + " - " + this.singer;
+    }
 }

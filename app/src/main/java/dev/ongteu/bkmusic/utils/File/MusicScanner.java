@@ -48,7 +48,7 @@ public class MusicScanner {
                 String fileName = fileItem.getName();
                 String keyMp3 = Common.generateImageName(fileName);
                 String mp3Url = Constant.URL_LOCAL_FILE + fileItem.getAbsolutePath();
-                String avatar = Constant.URL_LOCAL_FILE + Common.getDirectoryOfFile(mp3Url, fileName) + Constant.PATH_MUSIC_USER_ART + "/" + keyMp3 + Constant.IMG_EXT;
+                String avatar = Constant.URL_LOCAL_FILE + Common.getDirectoryOfFile(mp3Url, fileName) + Constant.PATH_MUSIC_ART + File.separator + keyMp3 + Constant.IMG_EXT;
                 String songUrl = "";
                 int isUserLocal = Constant.IS_USER_LOCAL;
 

@@ -53,6 +53,14 @@ public class SongDAO extends BaseDAO {
         return this.bkOrm.insertIntoSongs(newSong);
     }
 
+    public int deleteSong(long songId){
+        return this.bkOrm.deleteFromSongs().idEq(songId).execute();
+    }
+
+    public int deleteSong(String keyMp3){
+        return this.bkOrm.deleteFromSongs().where(Songs_Schema.INSTANCE.keyMp3, "=", keyMp3).execute();
+    }
+
     public static Song convert2SongIgItem(Songs songItem, int songIndex) {
         int songId = songIndex;
         String songName = songItem.getSongName();
@@ -60,7 +68,7 @@ public class SongDAO extends BaseDAO {
         String albumName = "";
         String url = songItem.getMp3Url();
         String imageUrl = songItem.getAvatar();
-        String albumId = songItem.getFileName();
+        String albumId = songItem.getKeyMp3();
         Song s = new Song(songId, songName, singer, albumName, url, imageUrl, albumId, PlayMode.LOCAL);
         s.setPath(url);
         return s;

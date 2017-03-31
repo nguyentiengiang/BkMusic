@@ -22,7 +22,7 @@ import dev.ongteu.bkmusic.utils.File.FileHelper;
 public class MyDownloader {
     private Context mContext;
     private String absPathMusic = FileHelper.initStorge(mContext).getFile(Constant.PATH_MUSIC_APP).getPath();
-    private String absPathMusicArt = absPathMusic + File.separator + Constant.PATH_MUSIC_APP_ART;
+    private String absPathMusicArt = absPathMusic + File.separator + Constant.PATH_MUSIC_ART;
 
     public MyDownloader(final Context context) {
         this.mContext = context;

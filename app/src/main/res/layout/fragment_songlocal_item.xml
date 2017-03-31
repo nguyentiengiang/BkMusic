@@ -4,41 +4,50 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/si_item_height">
 
+    <!-- this is the item front view -->
     <RelativeLayout
-        android:id="@+id/siLayoutLeft"
+        android:id="@+id/siLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/si_item_background"
         android:padding="@dimen/si_item_padding"
         android:tag="front">
 
+        <ImageView
+            android:id="@+id/siAlbumArt"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_hotsong" />
+
         <TextView
-            android:id="@+id/pliPlaylistName"
+            android:id="@+id/siSongName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/siAlbumArt"
             android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/pliTotalSong"
+            android:id="@+id/siSongArtist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/pliPlaylistName"
-            android:layout_below="@+id/pliPlaylistName"
+            android:layout_alignStart="@+id/siSongName"
+            android:layout_below="@+id/siSongName"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:textSize="14dp" />
 
         <ImageView
-            android:id="@+id/imgMenuPlaylist"
+            android:id="@+id/siImgMenu"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/pliPlaylistName"
+            android:layout_alignTop="@+id/siSongName"
             android:layout_marginTop="5dp"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_action_menu" />
