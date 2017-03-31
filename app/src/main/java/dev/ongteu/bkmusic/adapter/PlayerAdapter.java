@@ -15,6 +15,7 @@ import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.ui.PlayerProcess;
+import dev.ongteu.bkmusic.utils.MySongigPlayer;
 
 /**
  * Updated by GiangNT on 17/03/2017.
@@ -24,6 +25,11 @@ public class PlayerAdapter extends PagerAdapter {
     private static final String TAG = "PlayerAdapter";
     private List<Song> mSongIgItems = new ArrayList<>();
     private Context mContext;
+
+    public PlayerAdapter(Context context) {
+        this.mContext = context;
+        this.mSongIgItems = new MySongigPlayer(context).instance().getPlayList();
+    }
 
     public PlayerAdapter(Context context, List<Song> SongIgItems) {
         this.mContext = context;
@@ -74,6 +80,7 @@ public class PlayerAdapter extends PagerAdapter {
             case 1:
                 if (view instanceof ListView){
                     NowListAdapter nowListAdapter = new NowListAdapter(mSongIgItems, mContext);
+                    nowListAdapter.notifyDataSetChanged();
                     ((ListView) view).setAdapter(nowListAdapter);
                 }
                 break;

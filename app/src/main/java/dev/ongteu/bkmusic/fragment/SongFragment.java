@@ -64,13 +64,40 @@ public class SongFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ListView viewRoot = (ListView) inflater.inflate(R.layout.fragment_nowlist, container, false);
+        final ListView viewRoot = (ListView) inflater.inflate(R.layout.fragment_nowlist, container, false);
         final Context context = viewRoot.getContext();
-        SongDAO songDAO = new SongDAO(context, true);
-        List<Songs> songList = songDAO.getAll();
-        LocalSongAdapter localSongAdapter = new LocalSongAdapter(songList, context);
-        viewRoot.setAdapter(localSongAdapter);
-        localSongAdapter.notifyDataSetChanged();
+        refreshAdapter(context, viewRoot);
+
+//        viewRoot.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+//        viewRoot.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener(){
+//            @Override
+//            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+//                final int checkedCount = viewRoot.getCheckedItemCount();
+//                mode.setTitle(checkedCount + " selected");
+//                localSongAdapter.toggleSelection(position);
+//            }
+//
+//            @Override
+//            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onDestroyActionMode(ActionMode mode) {
+//
+//            }
+//        });
+
         return viewRoot;
     }
 
@@ -105,4 +132,13 @@ public class SongFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Songs song);
     }
+
+    public static void refreshAdapter(final Context mContext, final ListView mListView){
+        SongDAO songDAO = new SongDAO(mContext, true);
+        List<Songs> songList = songDAO.getAll();
+        final LocalSongAdapter localSongAdapter = new LocalSongAdapter(songList, mContext, mListView);
+        mListView.setAdapter(localSongAdapter);
+        localSongAdapter.notifyDataSetChanged();
+    }
+
 }

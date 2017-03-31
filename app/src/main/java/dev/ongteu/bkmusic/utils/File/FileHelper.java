@@ -35,9 +35,9 @@ public class FileHelper {
         if (!storage.isDirectoryExists(mUserMusicPath)) {
             storage.createDirectory(mUserMusicPath);
         }
-        storage.createDirectory(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART);
+        storage.createDirectory(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART);
         storage.createDirectory(mAppMusicPath);
-        storage.createDirectory(mAppMusicPath + "/" + Constant.PATH_MUSIC_APP_ART);
+        storage.createDirectory(mAppMusicPath + "/" + Constant.PATH_MUSIC_ART);
         return storage;
     }
 
@@ -55,8 +55,8 @@ public class FileHelper {
         Storage storage = initStorge(context);
         byte[] albumData = metadataRetriever.getEmbeddedPicture();
         if (albumData != null) {
-            if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART, "fileName"))
-                storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART,
+            if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART, "fileName"))
+                storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART,
                         Common.generateImageName(fileName) + ".jpg",
                         BitmapFactory.decodeByteArray(albumData, 0, albumData.length)
                 );
@@ -67,13 +67,20 @@ public class FileHelper {
     public static void saveAlbumArt(MediaMetadataRetriever metadataRetriever, Storage storage, String fileImgeName){
         byte[] albumArtImage = metadataRetriever.getEmbeddedPicture();
         if (albumArtImage != null) {
-            if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART, "fileName"))
-                storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_USER_ART,
+            if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART, "fileName"))
+                storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART,
                         fileImgeName + Constant.IMG_EXT,
                         Bitmap.createScaledBitmap(BitmapFactory.decodeByteArray(albumArtImage, 0, albumArtImage.length), Constant.IMG_COVER_SIZE, Constant.IMG_COVER_SIZE, false)
                 );
             Log.e("EXTRACTED", "DONE 1");
         }
+    }
+
+    public static boolean deleteMusicFile(final Context context, int pathType, String fileName, String keyMp3){
+        String pathDelete = (pathType == Constant.IS_USER_LOCAL) ? mUserMusicPath : mAppMusicPath;
+        String pathArtDelete = pathDelete + Constant.PATH_MUSIC_ART;
+        initStorge(context).deleteFile(pathArtDelete, keyMp3 + Constant.IMG_EXT);
+        return initStorge(context).deleteFile(pathDelete, fileName);
     }
 
     public static boolean isFileExistOnAppPath(final Context appContext, String fileName){

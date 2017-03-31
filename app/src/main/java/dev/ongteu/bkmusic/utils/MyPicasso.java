@@ -77,6 +77,7 @@ public class MyPicasso {
             @Override
             public void onError() {
                 Picasso.with(context).load(urlImage)
+                        .transform(new CropCircleTransformation())
                         .into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {

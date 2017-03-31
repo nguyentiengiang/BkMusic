@@ -3,18 +3,19 @@ package dev.ongteu.bkmusic.adapter;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
+import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
 import dev.ongteu.bkmusic.fragment.MusicChartFragment.OnListFragmentInteractionListener;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Common;
@@ -64,6 +65,7 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
         public final TextView mChartSongName;
         public final TextView mChartSongArtist;
         public final ImageView mChartAlbumArt;
+        public final ImageView mIconDownload;
         public MusicChartItem.SongChart mItem;
 
         public ViewHolder(View view) {
@@ -73,6 +75,15 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
             mChartSongName = (TextView) view.findViewById(R.id.chartSongName);
             mChartSongArtist = (TextView) view.findViewById(R.id.chartSongArtist);
             mChartAlbumArt = (ImageView) view.findViewById(R.id.chartAlbumArt);
+            mIconDownload = (ImageView) view.findViewById(R.id.icDownSongChart);
+
+            mIconDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Đang tải " + mItem.getSongName(), Toast.LENGTH_SHORT).show();
+                    GetPlayOnline.downloadMusic(mContext, mItem.getSongUrl());
+                }
+            });
         }
 
         @Override
@@ -82,7 +93,6 @@ public class MusicChartRecyclerViewAdapter extends RecyclerView.Adapter<MusicCha
 
         @Override
         public void onClick(View v) {
-            Log.e("Click", mItem.getSongName());
             MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_ONLINE, mItem.getSongUrl(), 0);
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
             fragmentManager.beginTransaction()

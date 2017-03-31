@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.activities.MainActivity;
 import dev.ongteu.bkmusic.data.model.AlbumItem;
+import dev.ongteu.bkmusic.data.parser.online.GetPlayOnline;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.fragment.PopularAlbumFragment.OnListFragmentInteractionListener;
 import dev.ongteu.bkmusic.utils.Common;
@@ -64,6 +66,7 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
         public final TextView mAlbumName;
         public final TextView mAlbumArtist;
         public final ImageView mAlbumArt;
+        public final ImageView mIconDownload;
         public AlbumItem mAlbumItem;
 
         public ViewHolder(View view) {
@@ -73,6 +76,16 @@ public class PopularAlbumRecyclerViewAdapter extends RecyclerView.Adapter<Popula
             mAlbumName = (TextView) view.findViewById(R.id.popAlbumName);
             mAlbumArtist = (TextView) view.findViewById(R.id.popAlbumArtist);
             mAlbumArt = (ImageView) view.findViewById(R.id.popAlbumArt);
+            mIconDownload = (ImageView) view.findViewById(R.id.icDownAlbum);
+
+            mIconDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Đang tải album " + mAlbumItem.getAlbumName(), Toast.LENGTH_SHORT).show();
+                    GetPlayOnline.downloadMusic(mContext, mAlbumItem.getAlbumUrl());
+                }
+            });
+
         }
 
         @Override
