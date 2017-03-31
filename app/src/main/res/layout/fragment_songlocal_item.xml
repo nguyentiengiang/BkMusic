@@ -6,7 +6,7 @@
 
     <!-- this is the item front view -->
     <RelativeLayout
-        android:id="@+id/siOnlineLayout"
+        android:id="@+id/siLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/si_item_background"

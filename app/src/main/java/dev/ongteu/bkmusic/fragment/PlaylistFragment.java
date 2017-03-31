@@ -46,6 +46,7 @@ public class PlaylistFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ListView mListView;
 
     public PlaylistFragment() {
         // Required empty public constructor
@@ -100,8 +101,6 @@ public class PlaylistFragment extends Fragment {
                     showCreatePlaylist(context, listViewPlaylist, "", "");
                 }
             });
-
-            registerForContextMenu(listViewPlaylist);
         }
         return viewRoot;
     }

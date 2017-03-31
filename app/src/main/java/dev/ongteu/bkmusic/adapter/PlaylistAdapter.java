@@ -65,7 +65,6 @@ public class PlaylistAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.fragment_playlist_item, parent, false);
             viewHolder = new LocalPlaylistViewHolder(convertView);
-            viewHolder.mPlaylist = playlistItem;
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (LocalPlaylistViewHolder) convertView.getTag();
@@ -95,7 +94,6 @@ public class PlaylistAdapter extends BaseAdapter {
                                         public void onClick(DialogInterface dialog, int whichButton) {
                                             new PlaylistDAO(mContext).removePlaylist(playlistItem.getId());
                                             Toast.makeText(mContext, "Đã xóa", Toast.LENGTH_SHORT).show();
-                                            PlaylistFragment.refreshAdapter(mContext, mListView);
                                         }
                                     })
                                     .setNegativeButton(android.R.string.no, null).show();
@@ -159,7 +157,6 @@ public class PlaylistAdapter extends BaseAdapter {
         public final TextView pliPlaylistName;
         public final TextView pliTotalSong;
         public final ImageView pliMenu;
-        public Playlist mPlaylist;
 
         public LocalPlaylistViewHolder(View view) {
             pliPlaylistName = (TextView) view.findViewById(R.id.pliPlaylistName);

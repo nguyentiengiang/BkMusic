@@ -47,8 +47,13 @@ public class GetPlayOnline {
                 songIgList.clear();
                 int index = 1;
                 for (SongItem songItem : songList) {
-                    Song song = new Song(index, songItem.getSongName(),
-                            songItem.getSinger(), "", songItem.getMp3Url(), songItem.getBgimage(), "", PlayMode.STREAM);
+                    String songName = songItem.getSongName();
+                    String singerName = songItem.getSinger();
+                    String albumName = "";
+                    String playUrl = songItem.getMp3Url();
+                    String imgUrl = songItem.getAvatar();
+                    String albumId = songItem.getSongUrl();
+                    Song song = new Song(index, songName, singerName, albumName, playUrl, imgUrl, albumId, PlayMode.STREAM);
                     songIgList.add(song);
                     index++;
                 }
@@ -67,7 +72,7 @@ public class GetPlayOnline {
         });
     }
 
-    public static void downloadMusic(final Context context, String songUrl){
+    public static void downloadMusic(final Context context, String songUrl) {
         IServices service = BaseRetrofit.instanceService();
         Call<List<SongItem>> call = service.listSongs(songUrl);
 

@@ -17,9 +17,8 @@ public class Constant {
      * Local music path of App
      */
     public static final String PATH_MUSIC_APP = "BkMusic";
-    public static final String PATH_MUSIC_APP_ART = "art";
     public static final String PATH_MUSIC_USER = "Music";
-    public static final String PATH_MUSIC_USER_ART = "art";
+    public static final String PATH_MUSIC_ART = "art";
 
     /**
      * Protocol file

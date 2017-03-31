@@ -65,6 +65,10 @@ public class PlaylistDAO extends BaseDAO {
                 .where(PlaylistSong_Schema.INSTANCE.songId, "=", keyMp3).execute();
     }
 
+    public int removeFromPlaylistByKey(String mp3Key){
+        return this.bkOrm.deleteFromPlaylistSong().where(PlaylistSong_Schema.INSTANCE.songId, "=", mp3Key).execute();
+    }
+
     public List<Song> getSongIgByPlaylist(long playlistId) {
         List<PlaylistSong> songOnPlaylist = this.bkOrm.selectFromPlaylistSong().where(PlaylistSong_Schema.INSTANCE.playListId, "=", playlistId).toList();
         List<Song> songIgItems = new ArrayList<>();
