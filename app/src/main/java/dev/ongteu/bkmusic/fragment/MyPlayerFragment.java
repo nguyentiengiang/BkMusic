@@ -76,6 +76,7 @@ public class MyPlayerFragment extends Fragment {
             case Constant.PLAY_TYPE_OFFLINE:
                 if (mPlaylist == 0) {
                     new GetPlayOffline(context, mSongUrl, viewPagerPlayer);
+                } else if(mPlaylist == -1) {
                 } else {
                     new GetPlayOffline(context, mPlaylist, viewPagerPlayer);
                 }
