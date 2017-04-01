@@ -47,7 +47,7 @@ public class Constant {
     public static final String URL_GET_SINGER = URL_HOST + "GetSinger?urlSinger=";
 
     public static final String URL_SEARCH_HOST = "http://www.nhaccuatui.com/ajax/";
-    public static final String URL_SEARCH_QUERRY = "search?q=";
+    public static final String URL_SEARCH_QUERRY = "search";
 
     /**
      * Category Parent ID

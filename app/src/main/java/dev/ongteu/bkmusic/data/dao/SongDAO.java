@@ -2,6 +2,7 @@ package dev.ongteu.bkmusic.data.dao;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.github.mohammad.songig.common.PlayMode;
 import com.github.mohammad.songig.model.Song;
@@ -10,7 +11,9 @@ import com.sromku.simple.storage.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.adapter.PlayerAdapter;
+import dev.ongteu.bkmusic.data.entity.SearchItem;
 import dev.ongteu.bkmusic.data.entity.Songs;
 import dev.ongteu.bkmusic.data.entity.Songs_Schema;
 import dev.ongteu.bkmusic.utils.Constant;
@@ -34,6 +37,20 @@ public class SongDAO extends BaseDAO {
             Storage storage = FileHelper.initStorge(context);
             if (storage.isFileExist(Constant.PATH_MUSIC_USER, songItem.getFileName()) || storage.isFileExist(Constant.PATH_MUSIC_APP, songItem.getFileName())) {
                 listSongChecked.add(songItem);
+            } else {
+                bkOrm.deleteFromSongs().idEq(songItem.getId()).execute();
+            }
+        }
+        return listSongChecked;
+    }
+
+    public List<SearchItem> searchByName(String songName) {
+        List<SearchItem> listSongChecked = new ArrayList<>();
+        List<Songs> listSong = this.bkOrm.selectFromSongs().where(Songs_Schema.INSTANCE.songName, "LIKE", "%" + songName + "%").toList();
+        for (Songs songItem : listSong) {
+            Storage storage = FileHelper.initStorge(context);
+            if (storage.isFileExist(Constant.PATH_MUSIC_USER, songItem.getFileName()) || storage.isFileExist(Constant.PATH_MUSIC_APP, songItem.getFileName())) {
+                listSongChecked.add(new SearchItem(songItem.getSongName(), songItem.getSinger(), songItem.getKeyMp3(), R.drawable.ic_device));
             } else {
                 bkOrm.deleteFromSongs().idEq(songItem.getId()).execute();
             }
@@ -74,19 +91,16 @@ public class SongDAO extends BaseDAO {
         return s;
     }
 
-    public void playOneSong(String keyMp3, final ViewPager viewPager) {
+    public void playOneSong(String keyMp3) {
         List<Songs> songItems = this.bkOrm.selectFromSongs().where(Songs_Schema.INSTANCE.keyMp3, "=", keyMp3).toList();
         List<Song> songIgList = new ArrayList<>();
         if (songItems.size() == 1) {
             Song s = this.convert2SongIgItem(songItems.get(0), 0);
             songIgList.add(s);
-
             MySongigPlayer mySongigPlayer = new MySongigPlayer(this.context);
             mySongigPlayer.changeNowPlaying(songIgList);
             mySongigPlayer.playSong(0);
-
-            PlayerAdapter playerAdapter = new PlayerAdapter(this.context, songIgList);
-            viewPager.setAdapter(playerAdapter);
+            PlayerAdapter playerAdapter = new PlayerAdapter(this.context);
             playerAdapter.notifyDataSetChanged();
         }
     }
