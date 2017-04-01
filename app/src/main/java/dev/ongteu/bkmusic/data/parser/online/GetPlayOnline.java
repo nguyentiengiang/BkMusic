@@ -8,6 +8,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mohammad.songig.common.PlayMode;
 import com.github.mohammad.songig.model.Song;
 
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ import dev.ongteu.bkmusic.utils.MySongigPlayer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by TienGiang on 16/3/2017.
@@ -118,7 +121,9 @@ public class GetPlayOnline {
 
             @Override
             public void onFailure(Call<List<SongItem>> call, Throwable t) {
-
+                if (t instanceof UnknownHostException) {
+                    dialog.setContent("Mất kết nối mạng");
+                }
             }
         });
     }

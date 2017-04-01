@@ -2,11 +2,8 @@ package dev.ongteu.bkmusic.data.parser.online;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-
-import java.util.List;
 
 import dev.ongteu.bkmusic.R;
 import dev.ongteu.bkmusic.data.model.MusicChartItem;
@@ -14,12 +11,10 @@ import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
 import dev.ongteu.bkmusic.data.parser.api.IServices;
 import dev.ongteu.bkmusic.fragment.MusicChartFragment;
 import dev.ongteu.bkmusic.adapter.MusicChartRecyclerViewAdapter;
-import dev.ongteu.bkmusic.utils.Constant;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.HttpException;
 
 /**
  * Created by TienGiang on 16/3/2017.
@@ -54,10 +49,8 @@ public class GetMusicChart {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e instanceof HttpException) {
-                            dialog.setContent(Constant.MSS_NETWORK_ERROR + ":" + ((HttpException) e).message());
-                            dialog.setCancelable(true);
-                        }
+                        recyclerView.setBackgroundResource(R.drawable.network_error);
+                        dialog.dismiss();
                     }
 
                     @Override

@@ -14,12 +14,10 @@ import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
 import dev.ongteu.bkmusic.data.parser.api.IServices;
 import dev.ongteu.bkmusic.fragment.HotMusicFragment;
 import dev.ongteu.bkmusic.adapter.HotMusicRecyclerViewAdapter;
-import dev.ongteu.bkmusic.utils.Constant;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.HttpException;
 
 /**
  * Created by TienGiang on 16/3/2017.
@@ -54,10 +52,8 @@ public class GetHotSong {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e instanceof HttpException) {
-                            dialog.setContent(Constant.MSS_NETWORK_ERROR + ":" + ((HttpException) e).message());
-                            dialog.setCancelable(true);
-                        }
+                        recyclerView.setBackgroundResource(R.drawable.network_error);
+                        dialog.dismiss();
                     }
 
                     @Override
