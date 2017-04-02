@@ -36,7 +36,6 @@ import dev.ongteu.bkmusic.fragment.CategoriesFragment;
 import dev.ongteu.bkmusic.fragment.MainActivityFragment;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Constant;
-import dev.ongteu.bkmusic.utils.Loader;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -18,10 +18,7 @@ import dev.ongteu.bkmusic.utils.Constant;
 
 public class MusicScanner {
 
-//    private Context mContext;
-
     public MusicScanner(final Context appContext) {
-//        this.mContext = appContext;
         Storage storage = FileHelper.initStorge(appContext);
 
         List<File> userFiles = storage.getNestedFiles(FileHelper.mUserMusicPath);
