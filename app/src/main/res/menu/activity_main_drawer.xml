@@ -25,13 +25,13 @@
             android:title="Chơi nhạc" />
     </group>
 
-    <item android:title="Kết nối với GiangNT">
+    <!--item android:title="Kết nối với GiangNT">
         <menu>
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/feedback" />
         </menu>
-    </item>
+    </item-->
 
 </menu>

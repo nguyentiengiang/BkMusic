@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity
                     .commit();
         }
 
-        // Add Splash Screen then move Loader too
-        Loader appLoader = new Loader(this);
-
         mTitle = mDrawerTitle = getTitle();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

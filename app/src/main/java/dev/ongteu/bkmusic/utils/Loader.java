@@ -28,4 +28,8 @@ public class Loader {
 
     }
 
+    public boolean isFirstRun() {
+        return isFirstRun;
+    }
+
 }
