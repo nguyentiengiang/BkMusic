@@ -111,10 +111,8 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
                     break;
             }
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack(FRM_NAME_BACK_STACK)
-                    .replace(R.id.fragment_container, fragment).commit();
+                    .add(R.id.fragment_container, fragment).commit();
         }
     }
 }
