@@ -147,6 +147,8 @@ public class LocalSongAdapter extends BaseAdapter {
             public void onClick(View v) {
                 MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_OFFLINE, songItem.getKeyMp3(), 0);
                 FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+//                fragmentManager.beginTransaction()
+//                        .hide(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
                 fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
                         .add(R.id.fragment_container, myPlayerFragment).commit();
                 ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);

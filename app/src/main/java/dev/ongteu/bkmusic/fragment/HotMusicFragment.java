@@ -3,31 +3,16 @@ package dev.ongteu.bkmusic.fragment;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-
-import org.reactivestreams.Subscription;
-
-import java.util.List;
-
 import dev.ongteu.bkmusic.R;
-import dev.ongteu.bkmusic.adapter.HotMusicRecyclerViewAdapter;
 import dev.ongteu.bkmusic.data.model.HotSongItem;
-import dev.ongteu.bkmusic.data.parser.api.BaseRetrofit;
-import dev.ongteu.bkmusic.data.parser.api.IServices;
 import dev.ongteu.bkmusic.data.parser.online.GetHotSong;
 import dev.ongteu.bkmusic.utils.Constant;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * A fragment representing a list of Items.

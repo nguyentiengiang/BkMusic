@@ -16,7 +16,6 @@ import dev.ongteu.bkmusic.adapter.CategoriesRecyclerViewAdapter;
 import dev.ongteu.bkmusic.data.dao.CategoryDAO;
 import dev.ongteu.bkmusic.data.model.CategoryItem;
 import dev.ongteu.bkmusic.utils.Constant;
-import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * A fragment representing a list of Items.
