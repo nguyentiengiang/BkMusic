@@ -26,7 +26,7 @@ public class SplashScreen extends Activity {
 
         final Context mContext = this;
         MySPManager spManager = new MySPManager(mContext);
-        if (spManager.isFirstRun()) {
+//        if (spManager.isFirstRun()) {
             new Thread(new Runnable() {
                 public void run() {
                     new MusicScanner(mContext);
@@ -37,8 +37,8 @@ public class SplashScreen extends Activity {
                     }
                 }
             }).start();
-            SPLASH_TIME_OUT = 15000;
-        }
+//            SPLASH_TIME_OUT = 15000;
+//        }
 
         new Handler().postDelayed(new Runnable() {
             @Override

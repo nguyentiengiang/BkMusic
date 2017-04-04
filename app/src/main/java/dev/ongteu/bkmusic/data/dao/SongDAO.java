@@ -58,10 +58,10 @@ public class SongDAO extends BaseDAO {
         return listSongChecked;
     }
 
-    public boolean isSongNotOnDb(String keyMp3) {
+    public boolean isSongNotOnDb(String fileName) {
         return this.bkOrm.selectFromSongs()
-                .where(Songs_Schema.INSTANCE.isUserLocal, "=", Constant.IS_USER_LOCAL)
-                .where(Songs_Schema.INSTANCE.keyMp3, "=", keyMp3)
+//                .where(Songs_Schema.INSTANCE.isUserLocal, "=", Constant.IS_USER_LOCAL)
+                .where(Songs_Schema.INSTANCE.fileName, "=", fileName)
                 .isEmpty();
     }
 
