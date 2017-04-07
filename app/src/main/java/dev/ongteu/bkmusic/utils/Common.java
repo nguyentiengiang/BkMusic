@@ -54,6 +54,15 @@ public class Common {
     }
 
     /**
+     *
+     * @param strOrigin
+     * @return
+     */
+    public static String getPathWithoutProtocol(String strOrigin) {
+        return strOrigin.replace(Constant.URL_LOCAL_FILE, "");
+    }
+
+    /**
      * Function to convert milliseconds time to
      * Timer Format
      * Hours:Minutes:Seconds

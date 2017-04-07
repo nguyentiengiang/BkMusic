@@ -1,6 +1,7 @@
 package dev.ongteu.bkmusic.data.dao;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
@@ -8,6 +9,8 @@ import com.github.mohammad.songig.common.PlayMode;
 import com.github.mohammad.songig.model.Song;
 import com.sromku.simple.storage.Storage;
 
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import dev.ongteu.bkmusic.adapter.PlayerAdapter;
 import dev.ongteu.bkmusic.data.entity.SearchItem;
 import dev.ongteu.bkmusic.data.entity.Songs;
 import dev.ongteu.bkmusic.data.entity.Songs_Schema;
+import dev.ongteu.bkmusic.utils.Common;
 import dev.ongteu.bkmusic.utils.Constant;
 import dev.ongteu.bkmusic.utils.File.FileHelper;
 import dev.ongteu.bkmusic.utils.MySongigPlayer;
@@ -34,8 +38,7 @@ public class SongDAO extends BaseDAO {
         List<Songs> listSongChecked = new ArrayList<>();
         List<Songs> listSong = this.bkOrm.selectFromSongs().toList();
         for (Songs songItem : listSong) {
-            Storage storage = FileHelper.initStorge(context);
-            if (storage.isFileExist(Constant.PATH_MUSIC_USER, songItem.getFileName()) || storage.isFileExist(Constant.PATH_MUSIC_APP, songItem.getFileName())) {
+            if (new File(Common.getPathWithoutProtocol(songItem.getMp3Url())).exists()) {
                 listSongChecked.add(songItem);
             } else {
                 bkOrm.deleteFromSongs().idEq(songItem.getId()).execute();
@@ -48,8 +51,7 @@ public class SongDAO extends BaseDAO {
         List<SearchItem> listSongChecked = new ArrayList<>();
         List<Songs> listSong = this.bkOrm.selectFromSongs().where(Songs_Schema.INSTANCE.songName, "LIKE", "%" + songName + "%").toList();
         for (Songs songItem : listSong) {
-            Storage storage = FileHelper.initStorge(context);
-            if (storage.isFileExist(Constant.PATH_MUSIC_USER, songItem.getFileName()) || storage.isFileExist(Constant.PATH_MUSIC_APP, songItem.getFileName())) {
+            if (new File(Common.getPathWithoutProtocol(songItem.getMp3Url())).exists()) {
                 listSongChecked.add(new SearchItem(songItem.getSongName(), songItem.getSinger(), songItem.getKeyMp3(), R.drawable.ic_device));
             } else {
                 bkOrm.deleteFromSongs().idEq(songItem.getId()).execute();
@@ -70,11 +72,11 @@ public class SongDAO extends BaseDAO {
         return this.bkOrm.insertIntoSongs(newSong);
     }
 
-    public int deleteSong(long songId){
+    public int deleteSong(long songId) {
         return this.bkOrm.deleteFromSongs().idEq(songId).execute();
     }
 
-    public int deleteSong(String keyMp3){
+    public int deleteSong(String keyMp3) {
         return this.bkOrm.deleteFromSongs().where(Songs_Schema.INSTANCE.keyMp3, "=", keyMp3).execute();
     }
 
@@ -110,7 +112,7 @@ public class SongDAO extends BaseDAO {
         List<Song> songIgList = new ArrayList<>();
         int activeIdx = 0;
         for (int i = 0; i < allSongs.size(); i++) {
-            if (allSongs.get(i).getKeyMp3().equalsIgnoreCase(keyMp3)){
+            if (allSongs.get(i).getKeyMp3().equalsIgnoreCase(keyMp3)) {
                 activeIdx = i;
             }
             songIgList.add(this.convert2SongIgItem(allSongs.get(i), i));
