@@ -36,7 +36,6 @@ import dev.ongteu.bkmusic.fragment.CategoriesFragment;
 import dev.ongteu.bkmusic.fragment.MainActivityFragment;
 import dev.ongteu.bkmusic.fragment.MyPlayerFragment;
 import dev.ongteu.bkmusic.utils.Constant;
-import dev.ongteu.bkmusic.utils.Loader;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,25 +96,30 @@ public class MainActivity extends AppCompatActivity
 //        if (getFragmentManager().getBackStackEntryCount() > 0) {
 //            getFragmentManager().popBackStack();
 //        }
-
-        int count = getFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-                return;
-            }
-            this.doubleBackToExitPressedOnce = true;
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
         } else {
-            getFragmentManager().popBackStack();
+            super.onBackPressed();
         }
+
+//        int count = getFragmentManager().getBackStackEntryCount();
+//
+//        if (count == 0) {
+//            if (doubleBackToExitPressedOnce) {
+//                super.onBackPressed();
+//                return;
+//            }
+//            this.doubleBackToExitPressedOnce = true;
+//
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    doubleBackToExitPressedOnce = false;
+//                }
+//            }, 2000);
+//        } else {
+//            getFragmentManager().popBackStack();
+//        }
     }
 
     @Override

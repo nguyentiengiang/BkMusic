@@ -4,16 +4,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -111,10 +106,10 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
                     break;
             }
             FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
+//            fragmentManager.beginTransaction()
+//                    .hide(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
             fragmentManager.beginTransaction().addToBackStack(FRM_NAME_BACK_STACK)
-                    .replace(R.id.fragment_container, fragment).commit();
+                    .add(R.id.fragment_container, fragment).commit();
         }
     }
 }

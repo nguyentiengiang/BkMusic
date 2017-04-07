@@ -49,31 +49,19 @@ public class FileHelper {
         return value;
     }
 
-    public static void saveAlbumArt(Context context, String fileAbsolutePath, String fileName){
-        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-        metadataRetriever.setDataSource(fileAbsolutePath);
-        Storage storage = initStorge(context);
-        byte[] albumData = metadataRetriever.getEmbeddedPicture();
-        if (albumData != null) {
-            if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART, "fileName"))
-                storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART,
-                        Common.generateImageName(fileName) + ".jpg",
-                        BitmapFactory.decodeByteArray(albumData, 0, albumData.length)
-                );
-            Log.e("EXTRACTED", "DONE");
-        }
-    }
-
-    public static void saveAlbumArt(MediaMetadataRetriever metadataRetriever, Storage storage, String fileImgeName){
+    public static String saveAlbumArt(MediaMetadataRetriever metadataRetriever, Storage storage, String fileImgeName){
         byte[] albumArtImage = metadataRetriever.getEmbeddedPicture();
+        String urlAlbumArt = "";
         if (albumArtImage != null) {
-            if (!storage.isFileExist(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART, "fileName"))
-                storage.createFile(mUserMusicPath + "/" + Constant.PATH_MUSIC_ART,
+            if (!storage.isFileExist(mAppMusicPath + "/" + Constant.PATH_MUSIC_ART, fileImgeName + Constant.IMG_EXT))
+                storage.createFile(mAppMusicPath + "/" + Constant.PATH_MUSIC_ART,
                         fileImgeName + Constant.IMG_EXT,
                         Bitmap.createScaledBitmap(BitmapFactory.decodeByteArray(albumArtImage, 0, albumArtImage.length), Constant.IMG_COVER_SIZE, Constant.IMG_COVER_SIZE, false)
                 );
-            Log.e("EXTRACTED", "DONE 1");
+            urlAlbumArt = Constant.URL_LOCAL_FILE + storage.getFile(mAppMusicPath + "/" + Constant.PATH_MUSIC_ART, fileImgeName + Constant.IMG_EXT).getAbsolutePath();
+            Log.e("EXTRACTED", "ALBUM ART DONE AT " + urlAlbumArt);
         }
+        return urlAlbumArt;
     }
 
     public static boolean deleteMusicFile(final Context context, int pathType, String fileName, String keyMp3){

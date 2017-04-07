@@ -111,10 +111,10 @@ public class GetPlayOnline {
                 mySongigPlayer.playSong(0);
                 MyPlayerFragment myPlayerFragment = MyPlayerFragment.newInstance(Constant.PLAY_TYPE_UNKNOW, "", 0);
                 FragmentManager fragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .remove(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
+//                fragmentManager.beginTransaction()
+//                        .hide(fragmentManager.findFragmentById(R.id.fragment_container)).commit();
                 fragmentManager.beginTransaction().addToBackStack("NOW_PLAYING")
-                        .replace(R.id.fragment_container, myPlayerFragment).commit();
+                        .add(R.id.fragment_container, myPlayerFragment).commit();
                 ((MainActivity) mContext).setTitle(R.string.NOW_PLAYING);
                 dialog.dismiss();
             }
