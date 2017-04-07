@@ -31,8 +31,8 @@ public class MyPicasso {
      */
     public MyPicasso(final Context context, final ImageView imageView, final String urlImage) {
         Picasso.with(context).load(urlImage + "?sp")
-                .placeholder(R.drawable.default_record_album_sm)
-                .error(R.drawable.splash_music_0)
+                .placeholder(R.drawable.splash_music_1)
+                .error(R.drawable.splash_music_1)
                 .networkPolicy(NetworkPolicy.OFFLINE).into(imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -41,6 +41,8 @@ public class MyPicasso {
             @Override
             public void onError() {
                 Picasso.with(context).load(urlImage + "?sp")
+                        .placeholder(R.drawable.splash_music_1)
+                        .error(R.drawable.splash_music_1)
                         .into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {
@@ -65,8 +67,8 @@ public class MyPicasso {
      */
     public MyPicasso(final Context context, final ShadowImageView imageView, final String urlImage, final View viewRoot) {
         Picasso.with(context).load(urlImage + "?sp")
-                .placeholder(R.drawable.default_record_album)
-                .error(R.drawable.default_record_album)
+                .placeholder(R.drawable.splash_music_1)
+                .error(R.drawable.splash_music_1)
                 .transform(new CropCircleTransformation())
                 .networkPolicy(NetworkPolicy.OFFLINE).into(imageView, new Callback() {
             @Override
@@ -77,6 +79,8 @@ public class MyPicasso {
             @Override
             public void onError() {
                 Picasso.with(context).load(urlImage + "?sp")
+                        .placeholder(R.drawable.splash_music_1)
+                        .error(R.drawable.splash_music_1)
                         .transform(new CropCircleTransformation())
                         .into(imageView, new Callback() {
                             @Override
