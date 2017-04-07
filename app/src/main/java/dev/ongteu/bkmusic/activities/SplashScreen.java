@@ -37,7 +37,13 @@ public class SplashScreen extends Activity {
                     }
                 }
             }).start();
-            SPLASH_TIME_OUT = 15000;
+            SPLASH_TIME_OUT = 25000;
+        } else {
+            new Thread(new Runnable() {
+                public void run() {
+                    new MusicScanner(mContext);
+                }
+            }).start();
         }
 
         new Handler().postDelayed(new Runnable() {
