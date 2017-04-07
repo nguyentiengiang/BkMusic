@@ -26,7 +26,7 @@ public class Constant {
     public static final String URL_LOCAL_FILE = "file://";
     public static final String IMG_EXT = ".png";
     public static final String MUSIC_EXT = ".mp3";
-    public static final int MIN_SONG_LENGTH = 6000;
+    public static final int MIN_SONG_LENGTH = 60000; // mili-second. Song must have min length greater than 1 minute.
 
     /**
      * Network Retrofit Timeout
