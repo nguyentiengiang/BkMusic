@@ -8,6 +8,8 @@
     <color name="colorAccent2">#DDF9FF</color>
     <color name="blue_grey_800_50p">#E237474F</color>
 
+    <color name="title_viewpager">#AAFFFFFF</color>
+
     <!-- Song Item -->
     <color name="si_primary">#2d2d2d</color>
     <color name="si_secondary">#FF4081</color>

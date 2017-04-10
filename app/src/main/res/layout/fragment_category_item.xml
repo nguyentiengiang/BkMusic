@@ -12,7 +12,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        tools:src="@drawable/lol_guy"/>
+        tools:src="@drawable/splash_music_1"/>
 
     <TextView
         android:id="@+id/category_item_name"

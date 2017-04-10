@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary"
         app:tabIndicatorColor="@android:color/white"
         app:tabTextColor="@color/white"
-        app:tabSelectedTextColor="@color/lb_browse_header_description_color"
+        app:tabSelectedTextColor="@color/title_viewpager"
         app:tabIndicatorHeight="2dp"
         app:tabPadding="0dp"
         app:tabPaddingBottom="0dp"
