@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "dev.ongteu.bkmusic"
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -41,7 +41,7 @@ dependencies {
     compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$RX_BINDING_VERSION"
     compile "com.jakewharton.rxbinding2:rxbinding-design:$RX_BINDING_VERSION"
     compile "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$RX_BINDING_VERSION"
-    compile "com.jakewharton.rxbinding2:rxbinding-leanback-v17:$RX_BINDING_VERSION"
+//    compile "com.jakewharton.rxbinding2:rxbinding-leanback-v17:$RX_BINDING_VERSION"
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     compile 'com.android.support:appcompat-v7:24.2.1'
