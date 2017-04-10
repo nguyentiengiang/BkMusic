@@ -234,10 +234,10 @@ public class MainActivity extends AppCompatActivity
                                 searchItems.add(new SearchItem(songSearch.getName(), songSearch.getSinger().get(0).getName(), songSearch.getUrl(), R.drawable.ic_internet));
                             }
                         } else {
-                            searchItems.add(new SearchItem("Không tìm thấy", "", "", R.drawable.lb_ic_stop));
+                            searchItems.add(new SearchItem("Không tìm thấy", "", "", R.drawable.ic_stop));
                         }
                     } else {
-                        searchItems.add(new SearchItem("Không tìm thấy", "", "", R.drawable.lb_ic_stop));
+                        searchItems.add(new SearchItem("Không tìm thấy", "", "", R.drawable.ic_stop));
                     }
 
                     SearchLocal(mContext, strSearch, searchItems);
